@@ -1,0 +1,14 @@
+= simple_form_for(@registry, wrapper: :horizontal_form) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :url
+    / = f.input :name
+    = f.input :desc, label: t('.description')
+    = f.input :disabled
+
+  .form-actions
+    .row
+      .col-sm-3
+      .col-sm-6
+        = f.button :submit, class: 'btn-primary'

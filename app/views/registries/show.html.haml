@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @registry.name
+%p
+  %b Desc:
+  = @registry.desc
+%p
+  %b Url:
+  = @registry.url
+%p
+  %b Disabled:
+  = @registry.disabled
+
+= link_to 'Edit', edit_registry_path(@registry)
+\|
+= link_to 'Back', registries_path

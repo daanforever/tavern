@@ -1,3 +1,20 @@
+GIT
+  remote: git://github.com/daanforever/docker_registry.git
+  revision: d7b88402998747de2aa8b7ecc5af88bcdf36f312
+  specs:
+    docker_registry (0.0.1)
+      faraday
+      faraday_middleware
+      oj
+
+GIT
+  remote: git://github.com/plataformatec/simple_form.git
+  revision: 29f8f768f1702c6d032854b870d14eadb81cea88
+  specs:
+    simple_form (3.1.0.rc2)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -95,6 +112,10 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     fastercsv (1.5.5)
     guid (0.1.1)
     haml (4.0.5)
@@ -131,7 +152,9 @@ GEM
     mime-types (2.3)
     minitest (5.4.1)
     multi_json (1.10.1)
+    multipart-post (2.0.0)
     netrc (0.7.7)
+    oj (2.10.2)
     orm_adapter (0.5.0)
     rack (1.5.2)
     rack-contrib (1.1.0)
@@ -201,9 +224,6 @@ GEM
     sexp_processor (4.4.4)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
-    simple_form (3.0.2)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
     simplecov (0.9.0)
       docile (~> 1.1.0)
       multi_json
@@ -266,6 +286,7 @@ DEPENDENCIES
   coveralls
   database_cleaner
   devise
+  docker_registry!
   factory_girl_rails
   faker
   guid
@@ -286,7 +307,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   seed_dump
   shoulda-matchers
-  simple_form
+  simple_form!
   simplecov
   spring
   sqlite3

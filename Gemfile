@@ -29,12 +29,13 @@ gem 'devise'                          # Flexible authentication solution for Rai
 gem 'haml'                            # HTML Abstraction Markup Language
 gem 'responders'                      # A set of Rails responders to dry up your application
 gem 'has_scope'                       # Maps controller filters to your resource scopes
-gem 'simple_form'                     # Forms made easy for Rails!
+gem 'simple_form', github: 'plataformatec/simple_form' # Forms made easy for Rails!
 gem 'kaminari'                        # Customizable and sophisticated paginator
 gem 'kaminari-bootstrap', '~> 0.1.3'  # Integrates with Twitter Bootstrap
 
 gem 'guid'                            # Produce GUID/UUID from Ruby
 gem 'aasm'                            # State machines for Ruby classes
+gem 'docker_registry', github: 'daanforever/docker_registry' # Docker registry HTTP API client
 
 gem 'thin'                            # Web server. Usage: rails s thin
 gem 'seed_dump'                       # Rails plugin to create seed data
