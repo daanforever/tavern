@@ -1,14 +1,17 @@
 = simple_form_for(@registry, wrapper: :horizontal_form) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.input :url
-    / = f.input :name
+  .row.form-inputs
+    = f.input :url, placeholder: 'https://example.com'
+    = f.input :name
     = f.input :desc, label: t('.description')
     = f.input :disabled
 
-  .form-actions
-    .row
-      .col-sm-3
-      .col-sm-6
-        = f.button :submit, class: 'btn-primary'
+  .row.form-actions
+    .col-sm-6.col-sm-offset-3
+      = f.button :submit, class: 'btn-primary'
+      = link_to 'Cancel', registries_path, class: 'btn btn-default'
+      - unless @registry.new_record?
+        = link_to @registry, :method => :delete, class: 'btn btn-sm btn-danger', title: 'Delete' do
+          %span.glyphicon.glyphicon-trash
+

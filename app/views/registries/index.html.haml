@@ -1,21 +1,45 @@
-%h1 Registries
+%h1 
+  Registries
+  = link_to new_registry_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-plus
 
 .row
-  .col-sm-6
-    %table.table
+  .col-md-8
+    %table.table.registries
       %thead
         %tr
-          %th.col-sm-5 Url
-          %th.col-sm-1 Actions
+          %th.col-md-3 Name
+          %th.col-md-7 URL
+          %th.col-md-2
       - @registries.each do |registry|
         %tr
           %td
-            %h4= link_to registry.url, registry
+            = link_to truncate(registry.name.to_s, length: 12), registry_path(registry)
           %td
-            = link_to edit_registry_path(registry), class: 'btn btn-sm btn-primary' do
+            = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
+          %td
+            = link_to '#', class: 'btn btn-xs btn-default', title: 'Refresh' do
+              %span.glyphicon.glyphicon-repeat
+            = link_to '#', class: 'btn btn-xs btn-default', title: 'Disable' do
+              %span.glyphicon.glyphicon-off
+            = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default', title: 'Settings' do
               %span.glyphicon.glyphicon-cog
-            = link_to registry, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
-              %span.glyphicon.glyphicon-trash
-.row
-  
-  = link_to 'New Registry', new_registry_path
+
+  .visible-lg-block.col-md-4
+    %table.table.registries-info
+      %thead
+        %tr
+          %th Projects
+          %th Components
+          %th Releases
+          %th Updated
+      - @registries.each do |registry|
+        %tr
+          %td
+            5
+          %td
+            10
+          %td
+            15
+          %td
+            20.09.2014

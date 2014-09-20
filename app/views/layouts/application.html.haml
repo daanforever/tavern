@@ -9,7 +9,7 @@
     = stylesheet_link_tag controller_name, media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    .container
+    .container-fluid
       .navbar.navbar-default
         .container-fluid
           .navbar-header
@@ -28,7 +28,7 @@
               %li
                 %a{:href => "#contact"} Contact
           / /.nav-collapse
-    .container
+    .container-fluid
       = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = javascript_include_tag controller_name, 'data-turbolinks-track' => true

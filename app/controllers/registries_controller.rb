@@ -1,6 +1,7 @@
 class RegistriesController < ApplicationController
   before_action :set_registry, only: [:show, :edit, :update, :destroy]
 
+  responders :location, :flash
   respond_to :html
 
   def index
@@ -23,12 +24,12 @@ class RegistriesController < ApplicationController
   def create
     @registry = Registry.new(registry_params)
     @registry.save
-    respond_with(@registry)
+    respond_with @registry, location: -> { registries_path }
   end
 
   def update
     @registry.update(registry_params)
-    respond_with(@registry)
+    respond_with @registry, location: -> { registries_path }
   end
 
   def destroy
