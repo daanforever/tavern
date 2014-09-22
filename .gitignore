@@ -17,3 +17,6 @@
 
 # Ingnore Mac OS specific files
 .DS_Store
+
+# Ignore simple_coverage directory
+/coverage
