@@ -12,7 +12,10 @@
  *
  *= require_self
  */
- 
+
+$screen-md:       950px !default;
+$screen-md-min:   $screen-md !default;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 

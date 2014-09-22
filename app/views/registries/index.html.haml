@@ -4,7 +4,7 @@
     %span.glyphicon.glyphicon-plus
 
 .row
-  .col-md-8
+  .col-md-8.col-lg-7
     %table.table.registries
       %thead
         %tr
@@ -17,22 +17,22 @@
             = link_to truncate(registry.name.to_s, length: 12), registry_path(registry)
           %td
             = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
-          %td
+          %td.text-right
             = link_to '#', class: 'btn btn-xs btn-default', title: 'Refresh' do
               %span.glyphicon.glyphicon-repeat
             = link_to '#', class: 'btn btn-xs btn-default', title: 'Disable' do
               %span.glyphicon.glyphicon-off
-            = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default', title: 'Settings' do
+            = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default', title: 'Settings',
+                      data: { :'no-turbolink' => true } do
               %span.glyphicon.glyphicon-cog
 
-  .visible-lg-block.col-md-4
-    %table.table.registries-info
+  .visible-md-block.visible-lg-block.col-md-4
+    %table.table.registries-info.text-center
       %thead
         %tr
-          %th Projects
-          %th Components
-          %th Releases
-          %th Updated
+          %th.text-center Projects
+          %th.text-center Components
+          %th.text-center Releases
       - @registries.each do |registry|
         %tr
           %td
@@ -41,5 +41,13 @@
             10
           %td
             15
+
+  .visible-lg-block.col-lg-1
+    %table.table.registries-updated.text-center
+      %thead
+        %tr
+          %th.text-center Updated
+      - @registries.each do |registry|
+        %tr
           %td
-            20.09.2014
+            22.09.2014

@@ -12,6 +12,7 @@
       = f.button :submit, class: 'btn-primary'
       = link_to 'Cancel', registries_path, class: 'btn btn-default'
       - unless @registry.new_record?
-        = link_to @registry, :method => :delete, class: 'btn btn-sm btn-danger', title: 'Delete' do
+        = link_to @registry, :method => :delete, class: 'btn btn-sm btn-danger', 
+          title: 'Delete', data: { confirm: "Are you sure?" } do
           %span.glyphicon.glyphicon-trash
 

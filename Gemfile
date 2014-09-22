@@ -48,6 +48,7 @@ end
 
 group :development, :test do
   gem 'spring'                        # Spring speeds up development
+  gem 'spring-commands-rspec'         # Implements the rspec command for Spring
   gem 'better_errors'                 # Better errors handler
   gem 'binding_of_caller'             # For better_errors
   gem 'meta_request'                  # For RailsPanel (chrome extention)

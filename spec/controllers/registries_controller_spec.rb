@@ -24,11 +24,11 @@ RSpec.describe RegistriesController, :type => :controller do
   # Registry. As you add validations to Registry, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    FactoryGirl.attributes_for(:registry)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    FactoryGirl.attributes_for(:registry).merge({ url: '' })
   }
 
   # This should return the minimal set of values that should be in the session
@@ -81,9 +81,9 @@ RSpec.describe RegistriesController, :type => :controller do
         expect(assigns(:registry)).to be_persisted
       end
 
-      it "redirects to the created registry" do
+      it "redirects to the registries" do
         post :create, {:registry => valid_attributes}, valid_session
-        expect(response).to redirect_to(Registry.last)
+        expect(response).to redirect_to(registries_path)
       end
     end
 
@@ -119,10 +119,10 @@ RSpec.describe RegistriesController, :type => :controller do
         expect(assigns(:registry)).to eq(registry)
       end
 
-      it "redirects to the registry" do
+      it "redirects to the registries" do
         registry = Registry.create! valid_attributes
         put :update, {:id => registry.to_param, :registry => valid_attributes}, valid_session
-        expect(response).to redirect_to(registry)
+        expect(response).to redirect_to(registries_path)
       end
     end
 
