@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :registries do
     get 'refresh', on: :collection
     get 'refresh', on: :member
+
+    get 'disable', on: :collection
+    get 'disable', on: :member
   end
   
   root 'welcome#index'

@@ -1,23 +1,14 @@
 
+window.waitNetClass = "disabled";
+window.animateClass = "icon-refresh-animate";
+
 ready = ->
+
   $( ".btn-rotate" ).on( "click", ( e ) ->
 
-    btn          = $( this )
-    icon         = $( this ).find( ".glyphicon" )
+    $( this ).addClass( waitNetClass )
+    $( this ).find( ".glyphicon" ).addClass( animateClass )
     
-    window.animateClass = "icon-refresh-animate";
-    window.activeClass  = "btn-info"
-
-    btn.addClass(  activeClass )
-    icon.addClass( animateClass )
-
-#    window.setTimeout( ->
-#      btn.removeClass(  activeClass )
-#      icon.removeClass( animateClass )
-#    , 2000 )
-
-#    e.preventDefault()
-
   )
 
 

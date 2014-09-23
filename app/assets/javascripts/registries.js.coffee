@@ -5,19 +5,12 @@
 stopRefresh = ->
 
   $( ".btn-rotate" ).on( "ajax:success", (e, data, status, xhr) ->
-    btn          = $( this )
-    icon         = $( this ).find( ".glyphicon" )
-
-    btn.removeClass(  activeClass )
-    icon.removeClass( animateClass )
+    $( this ).removeClass( waitNetClass )
+    $( this ).find( ".glyphicon" ).removeClass( animateClass )
   )
 
   $( ".btn-toggle" ).on( "ajax:success", (e, data, status, xhr) ->
-    btn          = $( this )
-    icon         = $( this ).find( ".glyphicon" )
-
-    btn.removeClass(  activeClass )
-    icon.removeClass( animateClass )
+    $( this ).toggleClass( "btn-info" )
   )
 
 
