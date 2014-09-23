@@ -16,3 +16,22 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require common
+
+$( document ).ready( function() {
+  $( "#refresh" ).on( "click", function( e ) {
+        e.preventDefault();
+        var $btn          = $( this );
+        var $icon         = $( this ).find( ".glyphicon-repeat" )
+        var animateClass  = "icon-refresh-animate";
+        var activeClass   = "btn-info";
+
+        $btn.addClass(  activeClass );
+        $icon.addClass( animateClass );
+
+        // setTimeout is to indicate some async operation
+        window.setTimeout( function() {
+          $btn.removeClass(  activeClass );
+          $icon.removeClass( animateClass );
+        }, 2000 );
+    });
+});

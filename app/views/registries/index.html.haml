@@ -18,9 +18,9 @@
           %td
             = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
           %td.text-right
-            = link_to '#', class: 'btn btn-xs btn-default', title: 'Refresh' do
+            = link_to '#', id: 'refresh', class: 'btn btn-xs btn-default', title: 'Refresh' do
               %span.glyphicon.glyphicon-repeat
-            = link_to '#', class: 'btn btn-xs btn-default', title: 'Disable' do
+            = link_to '#', class: "btn btn-xs btn-default #{registry.disabled? ? 'active btn-info' : ''}", title: 'Disable' do
               %span.glyphicon.glyphicon-off
             = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default', title: 'Settings',
                       data: { :'no-turbolink' => true } do
