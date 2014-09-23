@@ -37,6 +37,11 @@ class RegistriesController < ApplicationController
     respond_with(@registry)
   end
 
+  def refresh
+    sleep 2
+    render status: 200, json: {}
+  end
+
   private
     def set_registry
       @registry = Registry.find(params[:id])
