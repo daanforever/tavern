@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
 
   resources :welcome, only: [ :index ]
-  resources :registries
+  resources :registries do
+    get 'refresh', on: :collection
+    get 'refresh', on: :member
+  end
   
   root 'welcome#index'
 
