@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: registries
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  desc       :string(255)
+#  url        :string(255)
+#  disabled   :boolean
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Registry < ActiveRecord::Base
 
   has_and_belongs_to_many :projects
@@ -6,16 +19,23 @@ class Registry < ActiveRecord::Base
 
   def refresh
     self.projects = registry_scan.map do |item|
-      cache( item.project ) or self.projects.create!(name: item.project)
+      project_cache( item.project ) or self.projects.create!(name: item.project)
     end
     statistics( registry_scan )
   end
 
   def registry_scan
-    registry_search.map do |r|
+    info = Hash.new( {} )
+    registry_search.each do |r|
       project, component = r.name.split('/')
-      OpenStruct.new( { project: project, component: component, releases: r.tags.map{ |t| t.name } } )
+      r.tags.map do |tag|
+        # ap [ project, tag.name, component ]
+        info[project][tag.name].is_a?(Array) or info[project][tag.name] = []
+        info[project][tag.name] << component
+        p info.inspect
+      end
     end
+    info
   end
 
   def registry_search
@@ -31,9 +51,9 @@ class Registry < ActiveRecord::Base
       releases:   info.map{ |r| r.releases }.flatten.uniq.count }
   end
 
-  def cache( name )
-    @cache ||= {}
-    @cache[name.to_sym].present? ? @cache[name.to_sym] : @cache[name.to_sym] = self.projects.find_by(name: name)
+  def project_cache( name )
+    @project_cache ||= {}
+    @project_cache[name.to_sym].present? ? @project_cache[name.to_sym] : @project_cache[name.to_sym] = self.projects.find_by(name: name)
   end
 
 
