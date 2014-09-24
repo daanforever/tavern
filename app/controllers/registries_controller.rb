@@ -48,7 +48,6 @@ class RegistriesController < ApplicationController
     else
       Registry.all.each{ |r| r.toggle!(:disabled) }
     end
-    sleep 2
     render status: 200, json: {}
   end
 
