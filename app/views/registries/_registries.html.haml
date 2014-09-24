@@ -1,0 +1,44 @@
+.col-md-8.col-lg-7
+  %table.table
+    %thead
+      %tr
+        %th.col-md-3 Name
+        %th.col-md-7 URL
+        %th.col-md-2
+    - @registries.each do |registry|
+      %tr
+        %td
+          = link_to truncate(registry.name.to_s, length: 12), registry_path(registry)
+        %td
+          = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
+        %td.text-right
+          = link_to toggle_registry_path(registry), remote: true, class: "btn btn-xs btn-default btn-rotate btn-toggle #{registry.disabled? ? 'btn-danger' : 'btn-success'}", title: 'Disable' do
+            %span.glyphicon.glyphicon-off
+          = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+            %span.glyphicon.glyphicon-cog
+
+.visible-md-block.visible-lg-block.col-md-4
+  %table.table.text-center{role: 'info'}
+    %thead
+      %tr
+        %th.text-center Projects
+        %th.text-center Components
+        %th.text-center Releases
+    - @registries.each do |registry|
+      %tr
+        %td
+          5
+        %td
+          10
+        %td
+          15
+
+.visible-lg-block.col-lg-1
+  %table.table.text-center{role: 'date'}
+    %thead
+      %tr
+        %th.text-center Updated
+    - @registries.each do |registry|
+      %tr
+        %td
+          22.09.2014

@@ -37,15 +37,15 @@ body {
   margin-left:    15px;
 }
 
-.registries td, .registries-info td {
+.registries td {
   height:         40px;
 }
 
 .icon-refresh-animate {
-  animation-name: rotateThis;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  animation-name:             rotateThis;
+  animation-duration:         1s;
+  animation-iteration-count:  infinite;
+  animation-timing-function:  linear;
 }
 
 @keyframes rotateThis {

@@ -2,51 +2,8 @@
   Registries
   = link_to new_registry_path, class: 'btn btn-default' do
     %span.glyphicon.glyphicon-plus
+  = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
+    %span.glyphicon.glyphicon-repeat
 
-.row
-  .col-md-8.col-lg-7
-    %table.table.registries
-      %thead
-        %tr
-          %th.col-md-3 Name
-          %th.col-md-7 URL
-          %th.col-md-2
-      - @registries.each do |registry|
-        %tr
-          %td
-            = link_to truncate(registry.name.to_s, length: 12), registry_path(registry)
-          %td
-            = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
-          %td.text-right
-            = link_to refresh_registry_path(registry), remote: true, class: 'btn btn-xs btn-default btn-rotate', title: 'Refresh' do
-              %span.glyphicon.glyphicon-repeat
-            = link_to disable_registry_path(registry), remote: true, class: "btn btn-xs btn-default btn-rotate btn-toggle #{registry.disabled? ? 'btn-info' : ''}", title: 'Disable' do
-              %span.glyphicon.glyphicon-off
-            = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
-              %span.glyphicon.glyphicon-cog
-
-  .visible-md-block.visible-lg-block.col-md-4
-    %table.table.registries-info.text-center
-      %thead
-        %tr
-          %th.text-center Projects
-          %th.text-center Components
-          %th.text-center Releases
-      - @registries.each do |registry|
-        %tr
-          %td
-            5
-          %td
-            10
-          %td
-            15
-
-  .visible-lg-block.col-lg-1
-    %table.table.registries-updated.text-center
-      %thead
-        %tr
-          %th.text-center Updated
-      - @registries.each do |registry|
-        %tr
-          %td
-            22.09.2014
+.row.registries
+  = render 'registries'

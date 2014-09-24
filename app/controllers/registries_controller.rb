@@ -1,11 +1,11 @@
 class RegistriesController < ApplicationController
-  before_action :set_registry, only: [:show, :edit, :update, :destroy]
+  before_action :set_registry, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_registries, only: [ :index, :refresh, :partial ]
 
   responders :location, :flash
   respond_to :html
 
   def index
-    @registries = Registry.all
     respond_with(@registries)
   end
 
@@ -38,18 +38,31 @@ class RegistriesController < ApplicationController
   end
 
   def refresh
+    render partial: 'registries'
+  end
+
+  def toggle
+    if defined? params[:id]
+      @registry = Registry.find(params[:id])
+      @registry.toggle!(:disabled)
+    else
+      Registry.all.each{ |r| r.toggle!(:disabled) }
+    end
     sleep 2
     render status: 200, json: {}
   end
 
-  def disable
-    sleep 2
-    render status: 200, json: {}
+  def partial
+    render partial: 'registries'
   end
 
   private
     def set_registry
       @registry = Registry.find(params[:id])
+    end
+
+    def set_registries
+      @registries = Registry.all
     end
 
     def registry_params
