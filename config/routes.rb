@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   resources :welcome, only: [ :index ]
   resources :registries do
     get 'refresh', on: :collection
-    get 'refresh', on: :member
+    get 'partial', on: :collection
 
-    get 'disable', on: :collection
-    get 'disable', on: :member
+    get 'toggle',  on: :collection
+    get 'toggle',  on: :member
   end
   
   root 'welcome#index'

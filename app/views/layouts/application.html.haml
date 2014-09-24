@@ -11,7 +11,7 @@
     = javascript_include_tag controller_name, 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    .container-fluid
+    .container
       .navbar.navbar-default
         .container-fluid
           .navbar-header
@@ -30,5 +30,5 @@
               %li
                 %a{:href => "#contact"} Contact
           / /.nav-collapse
-    .container-fluid
+    .container
       = yield

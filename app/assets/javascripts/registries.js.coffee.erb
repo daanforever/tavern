@@ -1,0 +1,24 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+refreshInterval = 3000
+
+setRefresh = ->
+
+  $( document ).on( "ajax:before", "#refresh", ->
+
+
+  ).on( "ajax:success", "#refresh", (e, data, status, xhr) ->
+
+    $( ".row.registries" ).html( xhr.responseText )
+  )
+
+  window.setInterval( ->
+    $( ".row.registries" ).load( "<%= partial_registries_path %>" )
+  , refreshInterval )
+
+$(document).ready(setRefresh)
+$(document).on('page:load', setRefresh)
