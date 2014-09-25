@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :welcome, only: [ :index ]
   resources :registries do
     get 'refresh', on: :collection
     get 'partial', on: :collection
@@ -8,7 +7,10 @@ Rails.application.routes.draw do
     get 'toggle',  on: :collection
     get 'toggle',  on: :member
   end
+
+  resources :projects
   
+  resources :welcome, only: [ :index ]
   root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

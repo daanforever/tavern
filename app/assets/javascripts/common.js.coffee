@@ -1,23 +1,47 @@
 
-window.waitNetClass = "disabled"
-window.animateClass = "icon-refresh-animate"
-window.toggleClass  = "btn-danger btn-success"
+
+window.waitNetClass         = "disabled"
+window.animateClass         = "icon-refresh-animate"
+window.animateReverseClass  = "icon-refresh-reverse-animate"
+window.toggleClass          = "btn-warning"
+window.errorClass           = "btn-danger"
+window.errorClassTimeout    = 3000
+
+animateStart = (item) ->
+  item.addClass( waitNetClass )
+  item.find( ".glyphicon" ).addClass( animateClass )
+
+animateStop  = (item) ->
+  item.removeClass( waitNetClass )
+  item.find( ".glyphicon" ).removeClass( animateClass )
+
+errorClassAdd = (item) ->
+  window.original = item.prop( "className" )
+  item.addClass( errorClass )
 
 window.ready = ->
 
   $( document ).on( "click", ".btn-rotate", ( e ) ->
 
-    $( this ).addClass( waitNetClass )
-    $( this ).find( ".glyphicon" ).addClass( animateClass )
-    
+    $( this ).removeClass( errorClass )
+    clearTimeout(errorClassTimer) unless typeof(errorClassTimer) == 'undefined'
+    animateStart( $( this ) )
+
   ).on( "ajax:success", ".btn-rotate", (e, data, status, xhr) ->
 
-    $( this ).removeClass( waitNetClass )
-    $( this ).find( ".glyphicon" ).removeClass( animateClass )
+    animateStop( $( this ) )
 
-  )
+  ).on( "ajax:error", ".btn-rotate", (e, data, status, xhr) ->
 
-  $( document ).on( "ajax:success", ".btn-toggle", (e, data, status, xhr) ->
+    btn = $( this )
+    animateStop( btn )
+    errorClassAdd( btn )
+    window.errorClassTimer = window.setTimeout( ->
+      btn.removeClass( errorClass )
+      btn.addClass( window.original )
+    , errorClassTimeout)
+
+  ).on( "ajax:success", ".btn-toggle", (e, data, status, xhr) ->
     $( this ).toggleClass( toggleClass )
   )
 

@@ -41,6 +41,14 @@ class Registry < ActiveRecord::Base
 
   end
 
+  def self.refresh
+    Registry.all.each do |r|
+      r.refresh
+    end
+  end
+
+
+
   def search
     @search ||= DockerRegistry::Registry.new(self.url).search
   rescue => e

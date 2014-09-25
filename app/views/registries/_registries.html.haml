@@ -12,7 +12,7 @@
         %td
           = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
         %td.text-right
-          = link_to toggle_registry_path(registry), remote: true, class: "btn btn-xs btn-default btn-rotate btn-toggle #{registry.disabled? ? 'btn-danger' : 'btn-success'}", title: 'Disable' do
+          = link_to toggle_registry_path(registry), remote: true, class: "btn btn-xs btn-default btn-rotate btn-toggle #{registry.disabled? ? 'btn-warning' : ''}", title: 'Disable' do
             %span.glyphicon.glyphicon-off
           = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
             %span.glyphicon.glyphicon-cog
@@ -27,11 +27,11 @@
     - @registries.each do |registry|
       %tr
         %td
-          5
+          = registry.statistics.projects
         %td
-          10
+          = registry.statistics.components
         %td
-          15
+          = registry.statistics.releases
 
 .visible-lg-block.col-lg-1
   %table.table.text-center{role: 'date'}
@@ -41,4 +41,4 @@
     - @registries.each do |registry|
       %tr
         %td
-          22.09.2014
+          =l registry.updated_at, format: '%d.%m.%Y'

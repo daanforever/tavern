@@ -38,6 +38,7 @@ class RegistriesController < ApplicationController
   end
 
   def refresh
+    Registry.refresh
     render partial: 'registries'
   end
 
@@ -48,7 +49,7 @@ class RegistriesController < ApplicationController
     else
       Registry.all.each{ |r| r.toggle!(:disabled) }
     end
-    render status: 200, json: {}
+    render json: {}
   end
 
   def partial
