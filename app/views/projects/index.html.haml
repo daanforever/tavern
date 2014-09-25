@@ -1,0 +1,9 @@
+
+- @projects.each do |project|
+  .row
+    .col-md-4  
+      = project.name
+      = project.description
+      = project.disabled
+      = link_to 'Show', project
+      = link_to 'Edit', edit_project_path(project)

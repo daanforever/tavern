@@ -9,7 +9,6 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
  *= require_self
  */
 
@@ -17,6 +16,7 @@ $screen-md:       950px !default;
 $screen-md-min:   $screen-md !default;
 
 @import "bootstrap-sprockets";
+@import "themes/slate";
 @import "bootstrap";
 
 body {
@@ -51,4 +51,16 @@ body {
 @keyframes rotateThis {
   from { transform: scale( 1 ) rotate( 0deg );   }
   to   { transform: scale( 1 ) rotate( 360deg ); }
+}
+
+.icon-refresh-reverse-animate {
+  animation-name:             rotateThisReverse;
+  animation-duration:         1s;
+  animation-iteration-count:  infinite;
+  animation-timing-function:  linear;
+}
+
+@keyframes rotateThisReverse {
+  from { transform: scale( 1 ) rotate( 360deg );   }
+  to   { transform: scale( 1 ) rotate( 0deg ); }
 }

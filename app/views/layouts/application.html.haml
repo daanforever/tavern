@@ -25,8 +25,8 @@
             %ul.nav.navbar-nav
               %li{ active_if('registries') }
                 = link_to t('menu.registries'), registries_path
-              %li
-                %a{:href => "#about"} About
+              %li{ active_if('projects') }
+                = link_to t('menu.projects'), projects_path
               %li
                 %a{:href => "#contact"} Contact
           / /.nav-collapse
