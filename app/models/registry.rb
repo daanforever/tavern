@@ -2,59 +2,83 @@
 #
 # Table name: registries
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  desc       :string(255)
-#  url        :string(255)
-#  disabled   :boolean
-#  created_at :datetime
-#  updated_at :datetime
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  description :string(255)
+#  url         :string(255)
+#  disabled    :boolean
+#  created_at  :datetime
+#  updated_at  :datetime
 #
 
 class Registry < ActiveRecord::Base
 
   has_and_belongs_to_many :projects
 
-  validates :url, presence: true
+  validates         :url, presence: true
+  serialize         :info
 
   def refresh
-    self.projects = registry_scan.map do |item|
-      project_cache( item.project ) or self.projects.create!(name: item.project)
-    end
-    statistics( registry_scan )
-  end
+    return if self.url.blank?
 
-  def registry_scan
-    info = Hash.new( {} )
-    registry_search.each do |r|
-      project, component = r.name.split('/')
+    scan = search.map do |r|
+
+      project_name, component_name = r.name.split('/')
+
       r.tags.map do |tag|
-        # ap [ project, tag.name, component ]
-        info[project][tag.name].is_a?(Array) or info[project][tag.name] = []
-        info[project][tag.name] << component
-        p info.inspect
+        # ap ({ project: project_name, release: tag.name, component: component_name })
+        project = (self.projects.find_by(name: project_name) or self.projects.create!(name: project_name))
+        release = (project.releases.find_by(name: tag.name) or project.releases.create!(name: tag.name))
+        release.components.find_by(name: component_name) or release.components.create!(name: component_name)
+        OpenStruct.new( { project: project_name, release: tag.name, component: component_name } )
       end
-    end
-    info
+      
+    end.flatten
+
+    self.update!( info: scan )
+
+    self
+
   end
 
-  def registry_search
-    @registry_scan ||= DockerRegistry::Registry.new(self.url).search
+  def search
+    @search ||= DockerRegistry::Registry.new(self.url).search
   rescue => e
     e
   end
 
-  protected
-  def statistics( info )
-    { projects:   info.map{ |r| r.project }.uniq.count,
-      components: info.map{ |r| r.component }.uniq.count,
-      releases:   info.map{ |r| r.releases }.flatten.uniq.count }
+  def statistics
+    refresh if self.info.blank?
+    OpenStruct.new({ projects:   self.info.map{ |r| r.project }.uniq.count,
+                     releases:   self.info.map{ |r| r.release }.uniq.count,
+                     components: self.info.map{ |r| r.component }.uniq.count})
   end
 
-  def project_cache( name )
-    @project_cache ||= {}
-    @project_cache[name.to_sym].present? ? @project_cache[name.to_sym] : @project_cache[name.to_sym] = self.projects.find_by(name: name)
-  end
+  # def project_cache( name: name )
+  #   @project_cache ||= {}
+  #   if @project_cache[name.to_sym].present?
+  #     @project_cache[name.to_sym]
+  #   else
+  #     @project_cache[name.to_sym] = self.projects.find_by(name: name) or self.projects.create!(name: name)
+  #   end
+  # end
 
+  # def release_cache( project: project, name: name )
+  #   @release_cache ||= {}
+  #   if @release_cache[name.to_sym].present?
+  #     @release_cache[name.to_sym]
+  #   else
+  #     @release_cache[name.to_sym] = self.projects.find_by(name: name) or self.projects.create!(name: name)
+  #   end
+  # end
+
+  # def project_cache( name: name )
+  #   @project_cache ||= {}
+  #   if @project_cache[name.to_sym].present?
+  #     @project_cache[name.to_sym]
+  #   else
+  #     @project_cache[name.to_sym] = self.projects.find_by(name: name) or self.projects.create!(name: name)
+  #   end
+  # end
 
 end

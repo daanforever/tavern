@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924182515) do
+ActiveRecord::Schema.define(version: 20140924201637) do
+
+  create_table "components", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "disabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "components_releases", force: true do |t|
+    t.integer "component_id"
+    t.integer "release_id"
+  end
+
+  add_index "components_releases", ["component_id"], name: "index_components_releases_on_component_id"
+  add_index "components_releases", ["release_id"], name: "index_components_releases_on_release_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -41,9 +57,10 @@ ActiveRecord::Schema.define(version: 20140924182515) do
 
   create_table "registries", force: true do |t|
     t.string   "name"
-    t.string   "desc"
+    t.string   "description"
     t.string   "url"
     t.boolean  "disabled"
+    t.text     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,6 +71,9 @@ ActiveRecord::Schema.define(version: 20140924182515) do
     t.string   "label"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
   end
+
+  add_index "releases", ["project_id"], name: "index_releases_on_project_id"
 
 end

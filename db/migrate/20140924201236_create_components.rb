@@ -1,11 +1,9 @@
-class CreateRegistries < ActiveRecord::Migration
+class CreateComponents < ActiveRecord::Migration
   def change
-    create_table :registries do |t|
+    create_table :components do |t|
       t.string :name
       t.string :description
-      t.string :url
       t.boolean :disabled
-      t.text :info
 
       t.timestamps
     end
