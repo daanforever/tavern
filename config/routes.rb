@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     get 'toggle',  on: :member
   end
 
-  resources :projects
+  resources :projects do
+    get 'toggle',  on: :member
+  end
   
   resources :welcome, only: [ :index ]
   root 'welcome#index'

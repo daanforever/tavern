@@ -15,4 +15,10 @@
 class Project < ActiveRecord::Base
   has_and_belongs_to_many :registries
   has_many :releases
+  before_save :set_label
+
+  protected
+  def set_label
+    self.label ||= self.name
+  end
 end
