@@ -36,6 +36,16 @@ class ProjectsController < ApplicationController
     respond_with(@project)
   end
 
+  def toggle
+    if defined? params[:id]
+      @project = Project.find(params[:id])
+      @project.toggle!(:disabled)
+    else
+      Project.all.each{ |r| r.toggle!(:disabled) }
+    end
+    render json: {}
+  end
+
   private
     def set_project
       @project = Project.find(params[:id])

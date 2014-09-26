@@ -7,6 +7,7 @@
 #  description :string(255)
 #  url         :string(255)
 #  disabled    :boolean
+#  info        :text
 #  created_at  :datetime
 #  updated_at  :datetime
 #

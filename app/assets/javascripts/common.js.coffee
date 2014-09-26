@@ -3,7 +3,7 @@
 window.waitNetClass         = "disabled"
 window.animateClass         = "icon-refresh-animate"
 window.animateReverseClass  = "icon-refresh-reverse-animate"
-window.toggleClass          = "btn-warning"
+window.toggleClass          = "btn-default btn-warning"
 window.errorClass           = "btn-danger"
 window.errorClassTimeout    = 3000
 

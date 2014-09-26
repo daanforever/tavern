@@ -1,9 +1,13 @@
+%h1 
+  Projects
+  = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
+    %span.glyphicon.glyphicon-repeat
 
 - @projects.each do |project|
   .row
     .col-md-4  
-      = project.name
+      = link_to project.name, edit_project_path(project)
       = project.description
-      = project.disabled
-      = link_to 'Show', project
-      = link_to 'Edit', edit_project_path(project)
+    .col-md-2
+      = link_to toggle_project_path(project), remote: true, class: "btn btn-xs btn-rotate btn-toggle #{ project.disabled? ? 'btn-warning' : 'btn-default' }", title: 'Disable' do 
+        %span.glyphicon.glyphicon-off

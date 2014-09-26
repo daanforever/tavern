@@ -7,6 +7,7 @@
 #  description :string(255)
 #  url         :string(255)
 #  disabled    :boolean
+#  info        :text
 #  created_at  :datetime
 #  updated_at  :datetime
 #
@@ -20,6 +21,8 @@ class Registry < ActiveRecord::Base
 
   def refresh
     return if self.url.blank?
+
+    @statistics = nil
 
     scan = search.map do |r|
 
@@ -57,7 +60,7 @@ class Registry < ActiveRecord::Base
 
   def statistics
     refresh if self.info.blank?
-    OpenStruct.new({ projects:   self.info.map{ |r| r.project }.uniq.count,
+    @statistics ||= OpenStruct.new({ projects:   self.info.map{ |r| r.project }.uniq.count,
                      releases:   self.info.map{ |r| r.release }.uniq.count,
                      components: self.info.map{ |r| r.component }.uniq.count})
   end

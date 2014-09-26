@@ -1,10 +1,11 @@
-= simple_form_for(@project) do |f|
+= simple_form_for(@project, wrapper: :horizontal_form) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :name
+    = f.input :name, disabled: true
+    = f.input :alias
     = f.input :description
     = f.input :disabled
 
   .form-actions
-    = f.button :submit
+    = f.button :submit, class: 'btn'
