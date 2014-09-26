@@ -1,4 +1,4 @@
-.col-md-8.col-lg-7
+.col-sm-12.col-md-8.col-lg-6
   %table.table
     %thead
       %tr
@@ -17,7 +17,7 @@
           = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
             %span.glyphicon.glyphicon-cog
 
-.visible-md-block.visible-lg-block.col-md-4
+.visible-md-block.visible-lg-block.col-md-4.col-lg-4
   %table.table.text-center{role: 'info'}
     %thead
       %tr
@@ -33,7 +33,7 @@
         %td
           = registry.statistics.releases
 
-.visible-lg-block.col-lg-1
+.visible-lg-block.col-lg-2
   %table.table.text-center{role: 'date'}
     %thead
       %tr
