@@ -15,9 +15,8 @@
 $screen-md:       950px !default;
 $screen-md-min:   $screen-md !default;
 
-@import "bootstrap-sprockets";
-@import "themes/slate";
-@import "bootstrap";
+@import           "bootstrap-sprockets";
+@import           "bootstrap";
 
 body {
   padding-top:    20px;
