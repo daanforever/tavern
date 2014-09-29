@@ -47,14 +47,6 @@ ActiveRecord::Schema.define(version: 20140924201637) do
   add_index "projects_registries", ["project_id"], name: "index_projects_registries_on_project_id"
   add_index "projects_registries", ["registry_id"], name: "index_projects_registries_on_registry_id"
 
-  create_table "projects_releases", force: true do |t|
-    t.integer "project_id"
-    t.integer "release_id"
-  end
-
-  add_index "projects_releases", ["project_id"], name: "index_projects_releases_on_project_id"
-  add_index "projects_releases", ["release_id"], name: "index_projects_releases_on_release_id"
-
   create_table "registries", force: true do |t|
     t.string   "name"
     t.string   "description"

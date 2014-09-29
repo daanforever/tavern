@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @release.name
+%p
+  %b Description:
+  = @release.description
+%p
+  %b Label:
+  = @release.label
+
+%p
+  - @release.components.each do |component|
+    %p= component.name
+
+= link_to 'Edit', edit_release_path(@release)
+\|
+= link_to 'Back', releases_path
