@@ -147,7 +147,7 @@ updated_at  :datetime</pre>
 
           
           <div class="method-source-code" id="refresh-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 47</span>
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">refresh</span>
   <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">r</span>.<span class="ruby-identifier">refresh</span>
@@ -190,7 +190,7 @@ updated_at  :datetime</pre>
 
           
           <div class="method-source-code" id="refresh-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">refresh</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">blank?</span>
 
@@ -202,9 +202,18 @@ updated_at  :datetime</pre>
 
     <span class="ruby-identifier">r</span>.<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span>
       <span class="ruby-comment"># ap ({ project: project_name, release: tag.name, component: component_name })</span>
-      <span class="ruby-identifier">project</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">projects</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>) <span class="ruby-keyword">or</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">projects</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>))
-      <span class="ruby-identifier">release</span> = (<span class="ruby-identifier">project</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>) <span class="ruby-keyword">or</span> <span class="ruby-identifier">project</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>))
-      <span class="ruby-identifier">release</span>.<span class="ruby-identifier">components</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span>) <span class="ruby-keyword">or</span> <span class="ruby-identifier">release</span>.<span class="ruby-identifier">components</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span>)
+      <span class="ruby-identifier">project</span>   = (<span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_by</span>(      <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>) <span class="ruby-keyword">or</span> 
+                   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">projects</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>))
+
+      <span class="ruby-identifier">release</span>   = (<span class="ruby-identifier">project</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>) <span class="ruby-keyword">or</span> 
+                   <span class="ruby-identifier">project</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>))
+
+      <span class="ruby-identifier">component</span> = <span class="ruby-constant">Component</span>.<span class="ruby-identifier">find_or_create!</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span>)
+
+      <span class="ruby-identifier">image</span>     = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">images</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component</span>) <span class="ruby-keyword">or</span> 
+                   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">images</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component</span>, 
+                                       <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{tag.repository.full_name}:#{tag.name}&quot;</span>))
+      
       <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>( { <span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span> } )
     <span class="ruby-keyword">end</span>
     
@@ -244,7 +253,7 @@ updated_at  :datetime</pre>
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 55</span>
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
   <span class="ruby-ivar">@search</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DockerRegistry</span><span class="ruby-operator">::</span><span class="ruby-constant">Registry</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>).<span class="ruby-identifier">search</span>
 <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
@@ -279,7 +288,7 @@ updated_at  :datetime</pre>
 
           
           <div class="method-source-code" id="statistics-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 61</span>
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">statistics</span>
   <span class="ruby-identifier">refresh</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">blank?</span>
   <span class="ruby-ivar">@statistics</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>({ <span class="ruby-identifier">projects</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">project</span> }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">count</span>,
