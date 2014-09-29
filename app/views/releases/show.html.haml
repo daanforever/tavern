@@ -1,19 +1,29 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @release.name
-%p
-  %b Description:
-  = @release.description
-%p
-  %b Label:
-  = @release.label
+.row
+  .col-md-4
+    %p
+      %b Release:
+  .col-md-8
+    = @release.name
+.row
+  .col-md-4
+    %p
+      %b Label:
+  .col-md-8
+    = @release.label
+.row
+  .col-md-4
+    %p
+      %b Components:
+  .col-md-8
+    - @release.components.each do |component|
+      %p= component.name
 
-%p
-  - @release.components.each do |component|
-    %p= component.name
+.row
+  .col-md-4
+    %p
+      %b Description:
+  .col-md-8
+    = @release.description
 
-= link_to 'Edit', edit_release_path(@release)
-\|
-= link_to 'Back', releases_path
