@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924201637) do
+ActiveRecord::Schema.define(version: 20140929124134) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20140924201637) do
     t.boolean  "disabled"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
   end
+
+  add_index "components", ["project_id"], name: "index_components_on_project_id"
 
   create_table "components_releases", force: true do |t|
     t.integer "component_id"
@@ -28,6 +31,22 @@ ActiveRecord::Schema.define(version: 20140924201637) do
 
   add_index "components_releases", ["component_id"], name: "index_components_releases_on_component_id"
   add_index "components_releases", ["release_id"], name: "index_components_releases_on_release_id"
+
+  create_table "images", force: true do |t|
+    t.string   "name"
+    t.boolean  "disabled"
+    t.integer  "registry_id"
+    t.integer  "project_id"
+    t.integer  "release_id"
+    t.integer  "component_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "images", ["component_id"], name: "index_images_on_component_id"
+  add_index "images", ["project_id"], name: "index_images_on_project_id"
+  add_index "images", ["registry_id"], name: "index_images_on_registry_id"
+  add_index "images", ["release_id"], name: "index_images_on_release_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
