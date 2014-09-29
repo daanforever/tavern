@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :releases
+
+  resources :projects do
+    get 'toggle',  on: :member
+  end
+  
   resources :registries do
     get 'refresh', on: :collection
     get 'partial', on: :collection
@@ -8,10 +14,6 @@ Rails.application.routes.draw do
     get 'toggle',  on: :member
   end
 
-  resources :projects do
-    get 'toggle',  on: :member
-  end
-  
   resources :welcome, only: [ :index ]
   root 'welcome#index'
 
