@@ -7,9 +7,8 @@
   %thead
     %tr
       %th.col-md-4
-      %th.col-md-2
-      %th.col-md-6 Releases
-      %th.col-md-6 Components
+      %th.col-md-4 Releases
+      %th.col-md-4 Components
   %tbody
     - @projects.includes(:releases).each do |project|
       %tr
@@ -18,9 +17,6 @@
             %p
               = link_to project.name, edit_project_path(project)
               %small= project.description
-        %td
-          = link_to toggle_project_path(project), remote: true, class: "btn btn-xs btn-rotate btn-toggle #{ project.disabled? ? 'btn-warning' : 'btn-default' }", title: 'Disable' do 
-            %span.glyphicon.glyphicon-off
         %td        
           - project.releases.each do |release|
             %p= link_to release.name, release_path(release)
