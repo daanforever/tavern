@@ -8,6 +8,7 @@
 #  disabled    :boolean
 #  created_at  :datetime
 #  updated_at  :datetime
+#  project_id  :integer
 #
 
 require 'rails_helper'
