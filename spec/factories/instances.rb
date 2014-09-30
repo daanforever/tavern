@@ -1,14 +1,16 @@
 # == Schema Information
 #
-# Table name: images
+# Table name: instances
 #
 #  id           :integer          not null, primary key
 #  name         :string(255)
 #  disabled     :boolean
-#  registry_id  :integer
-#  project_id   :integer
-#  release_id   :integer
+#  port         :integer
+#  container    :string(255)
+#  properties   :text
+#  image_id     :integer
 #  component_id :integer
+#  host_id      :integer
 #  created_at   :datetime
 #  updated_at   :datetime
 #
@@ -16,12 +18,14 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :image do
+  factory :instance do
     name "MyString"
     disabled false
-    registry nil
-    project nil
-    release nil
+    port 1
+    container "MyString"
+    properties "MyText"
+    image nil
     component nil
+    host nil
   end
 end

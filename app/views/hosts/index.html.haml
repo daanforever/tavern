@@ -1,0 +1,24 @@
+%h1 
+  Hosts
+  = link_to new_host_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-plus
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Url
+      %th
+  %tbody
+    - @hosts.each do |host|
+      %tr
+        %td= link_to host.name, edit_host_path(host)
+        %td= link_to host.url, edit_host_path(host)
+        %td
+          = link_to toggle_host_path(host), remote: true, class: "btn btn-xs btn-rotate btn-toggle #{host.disabled? ? 'btn-warning' : 'btn-default'}", title: 'Disable' do
+            %span.glyphicon.glyphicon-off
+          = link_to edit_host_path(host), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+            %span.glyphicon.glyphicon-cog
+
+%br
+

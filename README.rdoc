@@ -1,28 +1,20 @@
-== README
+== Tavern
+Web interface for private registry and docker images deployment on multiple hosts.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+== Help
+Your help is needed to describe the project and writing README file.
 
-Things you may want to cover:
+== Requirement
 
-* Ruby version
+* Ruby version >= 2.1.1
 
-* System dependencies
+== Contributing
 
-* Configuration
+Once you've made your great commits:
 
-* Database creation
+1. Fork project
+2. Create a topic branch - `git checkout -b my_branch`
+3. Push to your branch - `git push origin my_branch`
+4. Create an Issue with a link to your branch
+5. That's it!
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
