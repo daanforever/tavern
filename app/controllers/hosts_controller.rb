@@ -36,6 +36,16 @@ class HostsController < ApplicationController
     respond_with(@host)
   end
 
+  def toggle
+    if defined? params[:id]
+      @host = Host.find(params[:id])
+      @host.toggle!(:disabled)
+    else
+      Host.all.each{ |r| r.toggle!(:disabled) }
+    end
+    render json: {}
+  end
+
   private
     def set_host
       @host = Host.find(params[:id])

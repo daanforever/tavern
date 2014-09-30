@@ -1,11 +1,16 @@
-= simple_form_for(@host) do |f|
+= simple_form_for(@host, wrapper: :horizontal_form) do |f|
   = f.error_notification
 
-  .form-inputs
+  .row.form-inputs
     = f.input :url
     = f.input :name
     = f.input :description
     = f.input :disabled
-
-  .form-actions
-    = f.button :submit
+  .row.form-actions
+    .col-sm-6.col-sm-offset-3
+      = f.button :submit, class: 'btn-primary'
+      = link_to 'Cancel', hosts_path, class: 'btn btn-default'
+      - unless @host.new_record?
+        = link_to @host, :method => :delete, class: 'btn btn-sm btn-danger', 
+          title: 'Delete', data: { confirm: "Are you sure?" } do
+          %span.glyphicon.glyphicon-trash

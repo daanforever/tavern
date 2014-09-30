@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
 
-  resources :hosts
+  resources :components do
+    get 'toggle',  on: :member
+  end
+
+  resources :hosts do
+    get 'toggle',  on: :member
+  end
+
   resources :releases
 
   resources :projects do
