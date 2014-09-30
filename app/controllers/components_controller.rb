@@ -1,6 +1,8 @@
 class ComponentsController < ApplicationController
   before_action :set_component, only: [:show, :edit, :update, :destroy]
 
+  respond_to :html
+
   def index
     @components = Component.all
     respond_with(@components)
