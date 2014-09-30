@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929124134) do
+ActiveRecord::Schema.define(version: 20140930092949) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20140929124134) do
   add_index "components_releases", ["component_id"], name: "index_components_releases_on_component_id"
   add_index "components_releases", ["release_id"], name: "index_components_releases_on_release_id"
 
+  create_table "hosts", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "url"
+    t.boolean  "disabled"
+    t.text     "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", force: true do |t|
     t.string   "name"
     t.boolean  "disabled"
@@ -47,6 +57,23 @@ ActiveRecord::Schema.define(version: 20140929124134) do
   add_index "images", ["project_id"], name: "index_images_on_project_id"
   add_index "images", ["registry_id"], name: "index_images_on_registry_id"
   add_index "images", ["release_id"], name: "index_images_on_release_id"
+
+  create_table "instances", force: true do |t|
+    t.string   "name"
+    t.boolean  "disabled"
+    t.integer  "port"
+    t.string   "container"
+    t.text     "properties"
+    t.integer  "image_id"
+    t.integer  "component_id"
+    t.integer  "host_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "instances", ["component_id"], name: "index_instances_on_component_id"
+  add_index "instances", ["host_id"], name: "index_instances_on_host_id"
+  add_index "instances", ["image_id"], name: "index_instances_on_image_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
