@@ -3,14 +3,28 @@
   = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
     %span.glyphicon.glyphicon-repeat
 
-- @projects.includes(:releases).each do |project|
-  .row
-    .col-md-4  
-      = link_to project.name, edit_project_path(project)
-      = project.description
-    .col-md-2
-      - project.releases.each do |release|
-        %p= link_to release.name, release_path(release)
-    .col-md-2
-      = link_to toggle_project_path(project), remote: true, class: "btn btn-xs btn-rotate btn-toggle #{ project.disabled? ? 'btn-warning' : 'btn-default' }", title: 'Disable' do 
-        %span.glyphicon.glyphicon-off
+%table.table
+  %thead
+    %tr
+      %th.col-md-4
+      %th.col-md-2
+      %th.col-md-6 Releases
+      %th.col-md-6 Components
+  %tbody
+    - @projects.includes(:releases).each do |project|
+      %tr
+        %td
+          %blockquote
+            %p
+              = link_to project.name, edit_project_path(project)
+              %small= project.description
+        %td
+          = link_to toggle_project_path(project), remote: true, class: "btn btn-xs btn-rotate btn-toggle #{ project.disabled? ? 'btn-warning' : 'btn-default' }", title: 'Disable' do 
+            %span.glyphicon.glyphicon-off
+        %td        
+          - project.releases.each do |release|
+            %p= link_to release.name, release_path(release)
+        %td        
+          - project.components.each do |component|
+            %p= link_to component.name, component_path(component)
+      

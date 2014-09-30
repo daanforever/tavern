@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Url:
+  = @host.url
+%p
+  %b Name:
+  = @host.name
+%p
+  %b Description:
+  = @host.description
+%p
+  %b Disabled:
+  = @host.disabled
+
+= link_to 'Edit', edit_host_path(@host)
+\|
+= link_to 'Back', hosts_path

@@ -1,21 +1,22 @@
 # == Schema Information
 #
-# Table name: images
+# Table name: instances
 #
 #  id           :integer          not null, primary key
 #  name         :string(255)
 #  disabled     :boolean
-#  registry_id  :integer
-#  project_id   :integer
-#  release_id   :integer
+#  port         :integer
+#  container    :string(255)
+#  properties   :text
+#  image_id     :integer
 #  component_id :integer
+#  host_id      :integer
 #  created_at   :datetime
 #  updated_at   :datetime
 #
 
-class Image < ActiveRecord::Base
-  belongs_to :registry
-  belongs_to :project
-  belongs_to :release
+class Instance < ActiveRecord::Base
+  belongs_to :image
   belongs_to :component
+  belongs_to :host
 end
