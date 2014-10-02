@@ -1,16 +1,13 @@
-= simple_form_for( @component, html: { class: 'form-horizontal'} ) do |f|
+= simple_form_for( @component, html: { class: 'form-horizontal' } ) do |f|
   = f.error_notification
 
   .form-inputs
     = f.input       :name
     = f.input       :description
-    = f.association :instances
-    = f.simple_fields_for @component.instances.new do |i|
-      = i.input :name
-      = i.input :image, collection: @component.images
-      = i.input :host,  collection: Host.all
-      = i.input :port
-    = f.input       :disabled
+    = f.input       :disabled, wrapper: :horizontal_boolean
+
+    .form-group
+      = f.label       :instances, class: 'col-md-3 control-label text-right'
 
   .form-actions
     .col-sm-6.col-sm-offset-3

@@ -102,8 +102,8 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     b.wrapper tag: 'div', class: 'col-md-offset-3 col-md-9' do |wr|
-      wr.wrapper tag: 'div', class: 'checkbox' do |ba|
-        ba.use :label_input, class: 'col-md-9'
+      wr.wrapper tag: 'div', class: 'checkbox col-md-8' do |ba|
+        ba.use :label_input
       end
 
       wr.use :error, wrap_with: { tag: 'span', class: 'help-block' }
