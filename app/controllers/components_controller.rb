@@ -42,6 +42,6 @@ class ComponentsController < ApplicationController
     end
 
     def component_params
-      params.require(:component).permit(:name, :description, :disabled)
+      params.require(:component).permit(:name, :description, :disabled, instance_ids: [], instances: [ :image, :host, :port ])
     end
 end

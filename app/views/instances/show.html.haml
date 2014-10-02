@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @instance.name
+%p
+  %b Port:
+  = @instance.port
+%p
+  %b Image:
+  = @instance.image
+%p
+  %b Component:
+  = @instance.component
+%p
+  %b Host:
+  = @instance.host
+
+= link_to 'Edit', edit_instance_path(@instance)
+\|
+= link_to 'Back', instances_path
