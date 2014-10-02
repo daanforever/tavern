@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930092949) do
+ActiveRecord::Schema.define(version: 20141002144539) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20140930092949) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id"
+    t.integer  "state"
   end
 
   add_index "releases", ["project_id"], name: "index_releases_on_project_id"

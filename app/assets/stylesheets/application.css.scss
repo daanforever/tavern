@@ -27,16 +27,6 @@ body {
   margin-bottom:  20px;
 }
 
-/*.form-group {
-  padding-top:    15px;
-  padding-bottom: 15px;
-}
-
-.form-actions input, .form-actions a {
-  margin-left:    15px;
-}
-*/
-
 .registries td {
   height:         40px;
 }
@@ -63,4 +53,8 @@ body {
 @keyframes rotateThisReverse {
   from { transform: scale( 1 ) rotate( 360deg );   }
   to   { transform: scale( 1 ) rotate( 0deg ); }
+}
+
+.form-actions {
+  padding-top: 20px;
 }

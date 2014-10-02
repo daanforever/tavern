@@ -19,7 +19,11 @@
               %small= project.description
         %td        
           - project.releases.each do |release|
-            %p= link_to release.name, release_path(release)
+            %p
+              = link_to release.name, release_path(release)
+              - if release.active?
+                %span.glyphicon.glyphicon-ok.text-success
+
         %td        
           - project.components.each do |component|
             %p= link_to component.name, component_path(component)
