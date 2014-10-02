@@ -13,9 +13,12 @@
 
 class Component < ActiveRecord::Base
   has_and_belongs_to_many :releases
-  has_many                :images
   belongs_to              :project
+  has_many                :images
+  has_many                :instances
   # has_many :instances
+
+  accepts_nested_attributes_for :instances
 
   def self.find_or_create!(project: project, release: release, name: name)
     if component = Component.find_by(project: project, name: name)

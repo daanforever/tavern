@@ -1,10 +1,23 @@
-= simple_form_for(@component) do |f|
+= simple_form_for( @component, html: { class: 'form-horizontal'} ) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :name
-    = f.input :description
-    = f.input :disabled
+    = f.input       :name
+    = f.input       :description
+    = f.association :instances
+    = f.simple_fields_for @component.instances.new do |i|
+      = i.input :name
+      = i.input :image, collection: @component.images
+      = i.input :host,  collection: Host.all
+      = i.input :port
+    = f.input       :disabled
 
   .form-actions
-    = f.button :submit
+    .col-sm-6.col-sm-offset-3
+      = f.button :submit, class: 'btn-primary'
+      = link_to 'Cancel', components_path, class: 'btn btn-default'
+      - unless @component.new_record?
+        = link_to @component, :method => :delete, class: 'btn btn-sm btn-danger', 
+          title: 'Delete', data: { confirm: "Are you sure?" } do
+          %span.glyphicon.glyphicon-trash
+
