@@ -12,6 +12,8 @@
         .col-md-8
           = link_to new_component_instance_path(@component), class: 'btn btn-sm btn-default' do
             %span.glyphicon.glyphicon-plus
+          = link_to component_instances_path(@component), class: 'btn btn-sm btn-default' do
+            %span.glyphicon.glyphicon-list
 
   .form-actions
     .col-sm-9.col-sm-offset-3

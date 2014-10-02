@@ -9,6 +9,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  project_id  :integer
+#  state       :integer
 #
 
 require 'rails_helper'

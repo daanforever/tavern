@@ -1,27 +1,23 @@
-%h1 Listing instances
+%h1 Listing instances of #{@component.project.name}/#{@component.name}
 
-%table
-  %tr
-    %th Name
-    %th Port
-    %th Image
-    %th Component
-    %th Host
-    %th
-    %th
-    %th
-
-  - @instances.each do |instance|
+%table.table
+  %thead
     %tr
-      %td= instance.name
-      %td= instance.port
-      %td= instance.image
-      %td= instance.component
-      %td= instance.host
-      %td= link_to 'Show', instance
-      %td= link_to 'Edit', edit_instance_path(instance)
-      %td= link_to 'Destroy', instance, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th Host
+      %th Component
+      %th
+  %tbody
+    - @instances.each do |instance|
+      %tr
+        %td= "#{instance.host.name}:#{instance.port}"
+        %td= "#{instance.component.name}:#{instance.image.release.name}"
+        %td
+          = link_to edit_component_instance_path(@component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+            %span.glyphicon.glyphicon-cog
+          = link_to component_instance_path(@component, instance), :method => :delete, class: 'btn btn-xs btn-danger', 
+            title: 'Delete', data: { confirm: "Are you sure?" } do
+            %span.glyphicon.glyphicon-trash
 
 %br
 
-= link_to 'New Instance', new_instance_path
+= link_to 'New Instance', new_component_instance_path(@component)
