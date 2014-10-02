@@ -9,6 +9,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  project_id  :integer
+#  state       :integer
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

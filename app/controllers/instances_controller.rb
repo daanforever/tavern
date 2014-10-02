@@ -1,10 +1,11 @@
 class InstancesController < ApplicationController
   before_action :set_instance, only: [:show, :edit, :update, :destroy]
+  before_action :set_component
 
   respond_to :html
 
   def index
-    @instances = Instance.all
+    @instances = @component.instances
     respond_with(@instances)
   end
 
@@ -13,7 +14,7 @@ class InstancesController < ApplicationController
   end
 
   def new
-    @instance = Instance.new
+    @instance   = Instance.new
     respond_with(@instance)
   end
 
@@ -21,9 +22,11 @@ class InstancesController < ApplicationController
   end
 
   def create
-    @instance = Instance.new(instance_params)
+    @instance           = Instance.new(instance_params)
+    @instance.component = @component
+    @instance.image     = @component.images.find_by(release: @component.releases.active.first)
     @instance.save
-    respond_with(@instance)
+    respond_with(@component)
   end
 
   def update
@@ -38,7 +41,12 @@ class InstancesController < ApplicationController
 
   private
     def set_instance
-      @instance = Instance.find(params[:id])
+      @instance   = Instance.find(params[:id])
+      @component  = Component.find(params[:component_id])
+    end
+
+    def set_component
+      @component  = Component.find(params[:component_id])
     end
 
     def instance_params

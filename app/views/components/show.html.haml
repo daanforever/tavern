@@ -10,6 +10,16 @@
   %b Disabled:
   = @component.disabled
 
+.row
+  .col-md-3
+    .panel.panel-default
+      .panel-heading
+        %h5 Instances
+      .panel-body
+        - @component.instances.each do |i|
+          %p= "#{i.host.name}:#{i.port}"
+
+.row
 = link_to 'Edit', edit_component_path(@component)
 \|
 = link_to 'Back', components_path
