@@ -12,6 +12,33 @@
 #
 
 class Release < ActiveRecord::Base
+  include AASM
+
   belongs_to :project
   has_and_belongs_to_many :components
+
+  enum state: {
+    inactive: 0,
+    active:   1
+  }
+
+  aasm column: :state, enum: true, whiny_transitions: false do
+    state :inactive, initial: true
+    state :active, before_enter: :deactivate_previous
+
+    event :activate do
+      transitions from: :inactive, to: :active
+    end
+
+    event :deactivate do
+      transitions from: :active, to: :inactive
+    end
+
+  end
+
+  def deactivate_previous
+    ap Release.active.to_a
+    Release.active.each { |r| r.deactivate! }
+  end
+
 end

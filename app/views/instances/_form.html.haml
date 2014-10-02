@@ -1,12 +1,16 @@
-= simple_form_for(@instance) do |f|
+= simple_form_for(@instance, html: { class: 'form-horizontal' } ) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :name
-    = f.input :port
-    = f.association :image
-    = f.association :component
     = f.association :host
+    = f.input :port
+    = f.input :name
 
   .form-actions
-    = f.button :submit
+    .col-sm-9.col-sm-offset-3
+      = f.button :submit, class: 'btn-primary'
+      = link_to 'Cancel', components_path, class: 'btn btn-default'
+      - unless @instance.new_record?
+        = link_to @instance, :method => :delete, class: 'btn btn-sm btn-danger', 
+          title: 'Delete', data: { confirm: "Are you sure?" } do
+          %span.glyphicon.glyphicon-trash
