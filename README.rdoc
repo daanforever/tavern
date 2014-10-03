@@ -10,11 +10,11 @@ Your help is needed to describe the project and writing README file.
 
 == How to run
 
-=begin
+<tt>
 git clone git@github.com:daanforever/tavern.git && cd tavern
 bundle install
 rails s
-=end
+</tt>
 
 and open in web browser: http://localhost:3000
 
