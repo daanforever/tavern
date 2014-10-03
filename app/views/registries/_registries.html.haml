@@ -12,10 +12,12 @@
         %td
           = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
         %td.text-right
-          = link_to toggle_registry_path(registry), remote: true, class: "btn btn-xs btn-rotate btn-toggle #{registry.disabled? ? 'btn-warning' : 'btn-default'}", title: 'Disable' do
-            %span.glyphicon.glyphicon-off
           = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
             %span.glyphicon.glyphicon-cog
+          = link_to toggle_registry_path(registry), remote: true, 
+                    class: "btn btn-xs btn-rotate btn-toggle #{registry.disabled? ? 'btn-warning' : 'btn-default'}", 
+                    title: 'Disable' do
+            %span.glyphicon.glyphicon-off
 
 .visible-md-block.visible-lg-block.col-md-4.col-lg-4
   %table.table.text-center{role: 'info'}
@@ -27,11 +29,17 @@
     - @registries.each do |registry|
       %tr
         %td
-          = registry.statistics.projects
+          = link_to projects_path do
+            %span.badge
+              = registry.statistics.projects
         %td
-          = registry.statistics.components
+          = link_to projects_path do
+            %span.badge
+              = registry.statistics.components
         %td
-          = registry.statistics.releases
+          = link_to projects_path do
+            %span.badge
+              = registry.statistics.releases
 
 .visible-lg-block.col-lg-2
   %table.table.text-center{role: 'date'}

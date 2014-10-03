@@ -1,5 +1,4 @@
 
-
 window.waitNetClass         = "disabled"
 window.animateClass         = "icon-refresh-animate"
 window.animateReverseClass  = "icon-refresh-reverse-animate"
@@ -27,6 +26,9 @@ window.ready = ->
     clearTimeout(errorClassTimer) unless typeof(errorClassTimer) == 'undefined'
     animateStart( $( this ) )
 
+  ).on( "click", ".btn-back", ( e ) ->
+    e.preventDefault()
+    history.back()
   ).on( "ajax:success", ".btn-rotate", (e, data, status, xhr) ->
 
     animateStop( $( this ) )

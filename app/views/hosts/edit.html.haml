@@ -1,7 +1,8 @@
+%p#notice= notice
+
+= link_to "#", class: 'btn btn-default btn-back' do
+  %span.glyphicon.glyphicon-circle-arrow-left
+
 %h1 Editing host
 
 = render 'form'
-
-= link_to 'Show', @host
-\|
-= link_to 'Back', hosts_path

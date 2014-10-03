@@ -36,7 +36,7 @@ class InstancesController < ApplicationController
 
   def destroy
     @instance.destroy
-    respond_with(@instance)
+    respond_with(@component)
   end
 
   private
