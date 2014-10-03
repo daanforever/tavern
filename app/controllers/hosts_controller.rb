@@ -27,6 +27,7 @@ class HostsController < ApplicationController
   end
 
   def update
+    flash[:notice] = "Updated"
     @host.update(host_params)
     respond_with(@host)
   end

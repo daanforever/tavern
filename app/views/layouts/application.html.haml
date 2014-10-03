@@ -31,4 +31,8 @@
                 = link_to t('menu.hosts'), hosts_path
           / /.nav-collapse
     .container
+      .row
+        .col-md-8.col-md-offset-2
+          = bootstrap_flash
+    .container
       = yield
