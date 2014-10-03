@@ -21,4 +21,45 @@ class Instance < ActiveRecord::Base
   belongs_to :host
 
   validates :port, :image, :component, :host, presence: true
+
+  enum state: {
+    stopped: 0,
+    starting: 1,
+    running: 2,
+    stoping: 3,
+    unknown: 4
+  }
+
+  include AASM
+
+  aasm column: :state, enum: true, whiny_transitions: false do
+    state :stopped, initial: true
+    state :starting
+    state :running
+    state :stoping
+    state :unknown
+
+    event :starting! do
+      transitions from: :stopped, to: :starting
+    end
+
+    event :running! do
+      transitions from: [:unknown, :starting], to: :running
+    end
+
+    event :stoping! do
+      transitions from: :running, to: :stoping
+    end
+
+    event :stopped! do
+      transitions from: [:unknown, :starting, :stoping], to: :stopped
+    end
+
+    event :unknown! do
+      transitions from: [:stopped, :starting, :running, :stoping], to: :unknown
+    end
+
+  end
+
+
 end

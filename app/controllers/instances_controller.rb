@@ -25,8 +25,12 @@ class InstancesController < ApplicationController
     @instance           = Instance.new(instance_params)
     @instance.component = @component
     @instance.image     = @component.images.find_by(release: @component.releases.active.first)
-    @instance.save
-    respond_with(@component)
+
+    if @instance.save
+      respond_with(@component)
+    else
+      respond_with(@instance)
+    end
   end
 
   def update
