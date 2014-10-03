@@ -1,25 +1,40 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @component.name
-%p
-  %b Description:
-  = @component.description
-%p
-  %b Disabled:
-  = @component.disabled
+= link_to '#', class: 'btn btn-default btn-back' do
+  %span.glyphicon.glyphicon-circle-arrow-left
+= link_to edit_component_path(@component), class: 'btn btn-default' do
+  %span.glyphicon.glyphicon-cog
+%hr
+.row
+  .col-md-2
+    %p
+      %b Name:
+  .col-md-10
+    = link_to @component.name, edit_component_path(@component)
+
 
 .row
-  .col-md-3
-    .panel.panel-default
-      .panel-heading
-        %h5 Instances
-      .panel-body
-        - @component.instances.each do |i|
-          %p= "#{i.host.name}:#{i.port}"
+  .col-md-2
+    %p
+      %b Disabled:
+  .col-md-10
+    = @component.disabled
 
 .row
-= link_to 'Edit', edit_component_path(@component)
-\|
-= link_to 'Back', components_path
+  .col-md-2
+    %p
+      %b Instances:
+  .col-md-10
+    = link_to component_instances_path(@component), class: 'btn btn-sm btn-default' do
+      %span.badge= @component.instances.count
+      %span.glyphicon.glyphicon-list
+    = link_to new_component_instance_path(@component), class: 'btn btn-sm btn-default' do
+      %span.glyphicon.glyphicon-plus
+.row
+  .col-md-2
+    %p
+      %b Description:
+  .col-md-10
+    = @component.description
+
+.row

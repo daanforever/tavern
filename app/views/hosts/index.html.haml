@@ -12,8 +12,8 @@
   %tbody
     - @hosts.each do |host|
       %tr
-        %td= link_to host.name, edit_host_path(host)
-        %td= link_to host.url, edit_host_path(host)
+        %td= link_to host.name, host_path(host)
+        %td= link_to host.url, host_path(host)
         %td
           = link_to toggle_host_path(host), remote: true, class: "btn btn-xs btn-rotate btn-toggle #{host.disabled? ? 'btn-warning' : 'btn-default'}", title: 'Disable' do
             %span.glyphicon.glyphicon-off

@@ -6,9 +6,10 @@
 %table.table
   %thead
     %tr
-      %th.col-md-4
-      %th.col-md-4 Releases
-      %th.col-md-4 Components
+      %th.col-md-5
+      %th.col-md-3 Releases
+      %th.col-md-3 Components
+      %th.col-md-1 Instances
   %tbody
     - @projects.includes(:releases).each do |project|
       %tr
@@ -27,4 +28,15 @@
         %td        
           - project.components.each do |component|
             %p= link_to component.name, component_path(component)
+        %td        
+          - project.components.each do |component|
+            %p.text-center
+              - instances = component.instances.count
+              - if instances == 0
+                = link_to new_component_instance_path(component) do
+                  %span.badge= instances
+              - else
+                = link_to component_instances_path(component) do
+                  %span.badge= instances
+
       

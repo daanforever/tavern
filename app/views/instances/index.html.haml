@@ -1,23 +1,31 @@
-%h1 Listing instances of #{@component.project.name}/#{@component.name}
+%p#notice= notice
 
-%table.table
-  %thead
-    %tr
-      %th Host
-      %th Component
-      %th
-  %tbody
-    - @instances.each do |instance|
-      %tr
-        %td= "#{instance.host.name}:#{instance.port}"
-        %td= "#{instance.component.name}:#{instance.image.release.name}"
-        %td
-          = link_to edit_component_instance_path(@component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
-            %span.glyphicon.glyphicon-cog
-          = link_to component_instance_path(@component, instance), :method => :delete, class: 'btn btn-xs btn-danger', 
-            title: 'Delete', data: { confirm: "Are you sure?" } do
-            %span.glyphicon.glyphicon-trash
+= link_to "#", class: 'btn btn-default btn-back' do
+  %span.glyphicon.glyphicon-circle-arrow-left
+= link_to new_component_instance_path(@component), class: 'btn btn-default' do
+  %span.glyphicon.glyphicon-plus
 
-%br
+%hr
 
-= link_to 'New Instance', new_component_instance_path(@component)
+%h2 Listing instances of #{@component.project.name}/#{@component.name}
+
+
+.row
+  .col-md-6
+    %table.table
+      %thead
+        %tr
+          %th Host
+          %th Release
+          %th
+      %tbody
+        - @instances.each do |instance|
+          %tr
+            %td= "#{instance.host.name}:#{instance.port}"
+            %td= "#{instance.image.release.name}"
+            %td
+              = link_to edit_component_instance_path(@component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+                %span.glyphicon.glyphicon-cog
+              = link_to component_instance_path(@component, instance), :method => :delete, class: 'btn btn-xs btn-danger', 
+                title: 'Delete', data: { confirm: "Are you sure?" } do
+                %span.glyphicon.glyphicon-trash
