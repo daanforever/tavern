@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/daanforever/docker_registry.git
-  revision: d7b88402998747de2aa8b7ecc5af88bcdf36f312
-  specs:
-    docker_registry (0.0.1)
-      faraday
-      faraday_middleware
-      oj
-
-GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 29f8f768f1702c6d032854b870d14eadb81cea88
   specs:
@@ -102,6 +93,10 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    docker_registry (0.0.1)
+      faraday
+      faraday_middleware
+      oj
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
@@ -288,7 +283,7 @@ DEPENDENCIES
   coveralls
   database_cleaner
   devise
-  docker_registry!
+  docker_registry
   factory_girl_rails
   faker
   guid
@@ -298,7 +293,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
-  kaminari-bootstrap (~> 0.1.3)
+  kaminari-bootstrap
   meta_request
   rack-mini-profiler
   railroady

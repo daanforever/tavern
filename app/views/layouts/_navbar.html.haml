@@ -1,0 +1,18 @@
+.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle.collapsed{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to content_for?(:title) ? yield(:title) : 'Tavern', root_path, class: 'navbar-brand'
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li{ active_if('registries') }
+          = link_to t('menu.registries'), registries_path
+        %li{ active_if('projects') }
+          = link_to t('menu.projects'), projects_path
+        %li{ active_if('hosts') }
+          = link_to t('menu.hosts'), hosts_path
+    / /.nav-collapse

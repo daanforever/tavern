@@ -61,5 +61,11 @@ class Instance < ActiveRecord::Base
 
   end
 
+  def release
+    self.component.releases.active.first
+  rescue
+    errors.add(:image, "Unable to find active release for component '#{self.component.to_s}'")
+    false
+  end
 
 end

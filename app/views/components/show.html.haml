@@ -1,24 +1,11 @@
-%p#notice= notice
-
-= link_to '#', class: 'btn btn-default btn-back' do
-  %span.glyphicon.glyphicon-circle-arrow-left
-= link_to edit_component_path(@component), class: 'btn btn-default' do
-  %span.glyphicon.glyphicon-cog
-%hr
-.row
-  .col-md-2
-    %p
-      %b Name:
-  .col-md-10
-    = link_to @component.name, edit_component_path(@component)
-
-
-.row
-  .col-md-2
-    %p
-      %b Disabled:
-  .col-md-10
-    = @component.disabled
+- content_for :header do
+  .row
+    .col-md-12.h1
+      = link_to '#', class: 'btn btn-default btn-back' do
+        %span.glyphicon.glyphicon-circle-arrow-left
+      = @component.name
+      = link_to edit_component_path(@component), class: 'btn btn-default' do
+        %span.glyphicon.glyphicon-cog
 
 .row
   .col-md-2
@@ -30,6 +17,14 @@
       %span.glyphicon.glyphicon-list
     = link_to new_component_instance_path(@component), class: 'btn btn-sm btn-default' do
       %span.glyphicon.glyphicon-plus
+
+.row
+  .col-md-2
+    %p
+      %b Disabled:
+  .col-md-10
+    = @component.disabled
+
 .row
   .col-md-2
     %p

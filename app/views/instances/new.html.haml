@@ -1,10 +1,11 @@
-%p#notice= notice
+- content_for :header do
+  %h1 New instance for #{@component.name}
+  %hr
 
-= link_to "#", class: 'btn btn-default btn-back' do
-  %span.glyphicon.glyphicon-circle-arrow-left
 
-%hr
+- content_for :controls do
+  = link_to "#", class: 'btn btn-default btn-back' do
+    %span.glyphicon.glyphicon-circle-arrow-left
 
-%h1 New instance for #{@component.name}
 
 = render 'form'
