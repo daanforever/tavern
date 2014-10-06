@@ -61,9 +61,14 @@ SimpleForm.setup do |config|
     b.use :label, class: 'col-md-3 control-label text-right'
 
     b.wrapper tag: 'div', class: 'col-md-9' do |ba|
-      ba.use :input, class: 'form-control', wrap_with: { tag: 'div', class: 'col-md-8' }
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
-      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+      ba.wrapper tag: 'div', class: 'row' do |br|
+        br.use :input, class: 'form-control', wrap_with: { tag: 'div', class: 'col-md-12' }
+      end
+
+      ba.wrapper tag: 'div', class: 'row' do |br|
+        br.use :error, wrap_with: { tag: 'div', class: 'col-md-12 help-block' }
+        br.use :hint,  wrap_with: { tag: 'div', class: 'col-md-12 help-block' }
+      end
     end
   end
 

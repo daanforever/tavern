@@ -1,21 +1,21 @@
 Rails.application.routes.draw do
 
-
   resources :components do
     get 'toggle',  on: :member
     resources :instances
   end
 
+  resources :releases
+
+  resources :projects do
+    get 'toggle', on: :member
+    resources :releases
+  end
+  
   resources :hosts do
     get 'toggle',  on: :member
   end
 
-  resources :releases
-
-  resources :projects do
-    get 'toggle',  on: :member
-  end
-  
   resources :registries do
     get 'refresh', on: :collection
     get 'partial', on: :collection

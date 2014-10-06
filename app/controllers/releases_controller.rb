@@ -1,10 +1,11 @@
 class ReleasesController < ApplicationController
+  before_action :set_project, only: [:index]
   before_action :set_release, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @releases = Release.all
+    @releases = @project ? @project.releases : Release.all
     respond_with(@releases)
   end
 
@@ -39,6 +40,10 @@ class ReleasesController < ApplicationController
   private
     def set_release
       @release = Release.find(params[:id])
+    end
+
+    def set_project
+      @project = Project.find_by(id: params[:project_id])
     end
 
     def release_params
