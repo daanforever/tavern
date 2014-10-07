@@ -15,8 +15,10 @@
 class Release < ActiveRecord::Base
   include AASM
 
-  belongs_to :project
+  belongs_to              :project
   has_and_belongs_to_many :components
+
+  before_create           :set_label
 
   enum state: {
     inactive: 0,
@@ -40,6 +42,11 @@ class Release < ActiveRecord::Base
   def deactivate_previous
     ap Release.active.to_a
     Release.active.each { |r| r.deactivate! }
+  end
+
+  protected
+  def set_label
+    label ||= name
   end
 
 end

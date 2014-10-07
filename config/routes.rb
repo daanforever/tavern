@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :environments do
+    resources :instances
+    resources :hosts
+  end
+
   resources :components do
     get 'toggle',  on: :member
     resources :instances

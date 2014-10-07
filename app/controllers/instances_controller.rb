@@ -21,7 +21,7 @@ class InstancesController < ApplicationController
       respond_with(@instance)
     else
       flash[:notice]    = 'Select active release first' 
-      redirect_to(@component.project)
+      redirect_to(project_releases_path(@component.project))
     end
 
   end

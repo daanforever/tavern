@@ -1,7 +1,8 @@
-%h1 Editing release
+- content_for :header do
+  %h1 
+    Editing release
+    = link_to '#', class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+  %hr
 
 = render 'form'
-
-= link_to 'Show', @release
-\|
-= link_to 'Back', releases_path

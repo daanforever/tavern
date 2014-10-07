@@ -13,10 +13,12 @@
 #
 
 class Project < ActiveRecord::Base
-  has_and_belongs_to_many :registries
+
+  has_many :environments
   has_many :releases
   has_many :components
   has_many :images
+
   before_save :set_label
 
   protected
