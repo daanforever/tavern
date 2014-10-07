@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003141454) do
+ActiveRecord::Schema.define(version: 20141007160151) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20141003141454) do
   add_index "components_releases", ["component_id"], name: "index_components_releases_on_component_id"
   add_index "components_releases", ["release_id"], name: "index_components_releases_on_release_id"
 
+  create_table "environments", force: true do |t|
+    t.string   "name"
+    t.integer  "project_id"
+    t.integer  "release_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "environments", ["project_id"], name: "index_environments_on_project_id"
+  add_index "environments", ["release_id"], name: "index_environments_on_release_id"
+
   create_table "hosts", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -40,7 +51,10 @@ ActiveRecord::Schema.define(version: 20141003141454) do
     t.text     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "environment_id"
   end
+
+  add_index "hosts", ["environment_id"], name: "index_hosts_on_environment_id"
 
   create_table "images", force: true do |t|
     t.string   "name"
@@ -70,9 +84,11 @@ ActiveRecord::Schema.define(version: 20141003141454) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "state"
+    t.integer  "environment_id"
   end
 
   add_index "instances", ["component_id"], name: "index_instances_on_component_id"
+  add_index "instances", ["environment_id"], name: "index_instances_on_environment_id"
   add_index "instances", ["host_id"], name: "index_instances_on_host_id"
   add_index "instances", ["image_id"], name: "index_instances_on_image_id"
 

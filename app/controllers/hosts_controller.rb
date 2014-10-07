@@ -1,4 +1,5 @@
 class HostsController < ApplicationController
+  before_action :set_environment, only: [:index]
   before_action :set_host, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -50,6 +51,10 @@ class HostsController < ApplicationController
   private
     def set_host
       @host = Host.find(params[:id])
+    end
+
+    def set_environment
+      @environment = Environments.find_by( params[:environment_id] )
     end
 
     def host_params

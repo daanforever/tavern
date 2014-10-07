@@ -1,15 +1,16 @@
-%p#notice= notice
+- content_for :header do
+  %h1 
+    #{@release.project.name}:#{@release.name}
+    = link_to "#", class: 'btn btn-default btn-back', title: 'Back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+    = link_to edit_release_path(@release), class: 'btn btn-default btn-rotate', title: 'Settings' do
+      %span.glyphicon.glyphicon-cog
+  %hr
 
 .row
   .col-md-4
     %p
-      %b Release:
-  .col-md-8
-    = @release.name
-.row
-  .col-md-4
-    %p
-      %b Label:
+      %b #{t('.alias')}:
   .col-md-8
     = @release.label
 .row

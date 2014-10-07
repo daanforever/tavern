@@ -13,9 +13,11 @@
 #
 
 class Host < ActiveRecord::Base
-  has_many :instances
-  validates :url, presence: true
+  belongs_to :environment
+  has_many   :instances
+
   before_validation :set_name
+  validates :url, presence: true
   validates :name, uniqueness: true
 
   protected 

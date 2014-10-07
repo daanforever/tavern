@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @environment.name
+%p
+  %b Release:
+  = @environment.release
+
+= link_to 'Edit', edit_environment_path(@environment)
+\|
+= link_to 'Back', environments_path

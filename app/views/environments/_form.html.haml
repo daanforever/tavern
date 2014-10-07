@@ -1,0 +1,9 @@
+= simple_form_for(@environment) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.association :release
+
+  .form-actions
+    = f.button :submit

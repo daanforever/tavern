@@ -27,8 +27,10 @@ window.ready = ->
     animateStart( $( this ) )
 
   ).on( "click", ".btn-back", ( e ) ->
+
     e.preventDefault()
     history.back()
+
   ).on( "ajax:success", ".btn-rotate", (e, data, status, xhr) ->
 
     animateStop( $( this ) )
@@ -45,6 +47,8 @@ window.ready = ->
 
   ).on( "ajax:success", ".btn-toggle", (e, data, status, xhr) ->
     $( this ).toggleClass( toggleClass )
+  ).on( "page:restore", ->
+    animateStop( $( '.btn-rotate' ) )
   )
 
 $(document).ready(ready)

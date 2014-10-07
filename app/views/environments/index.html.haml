@@ -1,0 +1,21 @@
+%h1 Listing environments
+
+%table
+  %tr
+    %th Name
+    %th Release
+    %th
+    %th
+    %th
+
+  - @environments.each do |environment|
+    %tr
+      %td= environment.name
+      %td= environment.release
+      %td= link_to 'Show', environment
+      %td= link_to 'Edit', edit_environment_path(environment)
+      %td= link_to 'Destroy', environment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Environment', new_environment_path
