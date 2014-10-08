@@ -2,12 +2,12 @@
   = f.error_notification
 
   .row.form-inputs
-    = f.input :url
-    = f.input :name
-    = f.input :description
-    = f.input :disabled
+    .col-md-8.col-md-offset-1
+      = f.input       :url
+      = f.association :environment
+      = f.input       :disabled
   .row.form-actions
-    .col-sm-6.col-sm-offset-3
+    .col-md-10.col-md-offset-3
       = f.button :submit, class: 'btn-primary'
       = link_to 'Cancel', hosts_path, class: 'btn btn-default'
       - unless @host.new_record?

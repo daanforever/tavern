@@ -2,7 +2,7 @@ class HostsController < ApplicationController
   before_action :set_environment, only: [:index]
   before_action :set_host, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     if @environment
@@ -62,6 +62,6 @@ class HostsController < ApplicationController
     end
 
     def host_params
-      params.require(:host).permit(:url, :name, :description, :disabled)
+      params.require(:host).permit(:url, :name, :description, :disabled, :environment_id)
     end
 end

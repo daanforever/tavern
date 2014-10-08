@@ -1,0 +1,115 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ApplicationController	controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ApplicationHelper	helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+Component	models/component.rb	/^class Component < ActiveRecord::Base$/;"	c
+ComponentsController	controllers/components_controller.rb	/^class ComponentsController < ApplicationController$/;"	c
+ComponentsHelper	helpers/components_helper.rb	/^module ComponentsHelper$/;"	m
+Environment	models/environment.rb	/^class Environment < ActiveRecord::Base$/;"	c
+EnvironmentsController	controllers/environments_controller.rb	/^class EnvironmentsController < ApplicationController$/;"	c
+EnvironmentsHelper	helpers/environments_helper.rb	/^module EnvironmentsHelper$/;"	m
+Host	models/host.rb	/^class Host < ActiveRecord::Base$/;"	c
+HostsController	controllers/hosts_controller.rb	/^class HostsController < ApplicationController$/;"	c
+HostsHelper	helpers/hosts_helper.rb	/^module HostsHelper$/;"	m
+Image	models/image.rb	/^class Image < ActiveRecord::Base$/;"	c
+Instance	models/instance.rb	/^class Instance < ActiveRecord::Base$/;"	c
+InstancesController	controllers/instances_controller.rb	/^class InstancesController < ApplicationController$/;"	c
+InstancesHelper	helpers/instances_helper.rb	/^module InstancesHelper$/;"	m
+Project	models/project.rb	/^class Project < ActiveRecord::Base$/;"	c
+ProjectsController	controllers/projects_controller.rb	/^class ProjectsController < ApplicationController$/;"	c
+ProjectsHelper	helpers/projects_helper.rb	/^module ProjectsHelper$/;"	m
+RegistriesController	controllers/registries_controller.rb	/^class RegistriesController < ApplicationController$/;"	c
+RegistriesHelper	helpers/registries_helper.rb	/^module RegistriesHelper$/;"	m
+Registry	models/registry.rb	/^class Registry < ActiveRecord::Base$/;"	c
+Release	models/release.rb	/^class Release < ActiveRecord::Base$/;"	c
+ReleasesController	controllers/releases_controller.rb	/^class ReleasesController < ApplicationController$/;"	c
+ReleasesHelper	helpers/releases_helper.rb	/^module ReleasesHelper$/;"	m
+WelcomeController	controllers/welcome_controller.rb	/^class WelcomeController < ApplicationController$/;"	c
+WelcomeHelper	helpers/welcome_helper.rb	/^module WelcomeHelper$/;"	m
+active_if	helpers/application_helper.rb	/^  def active_if(controller)$/;"	f	class:ApplicationHelper
+component_params	controllers/components_controller.rb	/^    def component_params$/;"	f	class:ComponentsController
+create	controllers/components_controller.rb	/^  def create$/;"	f	class:ComponentsController
+create	controllers/environments_controller.rb	/^  def create$/;"	f	class:EnvironmentsController
+create	controllers/hosts_controller.rb	/^  def create$/;"	f	class:HostsController
+create	controllers/instances_controller.rb	/^  def create$/;"	f	class:InstancesController
+create	controllers/projects_controller.rb	/^  def create$/;"	f	class:ProjectsController
+create	controllers/registries_controller.rb	/^  def create$/;"	f	class:RegistriesController
+create	controllers/releases_controller.rb	/^  def create$/;"	f	class:ReleasesController
+deactivate_previous	models/release.rb	/^  def deactivate_previous$/;"	f	class:Release
+destroy	controllers/components_controller.rb	/^  def destroy$/;"	f	class:ComponentsController
+destroy	controllers/environments_controller.rb	/^  def destroy$/;"	f	class:EnvironmentsController
+destroy	controllers/hosts_controller.rb	/^  def destroy$/;"	f	class:HostsController
+destroy	controllers/instances_controller.rb	/^  def destroy$/;"	f	class:InstancesController
+destroy	controllers/projects_controller.rb	/^  def destroy$/;"	f	class:ProjectsController
+destroy	controllers/registries_controller.rb	/^  def destroy$/;"	f	class:RegistriesController
+destroy	controllers/releases_controller.rb	/^  def destroy$/;"	f	class:ReleasesController
+edit	controllers/components_controller.rb	/^  def edit$/;"	f	class:ComponentsController
+edit	controllers/environments_controller.rb	/^  def edit$/;"	f	class:EnvironmentsController
+edit	controllers/hosts_controller.rb	/^  def edit$/;"	f	class:HostsController
+edit	controllers/instances_controller.rb	/^  def edit$/;"	f	class:InstancesController
+edit	controllers/projects_controller.rb	/^  def edit$/;"	f	class:ProjectsController
+edit	controllers/registries_controller.rb	/^  def edit$/;"	f	class:RegistriesController
+edit	controllers/releases_controller.rb	/^  def edit$/;"	f	class:ReleasesController
+environment_params	controllers/environments_controller.rb	/^    def environment_params$/;"	f	class:EnvironmentsController
+find_or_create	models/component.rb	/^  def self.find_or_create!(project: project, release: release, name: name)$/;"	F	class:Component
+host_params	controllers/hosts_controller.rb	/^    def host_params$/;"	f	class:HostsController
+index	controllers/components_controller.rb	/^  def index$/;"	f	class:ComponentsController
+index	controllers/environments_controller.rb	/^  def index$/;"	f	class:EnvironmentsController
+index	controllers/hosts_controller.rb	/^  def index$/;"	f	class:HostsController
+index	controllers/instances_controller.rb	/^  def index$/;"	f	class:InstancesController
+index	controllers/projects_controller.rb	/^  def index$/;"	f	class:ProjectsController
+index	controllers/registries_controller.rb	/^  def index$/;"	f	class:RegistriesController
+index	controllers/releases_controller.rb	/^  def index$/;"	f	class:ReleasesController
+index	controllers/welcome_controller.rb	/^  def index$/;"	f	class:WelcomeController
+instance_params	controllers/instances_controller.rb	/^    def instance_params$/;"	f	class:InstancesController
+new	controllers/components_controller.rb	/^  def new$/;"	f	class:ComponentsController
+new	controllers/environments_controller.rb	/^  def new$/;"	f	class:EnvironmentsController
+new	controllers/hosts_controller.rb	/^  def new$/;"	f	class:HostsController
+new	controllers/instances_controller.rb	/^  def new$/;"	f	class:InstancesController
+new	controllers/projects_controller.rb	/^  def new$/;"	f	class:ProjectsController
+new	controllers/registries_controller.rb	/^  def new$/;"	f	class:RegistriesController
+new	controllers/releases_controller.rb	/^  def new$/;"	f	class:ReleasesController
+partial	controllers/registries_controller.rb	/^  def partial$/;"	f	class:RegistriesController
+project_params	controllers/projects_controller.rb	/^    def project_params$/;"	f	class:ProjectsController
+refresh	controllers/registries_controller.rb	/^  def refresh$/;"	f	class:RegistriesController
+refresh	models/registry.rb	/^  def refresh$/;"	f	class:Registry
+refresh	models/registry.rb	/^  def self.refresh$/;"	F	class:Registry.refresh
+registry_params	controllers/registries_controller.rb	/^    def registry_params$/;"	f	class:RegistriesController
+release_params	controllers/releases_controller.rb	/^    def release_params$/;"	f	class:ReleasesController
+search	models/registry.rb	/^  def search$/;"	f	class:Registry.refresh
+set_component	controllers/components_controller.rb	/^    def set_component$/;"	f	class:ComponentsController
+set_component	controllers/instances_controller.rb	/^    def set_component$/;"	f	class:InstancesController
+set_environment	controllers/environments_controller.rb	/^    def set_environment$/;"	f	class:EnvironmentsController
+set_environment	controllers/hosts_controller.rb	/^    def set_environment$/;"	f	class:HostsController
+set_host	controllers/hosts_controller.rb	/^    def set_host$/;"	f	class:HostsController
+set_instance	controllers/instances_controller.rb	/^    def set_instance$/;"	f	class:InstancesController
+set_label	models/project.rb	/^  def set_label$/;"	f	class:Project
+set_label	models/release.rb	/^  def set_label$/;"	f	class:Release
+set_name	models/host.rb	/^  def set_name$/;"	f	class:Host
+set_project	controllers/projects_controller.rb	/^    def set_project$/;"	f	class:ProjectsController
+set_project	controllers/releases_controller.rb	/^    def set_project$/;"	f	class:ReleasesController
+set_registries	controllers/registries_controller.rb	/^    def set_registries$/;"	f	class:RegistriesController
+set_registry	controllers/registries_controller.rb	/^    def set_registry$/;"	f	class:RegistriesController
+set_release	controllers/releases_controller.rb	/^    def set_release$/;"	f	class:ReleasesController
+show	controllers/components_controller.rb	/^  def show$/;"	f	class:ComponentsController
+show	controllers/environments_controller.rb	/^  def show$/;"	f	class:EnvironmentsController
+show	controllers/hosts_controller.rb	/^  def show$/;"	f	class:HostsController
+show	controllers/instances_controller.rb	/^  def show$/;"	f	class:InstancesController
+show	controllers/projects_controller.rb	/^  def show$/;"	f	class:ProjectsController
+show	controllers/registries_controller.rb	/^  def show$/;"	f	class:RegistriesController
+show	controllers/releases_controller.rb	/^  def show$/;"	f	class:ReleasesController
+statistics	models/registry.rb	/^  def statistics$/;"	f	class:Registry.refresh
+toggle	controllers/hosts_controller.rb	/^  def toggle$/;"	f	class:HostsController
+toggle	controllers/projects_controller.rb	/^  def toggle$/;"	f	class:ProjectsController
+toggle	controllers/registries_controller.rb	/^  def toggle$/;"	f	class:RegistriesController
+update	controllers/components_controller.rb	/^  def update$/;"	f	class:ComponentsController
+update	controllers/environments_controller.rb	/^  def update$/;"	f	class:EnvironmentsController
+update	controllers/hosts_controller.rb	/^  def update$/;"	f	class:HostsController
+update	controllers/instances_controller.rb	/^  def update$/;"	f	class:InstancesController
+update	controllers/projects_controller.rb	/^  def update$/;"	f	class:ProjectsController
+update	controllers/registries_controller.rb	/^  def update$/;"	f	class:RegistriesController
+update	controllers/releases_controller.rb	/^  def update$/;"	f	class:ReleasesController

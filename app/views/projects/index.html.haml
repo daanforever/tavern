@@ -1,14 +1,15 @@
-%h1 
-  Projects
-  = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
-    %span.glyphicon.glyphicon-repeat
+- content_for :header do
+  %h1 
+    Projects
+    = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
+      %span.glyphicon.glyphicon-repeat
 
 %table.table
   %thead
     %tr
       %th.col-md-3
-      %th.col-md-3 Environments
       %th.col-md-3 Releases
+      %th.col-md-3 Environments
       %th.col-md-3 Components
   %tbody
     - @projects.includes(:releases).each do |project|
@@ -16,8 +17,16 @@
         %td
           %blockquote
             %p
-              = link_to project.name, edit_project_path(project)
+              = link_to project.name, project
               %small= project.description
+
+
+        %td
+          - project.releases.each do |release|
+            %p
+              = link_to release.name, release_path(release)
+              - if release.active?
+                %span.glyphicon.glyphicon-ok.text-success
 
         %td
           - project.environments.each do |environment|
@@ -27,13 +36,6 @@
               %span.col-md-6.visible-md-inline-block.visible-lg-inline-block
                 = link_to environment_hosts_path(environment) do
                   %span.badge= pluralize( environment.hosts.count, t(:hosts, default: 'host') )
-
-        %td
-          - project.releases.each do |release|
-            %p
-              = link_to release.name, release_path(release)
-              - if release.active?
-                %span.glyphicon.glyphicon-ok.text-success
 
         %td
           - project.components.each do |component|

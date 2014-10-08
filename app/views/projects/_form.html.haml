@@ -1,16 +1,17 @@
-= simple_form_for(@project, wrapper: :horizontal_form) do |f|
+= simple_form_for(@project, html: { class: 'form-horizontal' } ) do |f|
   = f.error_notification
 
-  .row.form-inputs
-    = f.input :name, disabled: true
-    = f.input :label
-    = f.input :description
-    = f.input :disabled
+  .row
+    .form-inputs.col-md-8.col-md-offset-1
+      = f.input :name, disabled: true
+      = f.input :label
+      = f.input :description
+      = f.input :disabled
 
-  .row.form-actions
-    .col-sm-6.col-sm-offset-3
+  .row
+    .form-actions.col-md-6.col-md-offset-3
       = f.button :submit, class: 'btn-primary'
-      = link_to 'Cancel', projects_path, class: 'btn btn-default'
+      = link_to 'Cancel', '#', class: 'btn btn-default btn-back'
       - unless @project.new_record?
         = link_to @project, :method => :delete, class: 'btn btn-sm btn-danger', 
           title: 'Delete', data: { confirm: "Are you sure?" } do

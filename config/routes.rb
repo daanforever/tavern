@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :projects do
     get 'toggle', on: :member
     resources :releases
+    resources :environments
   end
   
   resources :hosts do

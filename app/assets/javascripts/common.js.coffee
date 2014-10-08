@@ -5,6 +5,7 @@ window.animateReverseClass  = "icon-refresh-reverse-animate"
 window.toggleClass          = "btn-default btn-warning"
 window.errorClass           = "btn-danger"
 window.errorClassTimeout    = 3000
+window.errorClassTimer      = ''
 
 animateStart = (item) ->
   item.addClass( waitNetClass )
@@ -40,7 +41,7 @@ window.ready = ->
     btn = $( this )
     animateStop( btn )
     errorClassAdd( btn )
-    window.errorClassTimer = window.setTimeout( ->
+    errorClassTimer = window.setTimeout( ->
       btn.removeClass( errorClass )
       btn.addClass( window.original )
     , errorClassTimeout)
@@ -48,8 +49,11 @@ window.ready = ->
   ).on( "ajax:success", ".btn-toggle", (e, data, status, xhr) ->
     $( this ).toggleClass( toggleClass )
   ).on( "page:restore", ->
-    animateStop( $( '.btn-rotate' ) )
+    btn = $( '.btn-rotate' )
+    animateStop( btn )
+    btn.removeClass( errorClass )
+    btn.addClass( window.original )
   )
 
 $(document).ready(ready)
-$(document).on('page:load', ready)
+# $(document).on('page:load', ready)

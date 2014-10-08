@@ -21,8 +21,9 @@ class Instance < ActiveRecord::Base
   belongs_to :image
   belongs_to :component
   belongs_to :host
+  belongs_to :environment
 
-  validates :port, :image, :component, :host, presence: true
+  validates :environment, :host, :component, :port, :image, presence: true
 
   enum state: {
     stopped: 0,
@@ -63,11 +64,11 @@ class Instance < ActiveRecord::Base
 
   end
 
-  def release
-    self.component.releases.active.first
-  rescue
-    errors.add(:image, "Unable to find active release for component '#{self.component.to_s}'")
-    false
-  end
+  # def release
+  #   self.component.releases.active.first
+  # rescue
+  #   errors.add(:image, "Unable to find active release for component '#{self.component.to_s}'")
+  #   false
+  # end
 
 end

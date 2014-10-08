@@ -1,7 +1,9 @@
-%h1 Editing environment
+- content_for :header do
+  %h1 
+    Editing environment
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+
+  %hr
 
 = render 'form'
-
-= link_to 'Show', @environment
-\|
-= link_to 'Back', environments_path

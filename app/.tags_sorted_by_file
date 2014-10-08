@@ -1,0 +1,115 @@
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+ApplicationController	controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ComponentsController	controllers/components_controller.rb	/^class ComponentsController < ApplicationController$/;"	c
+component_params	controllers/components_controller.rb	/^    def component_params$/;"	f	class:ComponentsController
+create	controllers/components_controller.rb	/^  def create$/;"	f	class:ComponentsController
+destroy	controllers/components_controller.rb	/^  def destroy$/;"	f	class:ComponentsController
+edit	controllers/components_controller.rb	/^  def edit$/;"	f	class:ComponentsController
+index	controllers/components_controller.rb	/^  def index$/;"	f	class:ComponentsController
+new	controllers/components_controller.rb	/^  def new$/;"	f	class:ComponentsController
+set_component	controllers/components_controller.rb	/^    def set_component$/;"	f	class:ComponentsController
+show	controllers/components_controller.rb	/^  def show$/;"	f	class:ComponentsController
+update	controllers/components_controller.rb	/^  def update$/;"	f	class:ComponentsController
+EnvironmentsController	controllers/environments_controller.rb	/^class EnvironmentsController < ApplicationController$/;"	c
+create	controllers/environments_controller.rb	/^  def create$/;"	f	class:EnvironmentsController
+destroy	controllers/environments_controller.rb	/^  def destroy$/;"	f	class:EnvironmentsController
+edit	controllers/environments_controller.rb	/^  def edit$/;"	f	class:EnvironmentsController
+environment_params	controllers/environments_controller.rb	/^    def environment_params$/;"	f	class:EnvironmentsController
+index	controllers/environments_controller.rb	/^  def index$/;"	f	class:EnvironmentsController
+new	controllers/environments_controller.rb	/^  def new$/;"	f	class:EnvironmentsController
+set_environment	controllers/environments_controller.rb	/^    def set_environment$/;"	f	class:EnvironmentsController
+show	controllers/environments_controller.rb	/^  def show$/;"	f	class:EnvironmentsController
+update	controllers/environments_controller.rb	/^  def update$/;"	f	class:EnvironmentsController
+HostsController	controllers/hosts_controller.rb	/^class HostsController < ApplicationController$/;"	c
+create	controllers/hosts_controller.rb	/^  def create$/;"	f	class:HostsController
+destroy	controllers/hosts_controller.rb	/^  def destroy$/;"	f	class:HostsController
+edit	controllers/hosts_controller.rb	/^  def edit$/;"	f	class:HostsController
+host_params	controllers/hosts_controller.rb	/^    def host_params$/;"	f	class:HostsController
+index	controllers/hosts_controller.rb	/^  def index$/;"	f	class:HostsController
+new	controllers/hosts_controller.rb	/^  def new$/;"	f	class:HostsController
+set_environment	controllers/hosts_controller.rb	/^    def set_environment$/;"	f	class:HostsController
+set_host	controllers/hosts_controller.rb	/^    def set_host$/;"	f	class:HostsController
+show	controllers/hosts_controller.rb	/^  def show$/;"	f	class:HostsController
+toggle	controllers/hosts_controller.rb	/^  def toggle$/;"	f	class:HostsController
+update	controllers/hosts_controller.rb	/^  def update$/;"	f	class:HostsController
+InstancesController	controllers/instances_controller.rb	/^class InstancesController < ApplicationController$/;"	c
+create	controllers/instances_controller.rb	/^  def create$/;"	f	class:InstancesController
+destroy	controllers/instances_controller.rb	/^  def destroy$/;"	f	class:InstancesController
+edit	controllers/instances_controller.rb	/^  def edit$/;"	f	class:InstancesController
+index	controllers/instances_controller.rb	/^  def index$/;"	f	class:InstancesController
+instance_params	controllers/instances_controller.rb	/^    def instance_params$/;"	f	class:InstancesController
+new	controllers/instances_controller.rb	/^  def new$/;"	f	class:InstancesController
+set_component	controllers/instances_controller.rb	/^    def set_component$/;"	f	class:InstancesController
+set_instance	controllers/instances_controller.rb	/^    def set_instance$/;"	f	class:InstancesController
+show	controllers/instances_controller.rb	/^  def show$/;"	f	class:InstancesController
+update	controllers/instances_controller.rb	/^  def update$/;"	f	class:InstancesController
+ProjectsController	controllers/projects_controller.rb	/^class ProjectsController < ApplicationController$/;"	c
+create	controllers/projects_controller.rb	/^  def create$/;"	f	class:ProjectsController
+destroy	controllers/projects_controller.rb	/^  def destroy$/;"	f	class:ProjectsController
+edit	controllers/projects_controller.rb	/^  def edit$/;"	f	class:ProjectsController
+index	controllers/projects_controller.rb	/^  def index$/;"	f	class:ProjectsController
+new	controllers/projects_controller.rb	/^  def new$/;"	f	class:ProjectsController
+project_params	controllers/projects_controller.rb	/^    def project_params$/;"	f	class:ProjectsController
+set_project	controllers/projects_controller.rb	/^    def set_project$/;"	f	class:ProjectsController
+show	controllers/projects_controller.rb	/^  def show$/;"	f	class:ProjectsController
+toggle	controllers/projects_controller.rb	/^  def toggle$/;"	f	class:ProjectsController
+update	controllers/projects_controller.rb	/^  def update$/;"	f	class:ProjectsController
+RegistriesController	controllers/registries_controller.rb	/^class RegistriesController < ApplicationController$/;"	c
+create	controllers/registries_controller.rb	/^  def create$/;"	f	class:RegistriesController
+destroy	controllers/registries_controller.rb	/^  def destroy$/;"	f	class:RegistriesController
+edit	controllers/registries_controller.rb	/^  def edit$/;"	f	class:RegistriesController
+index	controllers/registries_controller.rb	/^  def index$/;"	f	class:RegistriesController
+new	controllers/registries_controller.rb	/^  def new$/;"	f	class:RegistriesController
+partial	controllers/registries_controller.rb	/^  def partial$/;"	f	class:RegistriesController
+refresh	controllers/registries_controller.rb	/^  def refresh$/;"	f	class:RegistriesController
+registry_params	controllers/registries_controller.rb	/^    def registry_params$/;"	f	class:RegistriesController
+set_registries	controllers/registries_controller.rb	/^    def set_registries$/;"	f	class:RegistriesController
+set_registry	controllers/registries_controller.rb	/^    def set_registry$/;"	f	class:RegistriesController
+show	controllers/registries_controller.rb	/^  def show$/;"	f	class:RegistriesController
+toggle	controllers/registries_controller.rb	/^  def toggle$/;"	f	class:RegistriesController
+update	controllers/registries_controller.rb	/^  def update$/;"	f	class:RegistriesController
+ReleasesController	controllers/releases_controller.rb	/^class ReleasesController < ApplicationController$/;"	c
+create	controllers/releases_controller.rb	/^  def create$/;"	f	class:ReleasesController
+destroy	controllers/releases_controller.rb	/^  def destroy$/;"	f	class:ReleasesController
+edit	controllers/releases_controller.rb	/^  def edit$/;"	f	class:ReleasesController
+index	controllers/releases_controller.rb	/^  def index$/;"	f	class:ReleasesController
+new	controllers/releases_controller.rb	/^  def new$/;"	f	class:ReleasesController
+release_params	controllers/releases_controller.rb	/^    def release_params$/;"	f	class:ReleasesController
+set_project	controllers/releases_controller.rb	/^    def set_project$/;"	f	class:ReleasesController
+set_release	controllers/releases_controller.rb	/^    def set_release$/;"	f	class:ReleasesController
+show	controllers/releases_controller.rb	/^  def show$/;"	f	class:ReleasesController
+update	controllers/releases_controller.rb	/^  def update$/;"	f	class:ReleasesController
+WelcomeController	controllers/welcome_controller.rb	/^class WelcomeController < ApplicationController$/;"	c
+index	controllers/welcome_controller.rb	/^  def index$/;"	f	class:WelcomeController
+ApplicationHelper	helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+active_if	helpers/application_helper.rb	/^  def active_if(controller)$/;"	f	class:ApplicationHelper
+ComponentsHelper	helpers/components_helper.rb	/^module ComponentsHelper$/;"	m
+EnvironmentsHelper	helpers/environments_helper.rb	/^module EnvironmentsHelper$/;"	m
+HostsHelper	helpers/hosts_helper.rb	/^module HostsHelper$/;"	m
+InstancesHelper	helpers/instances_helper.rb	/^module InstancesHelper$/;"	m
+ProjectsHelper	helpers/projects_helper.rb	/^module ProjectsHelper$/;"	m
+RegistriesHelper	helpers/registries_helper.rb	/^module RegistriesHelper$/;"	m
+ReleasesHelper	helpers/releases_helper.rb	/^module ReleasesHelper$/;"	m
+WelcomeHelper	helpers/welcome_helper.rb	/^module WelcomeHelper$/;"	m
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+Component	models/component.rb	/^class Component < ActiveRecord::Base$/;"	c
+find_or_create	models/component.rb	/^  def self.find_or_create!(project: project, release: release, name: name)$/;"	F	class:Component
+Environment	models/environment.rb	/^class Environment < ActiveRecord::Base$/;"	c
+Host	models/host.rb	/^class Host < ActiveRecord::Base$/;"	c
+set_name	models/host.rb	/^  def set_name$/;"	f	class:Host
+Image	models/image.rb	/^class Image < ActiveRecord::Base$/;"	c
+Instance	models/instance.rb	/^class Instance < ActiveRecord::Base$/;"	c
+Project	models/project.rb	/^class Project < ActiveRecord::Base$/;"	c
+set_label	models/project.rb	/^  def set_label$/;"	f	class:Project
+Registry	models/registry.rb	/^class Registry < ActiveRecord::Base$/;"	c
+refresh	models/registry.rb	/^  def refresh$/;"	f	class:Registry
+refresh	models/registry.rb	/^  def self.refresh$/;"	F	class:Registry.refresh
+search	models/registry.rb	/^  def search$/;"	f	class:Registry.refresh
+statistics	models/registry.rb	/^  def statistics$/;"	f	class:Registry.refresh
+Release	models/release.rb	/^class Release < ActiveRecord::Base$/;"	c
+deactivate_previous	models/release.rb	/^  def deactivate_previous$/;"	f	class:Release
+set_label	models/release.rb	/^  def set_label$/;"	f	class:Release

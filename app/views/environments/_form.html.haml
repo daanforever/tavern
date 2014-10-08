@@ -1,9 +1,15 @@
-= simple_form_for(@environment) do |f|
+= simple_form_for(@environment, html: {class: 'form-horizontal'} ) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.input :name
-    = f.association :release
+  .row.form-inputs
+    .col-md-8.col-md-offset-1
+      = f.input :name
+      = f.association :release
 
-  .form-actions
-    = f.button :submit
+  .row.form-actions
+    .col-md-7.col-md-offset-3
+      = f.button :submit, class: 'btn-primary'
+      - unless @environment.new_record?
+        = link_to @environment, :method => :delete, class: 'btn btn-sm btn-danger', 
+          title: 'Delete', data: { confirm: "Are you sure?" } do
+          %span.glyphicon.glyphicon-trash

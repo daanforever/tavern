@@ -13,8 +13,8 @@
       %b Url:
       = @host.url
     %p
-      %b Name:
-      = @host.name
+      %b Environment:
+      = @host.environment.try(:name)
     %p
       %b Disabled:
       = @host.disabled
