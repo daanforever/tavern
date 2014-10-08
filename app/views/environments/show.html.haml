@@ -1,12 +1,31 @@
-%p#notice= notice
+- content_for :header do
+  .h1
+    Environment #{@environment.name}
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+
+    = link_to edit_environment_path(@environment), class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-cog
+  %hr
 
 %p
-  %b Name:
-  = @environment.name
-%p
-  %b Release:
-  = @environment.release
+  %span.h4 Current release:
+  %span.h3= @environment.release.name
 
-= link_to 'Edit', edit_environment_path(@environment)
-\|
-= link_to 'Back', environments_path
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        Hosts
+      .panel-body
+        - @environment.hosts.each do |host|
+          %p= host.url
+
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        Instances
+      .panel-body
+        - @environment.instances.each do |instance|
+          %p= instance.component.name
+

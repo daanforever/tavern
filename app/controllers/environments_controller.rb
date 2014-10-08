@@ -1,8 +1,13 @@
 class EnvironmentsController < ApplicationController
+  before_action :set_project, only: [:index]
   before_action :set_environment, only: [:show, :edit, :update, :destroy]
 
   def index
-    @environments = Environment.all
+    if @project
+      @environments = @project.environments
+    else
+      @environments = Environment.all
+    end
     respond_with(@environments)
   end
 
@@ -37,6 +42,10 @@ class EnvironmentsController < ApplicationController
   private
     def set_environment
       @environment = Environment.find(params[:id])
+    end
+
+    def set_project
+      @project = Project.find(params[:project_id]) if params[:project_id]
     end
 
     def environment_params

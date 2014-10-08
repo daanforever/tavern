@@ -3,11 +3,10 @@
     .col-md-8.col-md-offset-2
       = f.error_notification
   .row
-    .form-inputs.col-md-10
-      = f.association :image
-      = f.association :host
+    .form-inputs.col-md-8.col-md-offset-1
+      = f.association :environment
+      = f.association :host, disabled: true
       = f.input :port
-      = f.input :name
 
   .row
     .form-actions

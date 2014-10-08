@@ -1,14 +1,34 @@
-%p#notice= notice
+- content_for :header do
+  %h1
+    Project:
+    = @project.name
+    = link_to '#', class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+    = link_to edit_project_path(@project), class: 'btn btn-default btn-rotate' do
+      %span.glyphicon.glyphicon-cog
+  %hr
 
-%p
-  %b Name:
-  = @project.name
-%p
-  %b Description:
-  = @project.description
-%p
-  %b Disabled:
-  = @project.disabled
+.row
+  .col-md-2
+    %h5 Name:
+  .col-md-10
+    = @project.name
+.row
+  .col-md-2
+    %h5 Disabled:
+  .col-md-10
+    %span= @project.disabled
+
+.row
+  .col-md-2
+    %h5 Environments:
+  .col-md-10
+    = link_to project_environments_path(@project), class: 'btn btn-sm btn-default' do
+      %span.badge= @project.environments.count
+      %span.glyphicon.glyphicon-list
+    = link_to new_project_environment_path(@project), class: 'btn btn-sm btn-default' do
+      %span.glyphicon.glyphicon-plus
+
 
 = link_to 'Edit', edit_project_path(@project)
 \|

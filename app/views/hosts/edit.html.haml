@@ -1,8 +1,7 @@
-%p#notice= notice
-
-= link_to "#", class: 'btn btn-default btn-back' do
-  %span.glyphicon.glyphicon-circle-arrow-left
-
-%h1 Editing host
+- content_for :header do
+  %h1 
+    Editing host
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
 
 = render 'form'

@@ -15,15 +15,7 @@ class InstancesController < ApplicationController
 
   def new
     @instance           = Instance.new(component: @component)
-
-    if @instance.release
-      @instance.image   = @component.images.find_by(release: @instance.release)
-      respond_with(@instance)
-    else
-      flash[:notice]    = 'Select active release first' 
-      redirect_to(project_releases_path(@component.project))
-    end
-
+    respond_with(@instance)
   end
 
   def edit

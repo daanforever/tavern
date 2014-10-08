@@ -6,12 +6,14 @@
 %table.table
   %thead
     %tr
+      %th Environment
       %th Name
       %th Url
       %th
   %tbody
     - @hosts.each do |host|
       %tr
+        %td= host.environment.try(:name)
         %td= link_to host.name, host_path(host)
         %td= link_to host.url, host_path(host)
         %td
