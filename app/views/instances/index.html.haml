@@ -1,13 +1,12 @@
-%p#notice= notice
+- content_for :header do
+  %h2 
+    Listing instances of #{@component.project.name}/#{@component.name}
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+    = link_to new_component_instance_path(@component), class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-plus
 
-= link_to "#", class: 'btn btn-default btn-back' do
-  %span.glyphicon.glyphicon-circle-arrow-left
-= link_to new_component_instance_path(@component), class: 'btn btn-default' do
-  %span.glyphicon.glyphicon-plus
-
-%hr
-
-%h2 Listing instances of #{@component.project.name}/#{@component.name}
+  %hr
 
 .row
   .col-md-6
