@@ -19,12 +19,12 @@
               = link_to project.name, edit_project_path(project)
               %small= project.description
 
-        %td{ style: 'border-right: 1px dotted' }
+        %td
           - project.environments.each do |environment|
-            %p
-              %span
+            %p.row
+              %span.col-md-6
                 = link_to environment.name, environment
-              %span.pull-right
+              %span.col-md-6.visible-md-inline-block.visible-lg-inline-block
                 = link_to environment_hosts_path(environment) do
                   %span.badge= pluralize( environment.hosts.count, t(:hosts, default: 'host') )
 
@@ -37,9 +37,9 @@
 
         %td
           - project.components.each do |component|
-            %p
-              %span
+            %p.row
+              %span.col-md-6
                 = link_to component.name, component_path(component)
-              %span.pull-right
+              %span.col-md-6.visible-md-inline-block.visible-lg-inline-block
                 = link_to new_component_instance_path(component) do
                   %span.badge= pluralize( component.instances.count, t(:instances, default: 'instance') )
