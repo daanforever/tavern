@@ -21,7 +21,7 @@ module Tavern
     # config.i18n.default_locale = :de
 
     config.assets.compile     = true
-    config.assets.precompile += %w(welcome.* registries.* projects.* releases.* hosts.* components.* instances.*)
+    config.assets.precompile += %w(welcome.* registries.* projects.* releases.* hosts.* components.* instances.* environments.*)
 
     config.generators do |g|
       g.test_framework :rspec, :views => false, :fixture => true

@@ -1,5 +1,5 @@
 class EnvironmentsController < ApplicationController
-  before_action :set_project, only: [:index]
+  before_action :set_project, only: [:index, :new, :create]
   before_action :set_environment, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -16,7 +16,7 @@ class EnvironmentsController < ApplicationController
   end
 
   def new
-    @environment = Environment.new
+    @environment = Environment.new(project: @project)
     respond_with(@environment)
   end
 
@@ -24,7 +24,7 @@ class EnvironmentsController < ApplicationController
   end
 
   def create
-    @environment = Environment.new(environment_params)
+    @environment = Environment.new(environment_params.merge(project: @project))
     @environment.save
     respond_with(@environment)
   end
@@ -45,7 +45,7 @@ class EnvironmentsController < ApplicationController
     end
 
     def set_project
-      @project = Project.find(params[:project_id]) if params[:project_id]
+      @project = Project.find(params[:project_id])
     end
 
     def environment_params

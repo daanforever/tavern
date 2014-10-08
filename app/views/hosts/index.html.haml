@@ -1,7 +1,12 @@
-%h1 
-  Hosts
-  = link_to new_host_path, class: 'btn btn-default' do
-    %span.glyphicon.glyphicon-plus
+%h1
+  - if @environment
+    #{@environment.name} hosts
+    = link_to new_environment_host_path(@environment), class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-plus
+  - else
+    Hosts
+    = link_to new_host_path, class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-plus
 
 %table.table
   %thead

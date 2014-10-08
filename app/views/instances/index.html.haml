@@ -14,6 +14,7 @@
     %table.table
       %thead
         %tr
+          %th Environment
           %th Host
           %th Release
           %th State
@@ -21,9 +22,10 @@
       %tbody
         - @instances.each do |instance|
           %tr
+            %td= instance.environment.name
             %td= "#{instance.host.name}:#{instance.port}"
-            %td= "#{instance.image.release.name}"
-            %td= "#{instance.state}"
+            %td= instance.image.release.name
+            %td= instance.state
             %td
               - if instance.stopped?
                 = link_to '#', class: 'btn btn-xs btn-default btn-rotate' do

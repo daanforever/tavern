@@ -5,8 +5,16 @@
 
 updateHosts = ->
   $( document ).on( 'change', '.instance_environment select', ->
-    environment = $( this ).val()
-    console.log(  )
+    url = '/environments/' + $( this ).val() + '/hosts'
+    console.log( url )
+    $.getJSON(url, (data) ->
+      options = []
+      $.each(data, (key, value) -> 
+        options.push('<option value="' + key + '">' + value.url + '</option>')
+      )
+      # console.log(  )
+      $( '.instance_host select' ).removeClass( 'disabled' ).removeProp( 'disabled' ).html( options )
+    )
     # $.getJSON('/environments/1/hosts', function (data){ $.each(data, function(key, val){ console.log(val.id + ' := ' + val.name) } ) })
   )
 

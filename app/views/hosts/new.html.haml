@@ -1,3 +1,7 @@
-%h1 New host
+- content_for :header do
+  %h1 
+    New host
+    = link_to '#', class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
 
 = render 'form'

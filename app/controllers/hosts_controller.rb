@@ -1,5 +1,5 @@
 class HostsController < ApplicationController
-  before_action :set_environment, only: [:index]
+  before_action :set_environment, only: [:index, :new, :create]
   before_action :set_host, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json
@@ -18,7 +18,7 @@ class HostsController < ApplicationController
   end
 
   def new
-    @host = Host.new
+    @host = Host.new(environment: @environment)
     respond_with(@host)
   end
 
@@ -26,8 +26,10 @@ class HostsController < ApplicationController
   end
 
   def create
-    @host = Host.new(host_params)
-    @host.save
+    @host = Host.new(host_params.merge(environment: @environment))
+    unless @host.save
+      flash.now[:alert] = @host.errors
+    end
     respond_with(@host)
   end
 

@@ -23,6 +23,7 @@ class Instance < ActiveRecord::Base
   belongs_to :host
   belongs_to :environment
 
+  before_validation :set_image
   validates :environment, :host, :component, :port, :image, presence: true
 
   enum state: {
@@ -63,6 +64,11 @@ class Instance < ActiveRecord::Base
     end
 
   end
+
+  protected
+    def set_image
+      self.image = self.component.images.find_by(release: self.environment.release)
+    end
 
   # def release
   #   self.component.releases.active.first
