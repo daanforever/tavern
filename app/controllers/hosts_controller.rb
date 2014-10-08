@@ -5,7 +5,11 @@ class HostsController < ApplicationController
   respond_to :html
 
   def index
-    @hosts = Host.all
+    if @environment
+      @hosts = @environment.hosts
+    else
+      @hosts = Host.all
+    end
     respond_with(@hosts)
   end
 
@@ -54,7 +58,7 @@ class HostsController < ApplicationController
     end
 
     def set_environment
-      @environment = Environments.find_by( params[:environment_id] )
+      @environment = Environment.find( params[:environment_id] ) if params[:environment_id]
     end
 
     def host_params
