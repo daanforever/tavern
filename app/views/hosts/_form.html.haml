@@ -1,5 +1,7 @@
-= simple_form_for(@host, wrapper: :horizontal_form, html: { class: 'form-horizontal' } ) do |f|
-  = f.error_notification
+= simple_form_for([@environment, @host], wrapper: :horizontal_form, html: { class: 'form-horizontal' } ) do |f|
+  .row.form-inputs
+    .col-md-8.col-md-offset-2
+      = f.error_notification
 
   .row.form-inputs
     .col-md-8.col-md-offset-1

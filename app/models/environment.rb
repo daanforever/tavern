@@ -15,4 +15,6 @@ class Environment < ActiveRecord::Base
   belongs_to :release
   has_many   :hosts
   has_many   :instances
+
+  validates :name, :release, :project, presence: true
 end

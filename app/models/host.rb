@@ -19,7 +19,7 @@ class Host < ActiveRecord::Base
 
   before_validation :set_name
   validates :url, presence: true
-  validates :name, uniqueness: true
+  # validates :name, uniqueness: true
 
   protected 
   def set_name

@@ -22,12 +22,12 @@ class InstancesController < ApplicationController
   end
 
   def create
-    @instance           = Instance.new(instance_params)
-    @instance.component = @component
-
+    @instance           = Instance.new(instance_params.merge(component: @component))
+    # raise
     if @instance.save
       respond_with(@component)
     else
+      flash.now[:alert] = @instance.errors
       respond_with(@instance)
     end
   end
@@ -53,6 +53,6 @@ class InstancesController < ApplicationController
     end
 
     def instance_params
-      params.require(:instance).permit(:name, :port, :image_id, :component_id, :host_id)
+      params.require(:instance).permit(:name, :port, :image_id, :component_id, :host_id, :environment_id)
     end
 end
