@@ -1,6 +1,6 @@
 class InstancesController < ApplicationController
-  before_action :set_instance, only: [:show, :edit, :update, :destroy]
-  before_action :set_component
+  before_action :set_component, except: [:run, :stop]
+  before_action :set_instance, only: [:show, :edit, :update, :destroy, :run, :stop]
 
   respond_to :html
 
@@ -42,10 +42,17 @@ class InstancesController < ApplicationController
     respond_with(@component)
   end
 
+  def run
+    render json: @instance
+  end
+
+  def stop
+    render json: @instance
+  end
+
   private
     def set_instance
       @instance   = Instance.find(params[:id])
-      @component  = Component.find(params[:component_id])
     end
 
     def set_component

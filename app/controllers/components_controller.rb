@@ -1,10 +1,16 @@
 class ComponentsController < ApplicationController
+  before_action :set_project, only: [:index]
   before_action :set_component, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @components = Component.all
+    if @project
+      @components = @project.components
+    else
+      @components = Component.all
+    end
+
     respond_with(@components)
   end
 
@@ -39,6 +45,10 @@ class ComponentsController < ApplicationController
   private
     def set_component
       @component = Component.find(params[:id])
+    end
+
+    def set_project
+      @project = Project.find(params[:project_id]) if params[:project_id]
     end
 
     def component_params

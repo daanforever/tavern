@@ -11,7 +11,7 @@
   .row.form-actions
     .col-md-10.col-md-offset-3
       = f.button :submit, class: 'btn-primary'
-      = link_to 'Cancel', hosts_path, class: 'btn btn-default'
+      = link_to 'Cancel', hosts_path, class: 'btn btn-default btn-back'
       - unless @host.new_record?
         = link_to @host, :method => :delete, class: 'btn btn-sm btn-danger', 
           title: 'Delete', data: { confirm: "Are you sure?" } do
