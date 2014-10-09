@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007160151) do
+ActiveRecord::Schema.define(version: 20141009114801) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20141007160151) do
   create_table "instances", force: true do |t|
     t.string   "name"
     t.boolean  "disabled"
-    t.integer  "port"
+    t.integer  "public_port"
     t.string   "container"
     t.text     "properties"
     t.integer  "image_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20141007160151) do
     t.datetime "updated_at"
     t.integer  "state"
     t.integer  "environment_id"
+    t.integer  "private_port"
   end
 
   add_index "instances", ["component_id"], name: "index_instances_on_component_id"

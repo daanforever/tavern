@@ -39,7 +39,8 @@ gem 'thin'                            # Web server. Usage: rails s thin
 gem 'seed_dump'                       # Rails plugin to create seed data
 gem 'awesome_print'                   # For rails console
 
-gem 'docker_registry'                  # Docker registry HTTP API client
+gem 'docker_registry'                 # Docker registry HTTP API client
+gem 'docker-api', require: 'docker'   # Provides an object-oriented interface to the Docker Remote API
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'              # bundle exec rake doc:rails generates the API under doc/api.

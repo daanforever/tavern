@@ -10,30 +10,4 @@
 
 .row
   .col-md-12
-    %table.table
-      %thead
-        %tr
-          %th Environment
-          %th Host
-          %th Release
-          %th State
-          %th
-      %tbody
-        - @instances.each do |instance|
-          %tr
-            %td= instance.environment.name
-            %td= "#{instance.host.name}:#{instance.port}"
-            %td= instance.image.release.name
-            %td= instance.state
-            %td
-              - if instance.stopped?
-                = link_to run_instance_path(instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate' do
-                  %span.glyphicon.glyphicon-play
-              - elsif instance.running?
-                = link_to stop_instance_path(instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate' do
-                  %span.glyphicon.glyphicon-pause
-              = link_to edit_component_instance_path(@component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
-                %span.glyphicon.glyphicon-cog
-              = link_to component_instance_path(@component, instance), :method => :delete, class: 'btn btn-xs btn-danger', 
-                title: 'Delete', data: { confirm: "Are you sure?" } do
-                %span.glyphicon.glyphicon-trash
+    = render partial: 'instances_table'

@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  name           :string(255)
 #  disabled       :boolean
-#  port           :integer
+#  port_public    :integer
 #  container      :string(255)
 #  properties     :text
 #  image_id       :integer
@@ -15,6 +15,7 @@
 #  updated_at     :datetime
 #  state          :integer
 #  environment_id :integer
+#  private_port   :integer
 #
 
 require 'rails_helper'

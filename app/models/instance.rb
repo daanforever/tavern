@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  name           :string(255)
 #  disabled       :boolean
-#  port           :integer
+#  port_public    :integer
 #  container      :string(255)
 #  properties     :text
 #  image_id       :integer
@@ -15,6 +15,7 @@
 #  updated_at     :datetime
 #  state          :integer
 #  environment_id :integer
+#  private_port   :integer
 #
 
 class Instance < ActiveRecord::Base
@@ -24,51 +25,43 @@ class Instance < ActiveRecord::Base
   belongs_to :environment
 
   before_validation :set_image
-  validates :environment, :host, :component, :port, :image, presence: true
+  validates :environment, :host, :component, :public_port, :private_port, :image, presence: true
+
+  serialize :properties
 
   enum state: {
     stopped: 0,
-    starting: 1,
-    running: 2,
-    stoping: 3,
-    unknown: 4
+    running: 1,
   }
 
   include AASM
 
   aasm column: :state, enum: true, whiny_transitions: false do
     state :stopped, initial: true
-    state :starting
     state :running
-    state :stoping
-    state :unknown
 
-    event :starting! do
-      transitions from: :stopped, to: :starting
+    event :run do
+      transitions from: :stopped, to: :running, guard: :run_instance
     end
 
-    event :running! do
-      transitions from: [:unknown, :starting], to: :running
+    event :stop do
+      transitions from: :running, to: :stopped, guard: :stop_instance
     end
-
-    event :stoping! do
-      transitions from: :running, to: :stoping
-    end
-
-    event :stopped! do
-      transitions from: [:unknown, :starting, :stoping], to: :stopped
-    end
-
-    event :unknown! do
-      transitions from: [:stopped, :starting, :running, :stoping], to: :unknown
-    end
-
   end
 
   protected
     def set_image
       self.image = self.component.images.find_by(release: self.environment.release)
     end
+
+  def run_instance
+    Rails.logger.debug("Image: #{image.name}")
+    true
+  end
+
+  def stop_instance
+    true
+  end
 
   # def release
   #   self.component.releases.active.first
