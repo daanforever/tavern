@@ -28,6 +28,13 @@
       %span.glyphicon.glyphicon-list
     = link_to new_project_environment_path(@project), class: 'btn btn-sm btn-default' do
       %span.glyphicon.glyphicon-plus
+.row
+  .col-md-2
+    %h5 Components:
+  .col-md-10
+    = link_to project_components_path(@project), class: 'btn btn-sm btn-default' do
+      %span.badge= @project.components.count
+      %span.glyphicon.glyphicon-list
 
 
 = link_to 'Edit', edit_project_path(@project)

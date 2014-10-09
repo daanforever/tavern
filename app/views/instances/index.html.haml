@@ -9,7 +9,7 @@
   %hr
 
 .row
-  .col-md-6
+  .col-md-12
     %table.table
       %thead
         %tr
@@ -27,10 +27,10 @@
             %td= instance.state
             %td
               - if instance.stopped?
-                = link_to '#', class: 'btn btn-xs btn-default btn-rotate' do
+                = link_to run_instance_path(instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate' do
                   %span.glyphicon.glyphicon-play
               - elsif instance.running?
-                = link_to '#', class: 'btn btn-xs btn-default btn-rotate' do
+                = link_to stop_instance_path(instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate' do
                   %span.glyphicon.glyphicon-pause
               = link_to edit_component_instance_path(@component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
                 %span.glyphicon.glyphicon-cog

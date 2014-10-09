@@ -1,4 +1,9 @@
-%h1 Listing environments
+- content_for :header do
+  %h1
+    Listing environments
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+  %hr
 
 %table.table
   %thead

@@ -1,21 +1,33 @@
-%h1 Listing components
+- content_for :header do
+  %h1
+    Listing components
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+  %hr
+  
+.row
+  .col-md-8
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th
 
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th
-
-  %tbody
-    - @components.each do |component|
-      %tr
-        %td= component.name
-        %td
-          = link_to edit_component_path(component), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
-            %span.glyphicon.glyphicon-cog
-          = link_to component, :method => :delete, class: 'btn btn-xs btn-danger', 
-            title: 'Delete', data: { confirm: "Are you sure?" } do
-            %span.glyphicon.glyphicon-trash
+      %tbody
+        - @components.each do |component|
+          %tr
+            %td
+              %span
+                = component.name
+              %span.pull-right
+                = link_to component_instances_path(component) do
+                  %span.badge= pluralize( component.instances.count, t(:instances, default: 'instance') )
+            %td
+              = link_to edit_component_path(component), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+                %span.glyphicon.glyphicon-cog
+              = link_to component, :method => :delete, class: 'btn btn-xs btn-danger', 
+                title: 'Delete', data: { confirm: "Are you sure?" } do
+                %span.glyphicon.glyphicon-trash
 
 %br
 

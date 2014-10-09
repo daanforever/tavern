@@ -13,18 +13,23 @@
   %span.h3= @environment.release.name
 
 .row
-  .col-md-6
+  .col-md-4
     .panel.panel-default
       .panel-heading
-        Hosts
+        %h4
+          Hosts
+          = link_to new_environment_host_path(@environment), class: 'btn btn-default btn-xs' do
+            %span.glyphicon.glyphicon-plus
+
       .panel-body
         - @environment.hosts.each do |host|
           %p= host.url
 
-  .col-md-6
+  .col-md-4
     .panel.panel-default
       .panel-heading
-        Instances
+        %h4
+          Instances
       .panel-body
         - @environment.instances.each do |instance|
           %p= instance.component.name

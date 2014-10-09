@@ -12,10 +12,16 @@ Rails.application.routes.draw do
 
   resources :releases
 
+  resources :instances, only: [ :run, :stop ] do
+    post 'run',   on: :member
+    post 'stop',  on: :member
+  end
+
   resources :projects do
     get 'toggle', on: :member
     resources :releases
     resources :environments
+    resources :components
   end
   
   resources :hosts do

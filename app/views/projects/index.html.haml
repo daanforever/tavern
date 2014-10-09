@@ -43,5 +43,5 @@
               %span.col-md-6
                 = link_to component.name, component_path(component)
               %span.col-md-6.visible-md-inline-block.visible-lg-inline-block
-                = link_to new_component_instance_path(component) do
+                = link_to component_instances_path(component) do
                   %span.badge= pluralize( component.instances.count, t(:instances, default: 'instance') )

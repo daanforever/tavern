@@ -1,9 +1,9 @@
 %h1 
   Registries
-  = link_to new_registry_path, class: 'btn btn-default' do
-    %span.glyphicon.glyphicon-plus
   = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
     %span.glyphicon.glyphicon-repeat
+  = link_to new_registry_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-plus
 
 .row.registries
   = render 'registries'
