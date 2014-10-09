@@ -10,12 +10,14 @@ updateHosts = ->
     $.getJSON(url, (data) ->
       options = []
       $.each(data, (key, value) -> 
-        options.push('<option value="' + key + '">' + value.url + '</option>')
+        options.push('<option value="' + key + '">' + value.name + '</option>')
       )
       # console.log(  )
       $( '.instance_host select' ).removeClass( 'disabled' ).removeProp( 'disabled' ).html( options )
     )
     # $.getJSON('/environments/1/hosts', function (data){ $.each(data, function(key, val){ console.log(val.id + ' := ' + val.name) } ) })
+  ).on('ajax:success', '.btn-action[data-remote=true]', (e, data, status, xhr) ->
+    $( ".table.instances" ).html( xhr.responseText )
   )
 
 

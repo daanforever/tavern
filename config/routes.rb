@@ -7,15 +7,13 @@ Rails.application.routes.draw do
 
   resources :components do
     get 'toggle',  on: :member
-    resources :instances
+    resources :instances do
+      post 'run',   on: :member
+      post 'stop',  on: :member
+    end
   end
 
   resources :releases
-
-  resources :instances, only: [ :run, :stop ] do
-    post 'run',   on: :member
-    post 'stop',  on: :member
-  end
 
   resources :projects do
     get 'toggle', on: :member

@@ -39,6 +39,7 @@ GEM
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
+    archive-tar-minitar (0.5.2)
     arel (5.0.1.20140414130214)
     autoprefixer-rails (3.1.0.20140911)
       execjs
@@ -93,12 +94,17 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    docker_registry (0.0.1)
+    docker-api (1.13.6)
+      archive-tar-minitar
+      excon (>= 0.38.0)
+      json
+    docker_registry (0.0.2)
       faraday
       faraday_middleware
       oj
     erubis (2.7.0)
     eventmachine (1.0.3)
+    excon (0.40.0)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -149,7 +155,7 @@ GEM
     multi_json (1.10.1)
     multipart-post (2.0.0)
     netrc (0.7.7)
-    oj (2.10.2)
+    oj (2.10.3)
     orm_adapter (0.5.0)
     rack (1.5.2)
     rack-contrib (1.1.0)
@@ -283,6 +289,7 @@ DEPENDENCIES
   coveralls
   database_cleaner
   devise
+  docker-api
   docker_registry
   factory_girl_rails
   faker
