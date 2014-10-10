@@ -10,7 +10,7 @@ updateHosts = ->
     $.getJSON(url, (data) ->
       options = []
       $.each(data, (key, value) -> 
-        options.push('<option value="' + key + '">' + value.name + '</option>')
+        options.push('<option value="' + value.id + '">' + value.name + '</option>')
       )
       # console.log(  )
       $( '.instance_host select' ).removeClass( 'disabled' ).removeProp( 'disabled' ).html( options )
