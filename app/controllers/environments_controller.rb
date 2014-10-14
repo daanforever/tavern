@@ -36,7 +36,7 @@ class EnvironmentsController < ApplicationController
 
   def destroy
     @environment.destroy
-    respond_with(@environment)
+    redirect_to projects_path
   end
 
   private

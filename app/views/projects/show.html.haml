@@ -15,12 +15,6 @@
     = @project.name
 .row
   .col-md-2
-    %h5 Disabled:
-  .col-md-10
-    %span= @project.disabled
-
-.row
-  .col-md-2
     %h5 Environments:
   .col-md-10
     = link_to project_environments_path(@project), class: 'btn btn-sm btn-default' do
@@ -36,7 +30,9 @@
       %span.badge= @project.components.count
       %span.glyphicon.glyphicon-list
 
+.row
+  .col-md-2
+    %h5 Disabled:
+  .col-md-10
+    %span= @project.disabled
 
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path

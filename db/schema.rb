@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141009114801) do
+ActiveRecord::Schema.define(version: 20141013144609) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20141009114801) do
     t.integer  "state"
     t.integer  "environment_id"
     t.integer  "private_port"
+    t.text     "options"
   end
 
   add_index "instances", ["component_id"], name: "index_instances_on_component_id"

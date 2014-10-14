@@ -3,6 +3,7 @@
     Projects
     = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
       %span.glyphicon.glyphicon-repeat
+      = t('.scan')
 
 %table.table
   %thead
@@ -29,6 +30,12 @@
                 %span.glyphicon.glyphicon-ok.text-success
 
         %td
+          - if project.environments.count == 0
+            %p.row
+              %span.col-md-12
+                = link_to new_project_environment_path(project), class: 'btn btn-default btn-sm btn-rotate' do
+                  %span.glyphicon.glyphicon-plus
+                  = t('.new_environment')
           - project.environments.each do |environment|
             %p.row
               %span.col-md-6
@@ -39,9 +46,8 @@
 
         %td
           - project.components.each do |component|
-            %p.row
-              %span.col-md-6
+            %p
+              %b
                 = link_to component.name, component_path(component)
-              %span.col-md-6.visible-md-inline-block.visible-lg-inline-block
-                = link_to component_instances_path(component) do
-                  %span.badge= pluralize( component.instances.count, t(:instances, default: 'instance') )
+              = link_to component_instances_path(component) do
+                %span.badge= pluralize( component.instances.count, t(:instances, default: 'instance') )

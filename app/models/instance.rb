@@ -40,28 +40,30 @@ class Instance < ActiveRecord::Base
     state :stopped, initial: true
     state :running
 
-    event :run do
-      transitions from: :stopped, to: :running, guard: :run_instance
+    event :running do
+      transitions from: :stopped, to: :running
     end
 
-    event :stop do
-      transitions from: :running, to: :stopped, guard: :stop_instance
+    event :stopped do
+      transitions from: :running, to: :stopped
     end
+  end
+
+  def run!
+    Rails.logger.debug("Image: #{image.name}")
+    self.running!
+    true
+  end
+
+  def stop!
+    self.stopped!
+    true
   end
 
   protected
     def set_image
       self.image = self.component.images.find_by(release: self.environment.release)
     end
-
-  def run_instance
-    Rails.logger.debug("Image: #{image.name}")
-    true
-  end
-
-  def stop_instance
-    true
-  end
 
   # def release
   #   self.component.releases.active.first
