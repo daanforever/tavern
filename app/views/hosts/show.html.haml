@@ -24,7 +24,13 @@
         %h4 Instances
       .panel-body
         - @host.instances.each do |instance|
-          %p #{instance.image.project.name}/#{instance.component.name}:#{instance.port}
+          %p
+            %b
+              #{instance.image.project.name}/#{instance.component.name}:#{instance.image.release.name}
+            %i
+              %small (public: #{instance.public_port} private: #{instance.private_port})
+              = link_to edit_component_instance_path(instance.component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+                %span.glyphicon.glyphicon-cog
 
 %p
   %b Description:

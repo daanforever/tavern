@@ -8,9 +8,9 @@
     - @registries.each do |registry|
       %tr
         %td
-          = link_to truncate(registry.name.to_s, length: 12), registry_path(registry)
+          = truncate(registry.name.to_s, length: 12)
         %td
-          = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
+          = truncate(registry.url.to_s, length: 40)
         %td.text-right
           = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
             %span.glyphicon.glyphicon-cog
