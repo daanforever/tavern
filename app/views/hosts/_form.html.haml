@@ -14,6 +14,6 @@
       = f.button :submit, class: 'btn-primary'
       = link_to 'Cancel', hosts_path, class: 'btn btn-default btn-back'
       - unless @host.new_record?
-        = link_to @host, :method => :delete, class: 'btn btn-sm btn-danger', 
+        = link_to environment_host_path(@environment, @host), :method => :delete, class: 'btn btn-sm btn-danger', 
           title: 'Delete', data: { confirm: "Are you sure?" } do
           %span.glyphicon.glyphicon-trash

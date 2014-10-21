@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  name           :string(255)
 #  disabled       :boolean
-#  port_public    :integer
+#  public_port    :integer
 #  container      :string(255)
 #  properties     :text
 #  image_id       :integer
@@ -16,6 +16,7 @@
 #  state          :integer
 #  environment_id :integer
 #  private_port   :integer
+#  options        :text
 #
 
 class Instance < ActiveRecord::Base
@@ -51,8 +52,11 @@ class Instance < ActiveRecord::Base
 
   def run!
     Rails.logger.debug("Image: #{image.name}")
+    return false if self.running?
     self.running!
-    true
+  rescue Exception => e
+    errors.add(:instance, e)
+    e
   end
 
   def stop!
@@ -62,7 +66,7 @@ class Instance < ActiveRecord::Base
 
   protected
     def set_image
-      self.image = self.component.images.find_by(release: self.environment.release)
+      self.image ||= self.component.images.find_by(release: self.environment.release)
     end
 
   # def release
