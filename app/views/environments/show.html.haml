@@ -23,7 +23,7 @@
 
       .panel-body
         - @environment.hosts.each do |host|
-          %p= host.url
+          %p= link_to host.name, environment_host_path(@environment, host)
 
   .col-md-4
     .panel.panel-default
