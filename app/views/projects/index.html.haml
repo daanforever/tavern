@@ -1,9 +1,11 @@
 - content_for :header do
-  %h1 
-    Projects
-    = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
-      %span.glyphicon.glyphicon-repeat
-      = t('.scan')
+  .row
+    .col-md-9
+      %h1
+        Projects
+        = link_to refresh_registries_path, remote: true, id: 'refresh', class: 'btn btn-default btn-rotate', title: 'Refresh' do
+          %span.glyphicon.glyphicon-repeat
+          = t('.scan')
 
 %table.table
   %thead
@@ -31,23 +33,25 @@
 
         %td
           - if project.environments.count == 0
-            %p.row
-              %span.col-md-12
-                = link_to new_project_environment_path(project), class: 'btn btn-default btn-sm btn-rotate' do
-                  %span.glyphicon.glyphicon-plus
-                  = t('.new_environment')
+            %p
+              = link_to new_project_environment_path(project), class: 'btn btn-default btn-sm btn-rotate' do
+                %span.glyphicon.glyphicon-plus
+                = t('.new_environment')
           - project.environments.each do |environment|
-            %p.row
-              %span.col-md-6
-                = link_to environment.name, environment
-              %span.col-md-6.visible-md-inline-block.visible-lg-inline-block
-                = link_to environment_hosts_path(environment) do
-                  %span.badge= pluralize( environment.hosts.count, t(:hosts, default: 'host') )
+            .row
+              .col-md-8
+                %p
+                  = link_to environment.name, environment
+              .col-md-4
+                %span.badge.badge-success{title: 'running'}= environment.instances.running.count
+                %span.badge.badge-warning{title: 'stopped'}= environment.instances.stopped.count
 
         %td
           - project.components.each do |component|
-            %p
-              %b
-                = link_to component.name, component_path(component)
-              = link_to component_instances_path(component) do
-                %span.badge= pluralize( component.instances.count, t(:instances, default: 'instance') )
+            .row
+              .col-md-8
+                %p
+                  = link_to component.name, component_path(component)
+              .col-md-4
+                %span.badge.badge-success{title: 'running'}= component.instances.running.count
+                %span.badge.badge-warning{title: 'stopped'}= component.instances.stopped.count
