@@ -40,19 +40,24 @@ class Instance < ActiveRecord::Base
   aasm column: :state, enum: true, whiny_transitions: false do
     state :stopped, initial: true
     state :running
+    state :unknown
 
     event :running do
-      transitions from: :stopped, to: :running
+      transitions from: [:stopped, :unknown], to: :running
     end
 
     event :stopped do
-      transitions from: :running, to: :stopped
+      transitions from: [:running, :unknown], to: :stopped
+    end
+
+    event :unknown do
+      transitions from: [:running, :stopped], to: :unknown
     end
   end
 
   def run!
-    Rails.logger.debug("Image: #{image.name}")
     return false if self.running?
+    connection = Docker::Connection.new(self.host.url, {})
     self.running!
   rescue Exception => e
     errors.add(:instance, e)
@@ -60,6 +65,7 @@ class Instance < ActiveRecord::Base
   end
 
   def stop!
+    connection = Docker::Connection.new(self.host.url, {})
     self.stopped!
     true
   end

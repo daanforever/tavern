@@ -1,35 +1,37 @@
 - content_for :header do
-  .row
-    .col-md-12.h1
-      = link_to '#', class: 'btn btn-default btn-back' do
-        %span.glyphicon.glyphicon-circle-arrow-left
-      = @component.name
-      = link_to edit_component_path(@component), class: 'btn btn-default btn-rotate' do
-        %span.glyphicon.glyphicon-cog
+  %h1
+    Component: 
+    = @component.name
+    = link_to '#', class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+    = link_to edit_component_path(@component), class: 'btn btn-default btn-rotate' do
+      %span.glyphicon.glyphicon-cog
+  %hr
 
 .row
   .col-md-2
     %p
       %b Instances:
   .col-md-10
-    = link_to component_instances_path(@component), class: 'btn btn-sm btn-default' do
-      %span.badge= @component.instances.count
-      %span.glyphicon.glyphicon-list
-    = link_to new_component_instance_path(@component), class: 'btn btn-sm btn-default' do
-      %span.glyphicon.glyphicon-plus
+    %p
+      = link_to component_instances_path(@component), class: 'btn btn-sm btn-default' do
+        %span.badge= @component.instances.count
+        %span.glyphicon.glyphicon-list
+      = link_to new_component_instance_path(@component), class: 'btn btn-sm btn-default' do
+        %span.glyphicon.glyphicon-plus
 
 .row
   .col-md-2
     %p
       %b Disabled:
   .col-md-10
-    = @component.disabled?
+    %p
+      = @component.disabled?
 
 .row
   .col-md-2
     %p
       %b Description:
   .col-md-10
-    = @component.description
-
-.row
+    %p
+      = @component.description
