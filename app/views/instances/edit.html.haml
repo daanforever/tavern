@@ -1,6 +1,8 @@
-.row
-  .col-md-12
-    %h2.inline
-      Editing instance for #{@component.project.name}/#{@component.name}
+- content_for :header do
+  %h1
+    Editing instance №#{@instance.id}
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+  %hr
 
 = render 'form'

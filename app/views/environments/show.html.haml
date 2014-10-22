@@ -13,24 +13,29 @@
   %span.h3= @environment.release.name
 
 .row
-  .col-md-4
+  .col-md-6
     .panel.panel-default
       .panel-heading
         %h4
           Hosts
           = link_to new_environment_host_path(@environment), class: 'btn btn-default btn-xs' do
             %span.glyphicon.glyphicon-plus
-
       .panel-body
         - @environment.hosts.each do |host|
           %p= link_to host.name, environment_host_path(@environment, host)
 
-  .col-md-4
+  .col-md-6
     .panel.panel-default
       .panel-heading
         %h4
           Instances
+          = link_to new_environment_instance_path(@environment), class: 'btn btn-default btn-xs' do
+            %span.glyphicon.glyphicon-plus
       .panel-body
         - @environment.instances.each do |instance|
-          %p= instance.component.name
+          %p
+            = link_to instance.component.name, instance_path(instance)
+            = instance.public_port
+            \:
+            = instance.private_port
 

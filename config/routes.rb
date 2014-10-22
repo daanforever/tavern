@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :instances
   resources :releases
 
   resources :projects do
