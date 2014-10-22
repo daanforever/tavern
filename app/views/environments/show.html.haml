@@ -3,7 +3,6 @@
     Environment #{@environment.name}
     = link_to "#", class: 'btn btn-default btn-back' do
       %span.glyphicon.glyphicon-circle-arrow-left
-
     = link_to edit_environment_path(@environment), class: 'btn btn-default btn-rotate' do
       %span.glyphicon.glyphicon-cog
   %hr
@@ -29,13 +28,12 @@
       .panel-heading
         %h4
           Instances
-          = link_to new_environment_instance_path(@environment), class: 'btn btn-default btn-xs' do
+          = link_to new_environment_instance_path(@environment), class: 'btn btn-default btn-xs btn-rotate' do
             %span.glyphicon.glyphicon-plus
+          = link_to environment_instances_path(@environment), class: 'btn btn-default btn-xs btn-rotate' do
+            %span.glyphicon.glyphicon-th-list
       .panel-body
         - @environment.instances.each do |instance|
           %p
-            = link_to instance.component.name, instance_path(instance)
-            = instance.public_port
-            \:
-            = instance.private_port
-
+            - name = instance.name.present? ? instance.name : instance.component.name
+            = link_to name, instance_path(instance)

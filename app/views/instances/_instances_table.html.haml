@@ -17,13 +17,13 @@
         %td= instance.state
         %td
           - if instance.stopped?
-            = link_to run_component_instance_path(@component, instance),  remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
+            = link_to run_instance_path(instance),  remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
               %span.glyphicon.glyphicon-play
           - elsif instance.running?
-            = link_to stop_component_instance_path(@component, instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
+            = link_to stop_instance_path(instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
               %span.glyphicon.glyphicon-pause
-          = link_to edit_component_instance_path(@component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+          = link_to edit_instance_path(instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
             %span.glyphicon.glyphicon-cog
-          = link_to component_instance_path(@component, instance), :method => :delete, class: 'btn btn-xs btn-danger', 
+          = link_to instance_path(instance), :method => :delete, class: 'btn btn-xs btn-danger', 
             title: 'Delete', data: { confirm: "Are you sure?" } do
             %span.glyphicon.glyphicon-trash
