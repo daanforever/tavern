@@ -75,7 +75,13 @@ class InstancesController < ApplicationController
     end
 
     def set_instances
-      @instances    = @component ? @component.instances : Instance.all
+      @instances = if @component
+        @component.instances
+      elsif @environment
+        @environment.instances
+      else
+        Instance.all
+      end
     end
 
     def set_component

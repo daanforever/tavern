@@ -1,10 +1,3 @@
-- content_for :header do
-  %h1 
-    New instance
-    = link_to "#", class: 'btn btn-default btn-back' do
-      %span.glyphicon.glyphicon-circle-arrow-left
-  %hr
-
 - if @component
   = render 'form_component'
 - else
