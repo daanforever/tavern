@@ -1,5 +1,6 @@
 class InstancesController < ApplicationController
   before_action :set_component
+  before_action :set_environment
   before_action :set_instance, only: [:show, :edit, :update, :destroy, :run, :stop]
   before_action :set_instances, only: [:index, :run, :stop]
 
@@ -14,7 +15,15 @@ class InstancesController < ApplicationController
   end
 
   def new
-    @instance           = Instance.new(component: @component)
+
+    if    @component
+      @instance = Instance.new(component: @component)
+    elsif @environment
+      @instance = Instance.new(environment: @environment)
+    else
+      @instance = Instance.new
+    end
+
     respond_with(@instance)
   end
 
@@ -22,9 +31,18 @@ class InstancesController < ApplicationController
   end
 
   def create
-    @instance           = Instance.new(instance_params.merge(component: @component))
+
+    if    @component
+      @instance = Instance.new(instance_params.merge(component: @component))
+    elsif @environment
+      @instance = Instance.new(instance_params.merge(environment: @environment))
+    else
+      @instance = Instance.new(instance_params)
+    end
+
     if @instance.save
-      respond_with(@component)
+      respond_with(@component) if @component
+      respond_with(@environment) if @environment
     else
       flash.now[:alert] = @instance.errors
       respond_with(@instance)
@@ -53,18 +71,22 @@ class InstancesController < ApplicationController
 
   private
     def set_instance
-      @instance   = Instance.find(params[:id])
+      @instance     = Instance.find(params[:id])
     end
 
     def set_instances
-      @instances = @component ? @component.instances : Instance.all
+      @instances    = @component ? @component.instances : Instance.all
     end
 
     def set_component
-      @component  = Component.find(params[:component_id]) if params[:component_id]
+      @component    = Component.find(params[:component_id]) if params[:component_id]
+    end
+
+    def set_environment
+      @environment  = Environment.find_by(id: params[:environment_id])
     end
 
     def instance_params
-      params.require(:instance).permit(:name, :port, :image_id, :component_id, :host_id, :public_port, :private_port, :environment_id)
+      params.require(:instance).permit(:name, :port, :image_id, :component_id, :host_id, :public_port, :private_port, :environment_id, :options)
     end
 end

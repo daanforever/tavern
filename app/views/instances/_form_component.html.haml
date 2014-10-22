@@ -1,12 +1,11 @@
-= simple_form_for( @instance, html: { class: 'form-horizontal' } ) do |f|
+= simple_form_for( [@component, @instance], html: { class: 'form-horizontal' } ) do |f|
   .row
     .col-md-8.col-md-offset-2
       = f.error_notification
   .row
     .form-inputs.col-md-8.col-md-offset-1
-      = f.association :environment
-      = f.association :component, disabled: true
-      = f.association :host, collection: @instance.environment.hosts, include_blank: false
+      = f.association :environment, collection: @component.project.environments
+      = f.association :host
       = f.input :public_port
       = f.input :private_port
       = f.input :name
@@ -18,6 +17,6 @@
         = f.button :submit, class: 'btn-primary'
         = link_to 'Cancel', :back, class: 'btn btn-default'
         - unless @instance.new_record?
-          = link_to instance_path(@instance), :method => :delete, class: 'btn btn-sm btn-danger', 
+          = link_to component_instance_path(@component, @instance), :method => :delete, class: 'btn btn-sm btn-danger', 
             title: 'Delete', data: { confirm: "Are you sure?" } do
             %span.glyphicon.glyphicon-trash

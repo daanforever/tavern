@@ -1,17 +1,34 @@
-%p#notice= notice
+- content_for :header do
+  %h1
+    Instance #{@instance.name.blank? ? '№' + @instance.id.to_s : @instance.name}
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+
+    = link_to edit_instance_path(@instance), class: 'btn btn-default btn-rotate' do
+      %span.glyphicon.glyphicon-cog
+  %hr
+
 
 %p
   %b Name:
-  = @instance.name
+  - if @instance.name.blank? 
+    %i none
+  - else 
+    = @instance.name
 %p
-  %b Port:
-  = @instance.port
-%p
-  %b Image:
-  = @instance.image
+  %b Ports:
+  %span
+    Public: 
+    = @instance.public_port
+  %span
+    Private: 
+    = @instance.private_port
 %p
   %b Component:
-  = @instance.component
+  = @instance.component.name
 %p
   %b Host:
-  = @instance.host
+  = @instance.host.name
+%p
+  %b Image:
+  = @instance.image.name
