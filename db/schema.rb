@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013144609) do
+ActiveRecord::Schema.define(version: 20141023110623) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(version: 20141013144609) do
 
   add_index "components_releases", ["component_id"], name: "index_components_releases_on_component_id"
   add_index "components_releases", ["release_id"], name: "index_components_releases_on_release_id"
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "environments", force: true do |t|
     t.string   "name"
