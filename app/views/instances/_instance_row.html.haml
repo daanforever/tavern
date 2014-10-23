@@ -10,6 +10,10 @@
   - elsif instance.running?
     = link_to stop_instance_path(instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
       %span.glyphicon.glyphicon-pause
+  - else
+    = link_to '#', class: 'btn btn-xs btn-default disabled' do
+      %span.glyphicon.glyphicon-refresh
+
   = link_to edit_instance_path(instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
     %span.glyphicon.glyphicon-cog
   = link_to instance_path(instance), :method => :delete, class: 'btn btn-xs btn-danger', 

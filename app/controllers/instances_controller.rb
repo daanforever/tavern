@@ -4,7 +4,7 @@ class InstancesController < ApplicationController
   before_action :set_instance, only: [:show, :edit, :update, :destroy, :run, :stop]
   before_action :set_instances, only: [:index, :run, :stop]
 
-  respond_to :html
+  respond_to :json
 
   def index
     respond_with(@instances)
@@ -60,7 +60,7 @@ class InstancesController < ApplicationController
   end
 
   def run
-    @instance.run
+    @instance.start
     render partial: 'instance_row', locals: { instance: @instance }
   end
 
