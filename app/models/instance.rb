@@ -55,17 +55,16 @@ class Instance < ActiveRecord::Base
     end
   end
 
-  def run!
+  def run
     return false if self.running?
-    connection = Docker::Connection.new(self.host.url, {})
+    logger.info connection
     self.running!
   rescue Exception => e
     errors.add(:instance, e)
     e
   end
 
-  def stop!
-    connection = Docker::Connection.new(self.host.url, {})
+  def stop
     self.stopped!
     true
   end
