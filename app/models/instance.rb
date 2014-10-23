@@ -33,41 +33,72 @@ class Instance < ActiveRecord::Base
   enum state: {
     stopped: 0,
     running: 1,
+    starting: 2,
+    stopping: 3,
+    unknown: 4
   }
 
   include AASM
 
   aasm column: :state, enum: true, whiny_transitions: false do
     state :stopped, initial: true
+    state :starting
     state :running
+    state :stopping
     state :unknown
 
+    event :starting do
+      transitions from: [:stopped,  :unknown], to: :starting
+    end
+
     event :running do
-      transitions from: [:stopped, :unknown], to: :running
+      transitions from: [:starting, :unknown], to: :running
+    end
+
+    event :stopping do
+      transitions from: [:running,  :unknown], to: :stopping
     end
 
     event :stopped do
-      transitions from: [:running, :unknown], to: :stopped
+      transitions from: [:stopping, :unknown], to: :stopped
     end
 
     event :unknown do
-      transitions from: [:running, :stopped], to: :unknown
+      transitions from: [:stopped, :starting, :running, :stopping], to: :unknown
     end
   end
 
-  def run
-    return false if self.running?
-    logger.info connection
+  def start
+    self.starting!
+    self.delay.start!
+  end
+
+  def start!
     self.running!
-  rescue Exception => e
-    errors.add(:instance, e)
-    e
   end
 
   def stop
-    self.stopped!
-    true
+    self.stopping!
+    self.delay.stop!
   end
+
+  def stop!
+    self.stopped!
+  end
+
+  # def run
+  #   return false if self.running?
+  #   logger.info connection
+  #   self.running!
+  # rescue Exception => e
+  #   errors.add(:instance, e)
+  #   e
+  # end
+
+  # def stop
+  #   self.stopped!
+  #   true
+  # end
 
   protected
     def set_image
