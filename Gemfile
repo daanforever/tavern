@@ -42,6 +42,8 @@ gem 'awesome_print'                   # For rails console
 gem 'docker_registry'                 # Docker registry HTTP API client
 gem 'docker-api', require: 'docker'   # Provides an object-oriented interface to the Docker Remote API
 
+gem 'delayed_job_active_record'       # Database based asynchronous priority queue system
+
 group :doc do
   gem 'sdoc', '~> 0.4.0'              # bundle exec rake doc:rails generates the API under doc/api.
   gem 'railroady'                     # Class diagram generator. Usage: rake diagram:all
