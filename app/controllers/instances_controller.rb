@@ -60,13 +60,13 @@ class InstancesController < ApplicationController
   end
 
   def run
-    @instance.run!
-    render partial: 'instances_table'
+    @instance.run
+    render partial: 'instance_row', locals: { instance: @instance }
   end
 
   def stop
-    @instance.stop!
-    render partial: 'instances_table'
+    @instance.stop
+    render partial: 'instance_row', locals: { instance: @instance }
   end
 
   private
