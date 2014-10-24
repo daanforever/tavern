@@ -15,5 +15,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require bootstrap-sprockets
+//= require angular
+//= require_tree ./angularjs
 //= require common
 //= require_self

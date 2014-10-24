@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'autoprefixer-rails'              # Autoprefixer for Ruby and Ruby on Rails
 gem 'bootstrap-sass', '~> 3.2.0'      # Official Sass port of Bootstrap
+gem 'angularjs-rails'                 # A simple Angular.js wrapper for Rails
+
 gem 'devise'                          # Flexible authentication solution for Rails with Warden
 
 gem 'haml'                            # HTML Abstraction Markup Language

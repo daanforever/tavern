@@ -23,3 +23,10 @@ updateHosts = ->
 
 $(document).ready(updateHosts)
 $(document).on('page:load', updateHosts)
+
+tavern.controller('instancesController', ($scope) ->
+  $scope.instances = [
+    { environment: 'ATC.STAGE', host: 'server1' }
+    { environment: 'ATC.STAGE', host: 'server2' }
+  ]
+)
