@@ -1,4 +1,51 @@
-- if @component
-  = render partial: 'index_component'
-- elsif @environment
-  = render partial: 'index_environment'
+- content_for :header do
+  %h2 
+    Instances
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
+    - if @environment
+      = link_to new_environment_instance_path(@environment), class: 'btn btn-default' do
+        %span.glyphicon.glyphicon-plus
+    - elsif @component
+      = link_to new_component_instance_path(@component), class: 'btn btn-default' do
+        %span.glyphicon.glyphicon-plus
+    - else
+      = link_to new_instance_path(@component), class: 'btn btn-default' do
+        %span.glyphicon.glyphicon-plus
+
+  %hr
+
+.row{'ng-controller' => 'instancesController'}
+  .col-md-12
+    %table.table.instances
+      %thead
+        %tr
+          %th.col-md-2 Environment
+          %th.col-md-3 Host
+          %th.col-md-2 Release
+          %th.col-md-2 Ports
+          %th.col-md-1 State
+          %th.col-md-2
+      %tbody
+        %tr{ "ng-repeat" => "instance in instances" }
+          %td {{ instance.environment }}
+          %td {{ instance.host }}
+          %td {{ instance.release }}
+          %td {{ instance.public_port }} : {{ instance.private_port }}
+          %td {{ instance.state }}
+          / %td
+          /   - if instance.stopped?
+          /     = link_to run_instance_path(instance),  remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
+          /       %span.glyphicon.glyphicon-play
+          /   - elsif instance.running?
+          /     = link_to stop_instance_path(instance), remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
+          /       %span.glyphicon.glyphicon-pause
+          /   - else
+          /     = link_to '#', class: 'btn btn-xs btn-default disabled' do
+          /       %span.glyphicon.glyphicon-refresh
+
+          /   = link_to edit_instance_path(instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
+          /     %span.glyphicon.glyphicon-cog
+          /   = link_to instance_path(instance), :method => :delete, class: 'btn btn-xs btn-danger', 
+          /     title: 'Delete', data: { confirm: "Are you sure?" } do
+          /     %span.glyphicon.glyphicon-trash
