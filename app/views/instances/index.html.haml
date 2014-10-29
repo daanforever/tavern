@@ -15,7 +15,7 @@
 
   %hr
 
-.row{'ng-controller' => 'instancesController'}
+.row{'ng-controller' => 'instancesController', 'ng-init' => 'refresh()'}
   .col-md-12
     %table.table.instances
       %thead
@@ -34,10 +34,10 @@
           %td {{ instance.public_port }} : {{ instance.private_port }}
           %td {{ instance.state }}
           %td
-            = link_to '{{ instance.action_instance_path }}',  remote: true, method: :post, 
+            = link_to '{{ instance.action_instance_path }}',  remote: true, method: :post,
               :'ng-disabled' => "instance.state !== 'running' && instance.state !== 'stopped'",
-              class: 'btn btn-xs btn-default btn-rotate btn-action' do
-              %span{class: 'glyphicon {{ instance.action_icon }}'}
+              class: 'btn btn-xs btn-default btn-action' do
+              %span{class: 'glyphicon', 'ng-class' => 'instance.action_class'}
             = link_to '{{ instance.edit_instance_path }}', class: 'btn btn-xs btn-default btn-rotate', 
               title: 'Settings' do
               %span.glyphicon.glyphicon-cog
