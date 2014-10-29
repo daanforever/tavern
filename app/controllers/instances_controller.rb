@@ -89,7 +89,7 @@ class InstancesController < ApplicationController
     end
 
     def set_environment
-      @environment  = Environment.find_by(id: params[:environment_id])
+      @environment  = Environment.find(params[:environment_id]) if params[:environment_id]
     end
 
     def instance_params

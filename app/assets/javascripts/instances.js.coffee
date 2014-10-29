@@ -23,7 +23,7 @@
 # $(document).ready(updateHosts)
 # $(document).on('page:load', updateHosts)
 
-tavern.controller('instancesController', ($scope, $interval, $http) ->
+@tavern.controller('instancesController', ($scope, $interval, $http) ->
   $( document ).on('ajax:success', '.btn-action[data-remote=true]', (e, data, status, xhr) ->
     $scope.refresh()
   )

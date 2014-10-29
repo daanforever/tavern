@@ -1,4 +1,4 @@
-json.array!(@instances) do |instance|
+json.array!(@instances.includes(:environment, :host, image: [:release])) do |instance|
   # json.extract! instance, :id, :name, :public_port, :private_port, :image_id, :component_id, :host_id
   json.environment          instance.environment.name
   json.host                 instance.host.name
