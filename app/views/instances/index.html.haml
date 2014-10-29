@@ -33,7 +33,19 @@
           %td {{ instance.release }}
           %td {{ instance.public_port }} : {{ instance.private_port }}
           %td {{ instance.state }}
-          / %td
+          %td
+            = link_to '{{ instance.action_instance_path }}',  remote: true, method: :post, 
+              :'ng-disabled' => "instance.state !== 'running' && instance.state !== 'stopped'",
+              class: 'btn btn-xs btn-default btn-rotate btn-action' do
+              %span{class: 'glyphicon {{ instance.action_icon }}'}
+            = link_to '{{ instance.edit_instance_path }}', class: 'btn btn-xs btn-default btn-rotate', 
+              title: 'Settings' do
+              %span.glyphicon.glyphicon-cog
+            = link_to '{{ instance.instance_path }}', :method => :delete, class: 'btn btn-xs btn-danger', 
+              title: 'Delete', data: { confirm: "Are you sure?" } do
+              %span.glyphicon.glyphicon-trash
+
+
           /   - if instance.stopped?
           /     = link_to run_instance_path(instance),  remote: true, method: :post, class: 'btn btn-xs btn-default btn-rotate btn-action' do
           /       %span.glyphicon.glyphicon-play

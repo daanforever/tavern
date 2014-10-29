@@ -190,8 +190,6 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     ref (1.0.5)
-    responders (1.1.1)
-      railties (>= 3.2, < 4.2)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -313,7 +311,6 @@ DEPENDENCIES
   rack-mini-profiler
   railroady
   rails (= 4.1.6)
-  responders
   rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

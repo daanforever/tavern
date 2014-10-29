@@ -28,7 +28,7 @@ gem 'angularjs-rails'                 # A simple Angular.js wrapper for Rails
 gem 'devise'                          # Flexible authentication solution for Rails with Warden
 
 gem 'haml'                            # HTML Abstraction Markup Language
-gem 'responders'                      # A set of Rails responders to dry up your application
+# gem 'responders'                      # A set of Rails responders to dry up your application
 gem 'has_scope'                       # Maps controller filters to your resource scopes
 gem 'simple_form', github: 'plataformatec/simple_form' # Forms made easy for Rails!
 gem 'kaminari'                        # Customizable and sophisticated paginator
