@@ -48,7 +48,6 @@ gem 'delayed_job_active_record'       # Database based asynchronous priority que
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'              # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'railroady'                     # Class diagram generator. Usage: rake diagram:all
 end
 
 group :development, :test do
@@ -62,6 +61,7 @@ group :development, :test do
   gem 'bullet'                        # Query optimization # TODO need to configure
   gem 'annotate'                      # Annotate ActiveRecord models. Usage: annotate
   gem 'haml-rails'                    # Integration for HAML
+  gem 'railroady'                     # Class diagram generator. Usage: rake diagram:all
 end
 
 group :test do
