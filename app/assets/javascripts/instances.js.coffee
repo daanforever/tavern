@@ -23,36 +23,35 @@
 # $(document).ready(updateHosts)
 # $(document).on('page:load', updateHosts)
 
-refresh = ($scope, $http) ->
-  $http.defaults.headers.common.Accept = 'application/json'
-  $http.get(
-    window.location
-  ).success( (data, status, headers, config) ->
-    $scope.instances = data
-    for instance in $scope.instances
-       
-      if instance.state == 'stopped'
-        instance.action_instance_path = instance.run_instance_path
-        instance.action_icon          = 'glyphicon-play'
-      else if instance.state == 'running'
-        instance.action_icon          = 'glyphicon-pause'
-        instance.action_instance_path = instance.stop_instance_path
-      else
-        instance.action_instance_path = '#'
-        instance.action_icon          = 'glyphicon-refresh'
-
-  ).error( (data, status, headers, config) ->
-    console.log("AJAX failed!")
-  );
-
 tavern.controller('instancesController', ($scope, $interval, $http) ->
-  refresh( $scope, $http )
-
   $( document ).on('ajax:success', '.btn-action[data-remote=true]', (e, data, status, xhr) ->
-    refresh( $scope, $http )
+    $scope.refresh()
   )
 
+  $scope.refresh = ->
+    $http.defaults.headers.common.Accept = 'application/json'
+    $http.get(
+      window.location
+    ).success( (data, status, headers, config) ->
+      $scope.instances = data
+      for instance in $scope.instances
+         
+        if instance.state      == 'stopped'
+          instance.action_instance_path = instance.run_instance_path
+          instance.action_class         = 'glyphicon-play'
+        else if instance.state == 'running'
+          instance.action_instance_path = instance.stop_instance_path
+          instance.action_class         = 'glyphicon-pause'
+        else
+          instance.action_instance_path = '#'
+          instance.action_class         = 'glyphicon-refresh icon-refresh-animate'
+
+    ).error( (data, status, headers, config) ->
+      console.log("AJAX failed!")
+    );
+
+
   $interval( ->
-    refresh( $scope, $http )
-  , 5000)
+    $scope.refresh()
+  , 3000)
 )
