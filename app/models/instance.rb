@@ -35,7 +35,8 @@ class Instance < ActiveRecord::Base
     running: 1,
     starting: 2,
     stopping: 3,
-    unknown: 4
+    unknown: 4,
+    failed: 5
   }
 
   include AASM
@@ -46,13 +47,14 @@ class Instance < ActiveRecord::Base
     state :running
     state :stopping
     state :unknown
+    state :failed
 
     event :starting do
       transitions from: [:stopped,  :unknown], to: :starting
     end
 
     event :running do
-      transitions from: [:starting, :unknown], to: :running
+      transitions from: [:starting, :unknown, :failed], to: :running
     end
 
     event :stopping do
@@ -60,11 +62,15 @@ class Instance < ActiveRecord::Base
     end
 
     event :stopped do
-      transitions from: [:stopping, :unknown], to: :stopped
+      transitions from: [:stopping, :unknown, :failed], to: :stopped
     end
 
     event :unknown do
       transitions from: [:stopped, :starting, :running, :stopping], to: :unknown
+    end
+
+    event :failed do
+      transitions from: [:starting, :stopping], to: :failed
     end
   end
 
@@ -73,18 +79,25 @@ class Instance < ActiveRecord::Base
     self.delay.start!
   end
 
-  def start!
-    self.running!
-  end
-
   def stop
     self.stopping!
     self.delay.stop!
   end
 
+###############################################################################
+# Delayed jobs
+
+  def start!
+    self.running!
+  end
+
   def stop!
     self.stopped!
   end
+
+#
+###############################################################################
+
 
   # def run
   #   return false if self.running?
