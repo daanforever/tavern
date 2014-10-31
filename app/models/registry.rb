@@ -20,12 +20,48 @@ class Registry < ActiveRecord::Base
   validates         :url, presence: true
   serialize         :info
 
+  scope :enabled, -> { where(disabled: false) }
+
   def refresh
     return if self.url.blank?
 
     @statistics = nil
 
-    scan = search.map do |r|
+    result = scan( search )
+
+    self.update!( info: result )
+
+    self
+
+  end
+
+  def self.refresh
+    Registry.all.each do |r|
+      r.refresh
+    end
+  end
+
+
+
+  def search
+    Timeout::timeout(5) do
+      @search ||= DockerRegistry::Registry.new(self.url).search
+    end
+  rescue => e
+    e
+  end
+
+  def statistics
+    refresh      if self.info.blank?
+    @statistics ||= OpenStruct.new({ projects:   projects_count,
+                                     releases:   releases_count,
+                                     components: components_count })
+  end
+
+  def scan(data)
+
+    return nil if data.blank? or self.disabled? or not data.is_a?(Array)
+    data.map do |r|
 
       project_name, component_name = r.name.split('/')
 
@@ -48,33 +84,20 @@ class Registry < ActiveRecord::Base
       
     end.flatten
 
-    self.update!( info: scan )
-
-    self
-
   end
 
-  def self.refresh
-    Registry.all.each do |r|
-      r.refresh
+  protected
+    def projects_count
+      self.info.blank? ? 0 : self.info.map{ |r| r.project }.uniq.count
     end
-  end
 
+    def releases_count
+      self.info.blank? ? 0 : self.info.map{ |r| r.release }.uniq.count
+    end
 
-
-  def search
-    @search ||= DockerRegistry::Registry.new(self.url).search
-  rescue => e
-    e
-  end
-
-  def statistics
-    refresh if self.info.blank?
-    @statistics ||= OpenStruct.new({ projects:   self.info.map{ |r| r.project }.uniq.count,
-                     releases:   self.info.map{ |r| r.release }.uniq.count,
-                     components: self.info.map{ |r| r.component }.uniq.count})
-  end
-
+    def components_count
+      self.info.blank? ? 0 : self.info.map{ |r| r.component }.uniq.count
+    end
   # def project_cache( name: name )
   #   @project_cache ||= {}
   #   if @project_cache[name.to_sym].present?
