@@ -39,12 +39,15 @@
                 = t('.new_environment')
           - project.environments.each do |environment|
             .row
-              .col-md-8
+              .col-md-7
                 %p
                   = link_to environment.name, environment
-              .col-md-4
+              .col-md-5
                 %span.badge.badge-success{title: 'running'}= environment.instances.running.count
-                %span.badge.badge-warning{title: 'stopped'}= environment.instances.stopped.count
+                %span.badge{title: 'stopped'}= environment.instances.stopped.count
+                = link_to environment_instances_path(environment), class: 'btn btn-default btn-xs btn-rotate' do
+                  %span.glyphicon.glyphicon-th-list
+
 
         %td
           - project.components.each do |component|
@@ -54,4 +57,4 @@
                   = link_to component.name, component_path(component)
               .col-md-4
                 %span.badge.badge-success{title: 'running'}= component.instances.running.count
-                %span.badge.badge-warning{title: 'stopped'}= component.instances.stopped.count
+                %span.badge{title: 'stopped'}= component.instances.stopped.count

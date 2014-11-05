@@ -38,7 +38,7 @@ class RegistriesController < ApplicationController
   end
 
   def refresh
-    Registry.refresh
+    Registry.delay.refresh
     render partial: 'registries'
   end
 
