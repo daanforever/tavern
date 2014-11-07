@@ -1,3 +1,4 @@
+Turbolinks.enableProgressBar()
 
 window.waitNetClass         = "disabled"
 window.animateClass         = "icon-refresh-animate"

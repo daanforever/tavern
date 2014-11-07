@@ -50,8 +50,27 @@
       console.log("AJAX failed!")
     );
 
+  $scope.startRefresher = ->
+    $scope.stop = $interval( ->
+      $scope.refresh()
+    , 5000)
+    console.log('refresher started')
 
-  $interval( ->
-    $scope.refresh()
-  , 3000)
+  $scope.stopRefresher = ->
+    if angular.isDefined($scope.stop)
+      $interval.cancel($scope.stop)
+      $scope.stop = undefined
+      console.log('refresher stopped')
+)
+
+$(document).on('ready page:load page:restore', ->
+  angular.element('[ng-controller="instancesController"]').each( ->
+    $(this).scope().startRefresher()
+  )
+)
+
+$(document).on('page:before-change', ->
+  angular.element('[ng-controller="instancesController"]').each( ->
+    $(this).scope().stopRefresher()
+  )
 )

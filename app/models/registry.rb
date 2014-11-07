@@ -33,9 +33,11 @@ class Registry < ActiveRecord::Base
 
   end
 
+  handle_asynchronously :refresh, queue: :registries, priority: 10
+
   def self.refresh
     Registry.all.each do |r|
-      r.delay(queue: :registries).refresh
+      r.refresh
     end
   end
 
