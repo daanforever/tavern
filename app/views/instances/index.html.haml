@@ -20,20 +20,22 @@
     %table.table.instances
       %thead
         %tr
-          %th.col-md-1 Id
-          %th.col-md-2 Environment
-          %th.col-md-2 Host
-          %th.col-md-2 Release
-          %th.col-md-2 Ports
-          %th.col-md-1 State
-          %th.col-md-2
+          %th Id
+          %th Project
+          %th Environment
+          %th Host
+          %th Release
+          %th Ports
+          %th State
+          %th
       %tbody
         %tr{ "ng-repeat" => "instance in instances" }
           %td
             %a{ href: '{{ instance.instance_path }}' } {{ instance.id }}
+          %td {{ instance.project }}
           %td {{ instance.environment }}
           %td {{ instance.host }}
-          %td {{ instance.release }}
+          %td {{ instance.component }}:{{ instance.release }}
           %td {{ instance.public_port }} : {{ instance.private_port }}
           %td {{ instance.state }}
           %td
