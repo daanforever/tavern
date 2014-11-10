@@ -22,8 +22,17 @@ class Host < ActiveRecord::Base
   # validates :name, uniqueness: true
 
   def refresh
+
     connection = Docker::Connection.new(self.url, {})
-    Docker::Container.all({}, connection)
+    Docker::Container.all({all: true}, connection).map do |c|
+      container = Docker::Container.get(c.id, {}, connection)
+      {
+        id: c.id,
+        image: container.info['Config']['Image'],
+        running: container.info['State']['Running']
+      }
+    end
+
   end
 
   protected 
