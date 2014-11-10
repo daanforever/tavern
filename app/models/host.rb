@@ -21,6 +21,11 @@ class Host < ActiveRecord::Base
   validates :url, presence: true
   # validates :name, uniqueness: true
 
+  def refresh
+    connection = Docker::Connection.new(self.url, {})
+    Docker::Container.all({}, connection)
+  end
+
   protected 
   def set_name
     self.name = URI.parse(self.url).host if self.name.blank?

@@ -19,6 +19,8 @@
           Hosts
           = link_to new_environment_host_path(@environment), class: 'btn btn-default btn-xs' do
             %span.glyphicon.glyphicon-plus
+          = link_to environment_hosts_path(@environment), class: 'btn btn-default btn-xs btn-rotate' do
+            %span.glyphicon.glyphicon-th-list
       .panel-body
         - @environment.hosts.each do |host|
           %p= link_to host.name, environment_host_path(@environment, host)
