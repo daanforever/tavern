@@ -2,15 +2,12 @@
   %table.table
     %thead
       %tr
-        %th.col-md-3 Name
         %th.col-md-7 URL
         %th.col-md-2
     - @registries.each do |registry|
       %tr
         %td
-          = truncate(registry.name.to_s, length: 12)
-        %td
-          = truncate(registry.url.to_s, length: 40)
+          = link_to truncate(registry.url.to_s, length: 40), registry_path(registry)
         %td.text-right
           = link_to edit_registry_path(registry), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
             %span.glyphicon.glyphicon-cog

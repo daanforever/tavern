@@ -3,7 +3,7 @@ class RegistriesController < ApplicationController
   before_action :set_registries, only: [ :index, :refresh, :partial ]
 
   responders :location, :flash
-  respond_to :html
+  respond_to :html, :json
 
   def index
     respond_with(@registries)
