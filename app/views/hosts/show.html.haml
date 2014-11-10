@@ -2,7 +2,7 @@
 
 = link_to "#", class: 'btn btn-default btn-back' do
   %span.glyphicon.glyphicon-circle-arrow-left
-= link_to edit_environment_host_path(@environment, @host), class: 'btn btn-default' do
+= link_to edit_environment_host_path(@host.environment, @host), class: 'btn btn-default' do
   %span.glyphicon.glyphicon-cog
 
 %hr
