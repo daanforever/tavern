@@ -1,18 +1,18 @@
-%p#notice= notice
+- content_for :header do
+  %h1
+    Registry
+    %small #{ @registry.url }
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
 
-%p
-  %b Name:
-  = @registry.name
-%p
-  %b Description:
-  = @registry.description
-%p
-  %b Url:
-  = @registry.url
-%p
-  %b Disabled:
-  = @registry.disabled
+    = link_to edit_registry_path(@registry), class: 'btn btn-default btn-rotate' do
+      %span.glyphicon.glyphicon-cog
+  %hr
 
-= link_to 'Edit', edit_registry_path(@registry)
-\|
-= link_to 'Back', registries_path
+%span{ 'ng-controller' => 'showRegistryController', 'ng-init' => 'refresh()' }
+  .row
+    .col-md-12
+      %p{ 'ng-repeat' => 'image in images | orderBy:"name"' }
+        {{ image.name }}
+
+{{ 1 + 1 }}

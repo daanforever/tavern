@@ -4,7 +4,7 @@
 
 <% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 
-refreshInterval = 3000000
+refreshInterval = 5000
 
 setRefresh = ->
 
@@ -20,5 +20,43 @@ setRefresh = ->
     $( ".row.registries" ).load( "<%= partial_registries_path %>" )
   , refreshInterval )
 
+
+@tavern.controller('showRegistryController', ($scope, $interval, $http) ->
+
+  $scope.refresh = ->
+    $http.defaults.headers.common.Accept = 'application/json'
+    $http.get(
+      window.location
+    ).success( (data, status, headers, config) ->
+      $scope.images = data.images
+    ).error( (data, status, headers, config) ->
+      console.log("AJAX failed!")
+    );
+
+  $scope.startRefresher = ->
+    $scope.stop = $interval( ->
+      $scope.refresh()
+    , refreshInterval)
+    console.log('refresher started')
+
+  $scope.stopRefresher = ->
+    if angular.isDefined($scope.stop)
+      $interval.cancel($scope.stop)
+      $scope.stop = undefined
+      console.log('refresher stopped')
+)
+
 $(document).ready(setRefresh)
 $(document).on('page:load', setRefresh)
+
+$(document).on('ready page:load page:restore', ->
+  angular.element('[ng-controller="showRegistryController"]').each( ->
+    $(this).scope().startRefresher()
+  )
+)
+
+$(document).on('page:before-change', ->
+  angular.element('[ng-controller="showRegistryController"]').each( ->
+    $(this).scope().stopRefresher()
+  )
+)
