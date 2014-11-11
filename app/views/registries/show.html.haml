@@ -13,6 +13,4 @@
   .row
     .col-md-12
       %p{ 'ng-repeat' => 'image in images | orderBy:"name"' }
-        {{ image.name }}
-
-{{ 1 + 1 }}
+        {{ image.project }}/{{ image.component }}:{{ image.release}}
