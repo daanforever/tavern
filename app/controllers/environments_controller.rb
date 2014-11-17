@@ -45,7 +45,7 @@ class EnvironmentsController < ApplicationController
     end
 
     def set_project
-      @project = Project.find(params[:project_id])
+      @project = Project.find(params[:project_id]) if params[:project_id]
     end
 
     def environment_params

@@ -17,8 +17,11 @@ class Registry < ActiveRecord::Base
   has_and_belongs_to_many :projects
   has_many                :images
 
+  before_validation :set_name
+
   validates         :url, presence: true
   serialize         :info
+  before_create     :set_name
 
   scope :enabled, -> { where(disabled: false) }
 
@@ -82,6 +85,10 @@ class Registry < ActiveRecord::Base
       
     end.flatten
 
+  end
+
+  def set_name
+    self.name = URI.parse(self.url).host if self.name.blank?
   end
 
   protected
