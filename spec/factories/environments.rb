@@ -14,8 +14,8 @@
 
 FactoryGirl.define do
   factory :environment do
-    name "MyString"
-    project nil
-    release nil
+    name      { Faker::Name.name }
+    project   { create(:project) }
+    release   { create(:release) }
   end
 end

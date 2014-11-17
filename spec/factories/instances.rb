@@ -23,13 +23,16 @@
 
 FactoryGirl.define do
   factory :instance do
-    name "MyString"
-    disabled false
-    port 1
-    container "MyString"
-    properties "MyText"
-    image nil
-    component nil
-    host nil
+    name          { Faker::Name.name }
+    disabled      false
+    public_port   { rand(65535) }
+    private_port  { rand(65535) }
+    container     { Faker::Name.name }
+    properties    { Faker::Lorem.paragraph }
+    image
+    component
+    host
+    environment
+    options       { Faker::Lorem.paragraph }
   end
 end

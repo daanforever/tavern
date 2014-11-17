@@ -24,7 +24,7 @@ RSpec.describe EnvironmentsController, :type => :controller do
   # Environment. As you add validations to Environment, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:environment)
   }
 
   let(:invalid_attributes) {

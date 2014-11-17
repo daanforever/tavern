@@ -16,9 +16,7 @@
 
 FactoryGirl.define do
   factory :registry do
-    name "MyString"
-    desc "MyString"
-    url "MyString"
+    url   { Faker::Internet.url }
     disabled false
   end
 end

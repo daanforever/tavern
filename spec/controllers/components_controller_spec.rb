@@ -24,11 +24,11 @@ RSpec.describe ComponentsController, :type => :controller do
   # Component. As you add validations to Component, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:component)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { component: {} }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -52,51 +52,11 @@ RSpec.describe ComponentsController, :type => :controller do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new component as @component" do
-      get :new, {}, valid_session
-      expect(assigns(:component)).to be_a_new(Component)
-    end
-  end
-
   describe "GET edit" do
     it "assigns the requested component as @component" do
       component = Component.create! valid_attributes
       get :edit, {:id => component.to_param}, valid_session
       expect(assigns(:component)).to eq(component)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Component" do
-        expect {
-          post :create, {:component => valid_attributes}, valid_session
-        }.to change(Component, :count).by(1)
-      end
-
-      it "assigns a newly created component as @component" do
-        post :create, {:component => valid_attributes}, valid_session
-        expect(assigns(:component)).to be_a(Component)
-        expect(assigns(:component)).to be_persisted
-      end
-
-      it "redirects to the created component" do
-        post :create, {:component => valid_attributes}, valid_session
-        expect(response).to redirect_to(Component.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved component as @component" do
-        post :create, {:component => invalid_attributes}, valid_session
-        expect(assigns(:component)).to be_a_new(Component)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:component => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
     end
   end
 

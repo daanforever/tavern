@@ -15,8 +15,9 @@
 
 FactoryGirl.define do
   factory :component do
-    name "MyString"
-    description "MyString"
-    disabled false
+    name        { Faker::Name.first_name }
+    description { Faker::Lorem.sentence }
+    disabled    false
+    project     { create(:project) }
   end
 end
