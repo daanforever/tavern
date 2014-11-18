@@ -28,7 +28,7 @@ RSpec.describe ComponentsController, :type => :controller do
   }
 
   let(:invalid_attributes) {
-    { component: {} }
+    { name: '' }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -63,14 +63,14 @@ RSpec.describe ComponentsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: Faker::Lorem.word }
       }
 
       it "updates the requested component" do
         component = Component.create! valid_attributes
         put :update, {:id => component.to_param, :component => new_attributes}, valid_session
         component.reload
-        skip("Add assertions for updated state")
+        expect(component.name).to eq(new_attributes[:name])
       end
 
       it "assigns the requested component as @component" do

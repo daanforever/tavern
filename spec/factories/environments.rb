@@ -15,7 +15,7 @@
 FactoryGirl.define do
   factory :environment do
     name      { Faker::Name.name }
-    project   { create(:project) }
-    release   { create(:release) }
+    project_id { create(:project).id }
+    release_id { create(:release, project_id: project_id ).id }
   end
 end

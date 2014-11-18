@@ -26,6 +26,7 @@ class EnvironmentsController < ApplicationController
   def create
     @environment = Environment.new(environment_params.merge(project: @project))
     @environment.save
+    @environment.errors if @environment.errors
     respond_with(@environment)
   end
 

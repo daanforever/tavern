@@ -27,8 +27,24 @@ RSpec.describe EnvironmentsController, :type => :controller do
     attributes_for(:environment)
   }
 
+  let(:valid_request) {
+    {
+      environment: valid_attributes,
+      project_id:  valid_attributes[:project_id]
+    }
+  }
+
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      name: nil
+    }
+  }
+
+  let(:invalid_request) {
+    {
+      environment: { name: '' }, 
+      project_id:  valid_attributes[:project_id]
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -71,30 +87,30 @@ RSpec.describe EnvironmentsController, :type => :controller do
     describe "with valid params" do
       it "creates a new Environment" do
         expect {
-          post :create, {:environment => valid_attributes}, valid_session
+          post :create, valid_request, valid_session
         }.to change(Environment, :count).by(1)
       end
 
       it "assigns a newly created environment as @environment" do
-        post :create, {:environment => valid_attributes}, valid_session
+        post :create, valid_request, valid_session
         expect(assigns(:environment)).to be_a(Environment)
         expect(assigns(:environment)).to be_persisted
       end
 
       it "redirects to the created environment" do
-        post :create, {:environment => valid_attributes}, valid_session
+        post :create, valid_request, valid_session
         expect(response).to redirect_to(Environment.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved environment as @environment" do
-        post :create, {:environment => invalid_attributes}, valid_session
+        post :create, invalid_request, valid_session
         expect(assigns(:environment)).to be_a_new(Environment)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:environment => invalid_attributes}, valid_session
+        post :create, invalid_request, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,14 +119,14 @@ RSpec.describe EnvironmentsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:environment)
       }
 
       it "updates the requested environment" do
         environment = Environment.create! valid_attributes
         put :update, {:id => environment.to_param, :environment => new_attributes}, valid_session
         environment.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:environment).name).to eq(environment.name)
       end
 
       it "assigns the requested environment as @environment" do
@@ -152,7 +168,7 @@ RSpec.describe EnvironmentsController, :type => :controller do
     it "redirects to the environments list" do
       environment = Environment.create! valid_attributes
       delete :destroy, {:id => environment.to_param}, valid_session
-      expect(response).to redirect_to(environments_url)
+      expect(response).to redirect_to(projects_url)
     end
   end
 
