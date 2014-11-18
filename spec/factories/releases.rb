@@ -16,8 +16,7 @@
 
 FactoryGirl.define do
   factory :release do
-    name "MyString"
-    description "MyString"
-    label "MyString"
+    name        { Faker::Lorem.word }
+    description { Faker::Lorem.sentence }
   end
 end
