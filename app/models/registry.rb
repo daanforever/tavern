@@ -15,7 +15,7 @@
 class Registry < ActiveRecord::Base
 
   has_and_belongs_to_many :projects
-  has_many                :images
+  has_and_belongs_to_many :images
 
   before_validation :set_name
 
@@ -28,7 +28,7 @@ class Registry < ActiveRecord::Base
   def refresh
     return if self.url.blank?
 
-    result = scan( search )
+    result = parse( scan )
 
     self.update!( info: result )
 
@@ -45,7 +45,7 @@ class Registry < ActiveRecord::Base
   end
 
 
-  def search
+  def scan
     Timeout::timeout(5) do
       @search ||= DockerRegistry::Registry.new(self.url).search
     end
@@ -59,7 +59,7 @@ class Registry < ActiveRecord::Base
                      components: components_count })
   end
 
-  def scan(data)
+  def parse(data)
 
     return nil if data.blank? or self.disabled? or not data.is_a?(Array)
     data.map do |r|

@@ -15,5 +15,10 @@
 require 'rails_helper'
 
 describe Registry, :type => :model do
-  
+  let(:registry) { create(:registry) }
+  describe '#scan' do
+    it 'not raises error' do
+      expect{ registry.scan }.to_not raise_error
+    end
+  end  
 end
