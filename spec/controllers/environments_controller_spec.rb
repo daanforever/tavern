@@ -70,7 +70,7 @@ RSpec.describe EnvironmentsController, :type => :controller do
 
   describe "GET new" do
     it "assigns a new environment as @environment" do
-      get :new, {}, valid_session
+      get :new, { project_id: valid_attributes[:project_id] }, valid_session
       expect(assigns(:environment)).to be_a_new(Environment)
     end
   end

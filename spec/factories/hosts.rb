@@ -17,10 +17,10 @@
 
 FactoryGirl.define do
   factory :host do
-    name "MyString"
-    description "MyString"
-    url "MyString"
-    disabled false
-    info "MyText"
+    name            { Faker::Lorem.word }
+    description     { Faker::Lorem.sentence }
+    url             { Faker::Internet.url }
+    disabled        false
+    environment_id  { create(:environment).id }
   end
 end

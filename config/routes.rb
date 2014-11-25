@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :environments do
+  resources :environments, except: [ :new, :create ] do
     resources :instances
     resources :hosts
   end
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get 'toggle', on: :member
   end
   
-  resources :hosts do
+  resources :hosts, except: [ :new, :create ] do
     get 'toggle',  on: :member
   end
 

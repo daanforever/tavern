@@ -41,7 +41,7 @@ class HostsController < ApplicationController
 
   def destroy
     @host.destroy
-    respond_with(@environment)
+    respond_with(Environment)
   end
 
   def toggle

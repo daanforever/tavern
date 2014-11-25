@@ -8,7 +8,7 @@ RSpec.describe EnvironmentsController, :type => :routing do
     end
 
     it "routes to #new" do
-      expect(:get => "/environments/new").to route_to("environments#new")
+      expect(:get => "/projects/1/environments/new").to route_to("environments#new", project_id: "1")
     end
 
     it "routes to #show" do
@@ -20,7 +20,7 @@ RSpec.describe EnvironmentsController, :type => :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/environments").to route_to("environments#create")
+      expect(:post => "/projects/1/environments").to route_to("environments#create", project_id: "1")
     end
 
     it "routes to #update" do

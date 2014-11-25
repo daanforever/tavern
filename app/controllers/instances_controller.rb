@@ -32,7 +32,7 @@ class InstancesController < ApplicationController
 
   def create
 
-    if    @component
+    if @component
       @instance = Instance.new(instance_params.merge(component: @component))
     elsif @environment
       @instance = Instance.new(instance_params.merge(environment: @environment))
@@ -41,8 +41,14 @@ class InstancesController < ApplicationController
     end
 
     if @instance.save
-      respond_with(@component) if @component
-      respond_with(@environment) if @environment
+      
+      if @component
+        respond_with(@component, location: component_instances_path(@component))
+      elsif @environment
+        respond_with(@environment, location: environment_instances_path(@environment))
+      else
+        respond_with(@instance, location: projects_path)
+      end
     else
       flash.now[:alert] = @instance.errors
       respond_with(@instance)
@@ -56,7 +62,7 @@ class InstancesController < ApplicationController
 
   def destroy
     @instance.destroy
-    respond_with(@component)
+    respond_with(Project)
   end
 
   def run
