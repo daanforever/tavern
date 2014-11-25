@@ -17,11 +17,11 @@
 
 FactoryGirl.define do
   factory :image do
-    name "MyString"
-    disabled false
-    registry nil
-    project nil
-    release nil
-    component nil
+    name        { Faker::Lorem.word }
+    disabled    false
+    registry    { create(:registry) }
+    project     { create(:project) }
+    release     { create(:release) }
+    component   { create(:component, project: project) }
   end
 end

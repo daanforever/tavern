@@ -24,11 +24,26 @@ RSpec.describe HostsController, :type => :controller do
   # Host. As you add validations to Host, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:host)
   }
 
+  let(:valid_request) {
+    {
+      host: valid_attributes,
+      environment_id: valid_attributes[:environment_id]
+    }
+  }
+
+
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    attributes_for(:host, url: nil)
+  }
+
+  let(:invalid_request) {
+    {
+      host: attributes_for(:host, url: nil),
+      environment_id: valid_attributes[:environment_id]
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -54,7 +69,7 @@ RSpec.describe HostsController, :type => :controller do
 
   describe "GET new" do
     it "assigns a new host as @host" do
-      get :new, {}, valid_session
+      get :new, { environment_id: valid_attributes[:environment_id] }, valid_session
       expect(assigns(:host)).to be_a_new(Host)
     end
   end
@@ -71,31 +86,26 @@ RSpec.describe HostsController, :type => :controller do
     describe "with valid params" do
       it "creates a new Host" do
         expect {
-          post :create, {:host => valid_attributes}, valid_session
+          post :create, valid_request, valid_session
         }.to change(Host, :count).by(1)
       end
 
       it "assigns a newly created host as @host" do
-        post :create, {:host => valid_attributes}, valid_session
+        post :create, valid_request, valid_session
         expect(assigns(:host)).to be_a(Host)
         expect(assigns(:host)).to be_persisted
       end
 
       it "redirects to the created host" do
-        post :create, {:host => valid_attributes}, valid_session
-        expect(response).to redirect_to(Host.last)
+        post :create, valid_request, valid_session
+        expect(response).to redirect_to(Environment.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved host as @host" do
-        post :create, {:host => invalid_attributes}, valid_session
+        post :create, invalid_request, valid_session
         expect(assigns(:host)).to be_a_new(Host)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:host => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
       end
     end
   end
@@ -103,14 +113,14 @@ RSpec.describe HostsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:host)
       }
 
       it "updates the requested host" do
         host = Host.create! valid_attributes
         put :update, {:id => host.to_param, :host => new_attributes}, valid_session
         host.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:host)).to eq(host)
       end
 
       it "assigns the requested host as @host" do
@@ -152,7 +162,7 @@ RSpec.describe HostsController, :type => :controller do
     it "redirects to the hosts list" do
       host = Host.create! valid_attributes
       delete :destroy, {:id => host.to_param}, valid_session
-      expect(response).to redirect_to(hosts_url)
+      expect(response).to redirect_to(environments_url)
     end
   end
 

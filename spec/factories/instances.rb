@@ -23,16 +23,16 @@
 
 FactoryGirl.define do
   factory :instance do
-    name          { Faker::Name.name }
-    disabled      false
-    public_port   { rand(65535) }
-    private_port  { rand(65535) }
-    container     { Faker::Name.name }
-    properties    { Faker::Lorem.paragraph }
-    image
-    component
-    host
-    environment
-    options       { Faker::Lorem.paragraph }
+    name            { Faker::Name.name }
+    disabled        false
+    public_port     { rand(65535) }
+    private_port    { rand(65535) }
+    container       { Faker::Name.name }
+    properties      { Faker::Lorem.paragraph }
+    component_id    { create(:component).id }
+    image_id        { create(:image, component: component).id }
+    host_id         { create(:host).id }
+    environment_id  { create(:environment).id }
+    options         { Faker::Lorem.paragraph }
   end
 end

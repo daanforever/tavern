@@ -8,7 +8,7 @@ RSpec.describe HostsController, :type => :routing do
     end
 
     it "routes to #new" do
-      expect(:get => "/hosts/new").to route_to("hosts#new")
+      expect(:get => "/environments/1/hosts/new").to route_to("hosts#new", environment_id: "1")
     end
 
     it "routes to #show" do
@@ -20,7 +20,7 @@ RSpec.describe HostsController, :type => :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/hosts").to route_to("hosts#create")
+      expect(:post => "/environments/1/hosts").to route_to("hosts#create", environment_id: "1")
     end
 
     it "routes to #update" do

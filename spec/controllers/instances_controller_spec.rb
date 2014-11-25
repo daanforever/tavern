@@ -24,11 +24,31 @@ RSpec.describe InstancesController, :type => :controller do
   # Instance. As you add validations to Instance, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:instance)
+  }
+
+  let(:valid_request) {
+    component = create(:component)
+    2.times{ component.images << create(:image) }
+    {
+      instance: attributes_for(:instance, component_id: component.id),
+      component_id: component.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      instance: valid_attributes.merge({environment_id: nil})
+    }
+  }
+
+  let(:invalid_request) {
+    component = create(:component)
+    2.times{ component.images << create(:image) }
+    {
+      instance: attributes_for(:instance, component_id: component.id, environment_id: nil),
+      component_id: component.id
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -71,30 +91,30 @@ RSpec.describe InstancesController, :type => :controller do
     describe "with valid params" do
       it "creates a new Instance" do
         expect {
-          post :create, {:instance => valid_attributes}, valid_session
+          post :create, valid_request, valid_session
         }.to change(Instance, :count).by(1)
       end
 
       it "assigns a newly created instance as @instance" do
-        post :create, {:instance => valid_attributes}, valid_session
+        post :create, valid_request, valid_session
         expect(assigns(:instance)).to be_a(Instance)
         expect(assigns(:instance)).to be_persisted
       end
 
       it "redirects to the created instance" do
-        post :create, {:instance => valid_attributes}, valid_session
-        expect(response).to redirect_to(Instance.last)
+        post :create, valid_request, valid_session
+        expect(response).to redirect_to(component_instances_path)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved instance as @instance" do
-        post :create, {:instance => invalid_attributes}, valid_session
+        post :create, invalid_request, valid_session
         expect(assigns(:instance)).to be_a_new(Instance)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:instance => invalid_attributes}, valid_session
+        post :create, invalid_request, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,14 +123,14 @@ RSpec.describe InstancesController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:instance)
       }
 
       it "updates the requested instance" do
         instance = Instance.create! valid_attributes
         put :update, {:id => instance.to_param, :instance => new_attributes}, valid_session
         instance.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:instance).name).to eq(new_attributes[:name])
       end
 
       it "assigns the requested instance as @instance" do
@@ -132,12 +152,6 @@ RSpec.describe InstancesController, :type => :controller do
         put :update, {:id => instance.to_param, :instance => invalid_attributes}, valid_session
         expect(assigns(:instance)).to eq(instance)
       end
-
-      it "re-renders the 'edit' template" do
-        instance = Instance.create! valid_attributes
-        put :update, {:id => instance.to_param, :instance => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
     end
   end
 
@@ -152,7 +166,7 @@ RSpec.describe InstancesController, :type => :controller do
     it "redirects to the instances list" do
       instance = Instance.create! valid_attributes
       delete :destroy, {:id => instance.to_param}, valid_session
-      expect(response).to redirect_to(instances_url)
+      expect(response).to redirect_to(projects_url)
     end
   end
 
