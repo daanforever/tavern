@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023110623) do
+ActiveRecord::Schema.define(version: 20141125130814) do
 
   create_table "components", force: true do |t|
     t.string   "name"
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 20141023110623) do
   create_table "images", force: true do |t|
     t.string   "name"
     t.boolean  "disabled"
-    t.integer  "registry_id"
     t.integer  "project_id"
     t.integer  "release_id"
     t.integer  "component_id"
@@ -85,8 +84,15 @@ ActiveRecord::Schema.define(version: 20141023110623) do
 
   add_index "images", ["component_id"], name: "index_images_on_component_id"
   add_index "images", ["project_id"], name: "index_images_on_project_id"
-  add_index "images", ["registry_id"], name: "index_images_on_registry_id"
   add_index "images", ["release_id"], name: "index_images_on_release_id"
+
+  create_table "images_registries", force: true do |t|
+    t.integer "registry_id"
+    t.integer "image_id"
+  end
+
+  add_index "images_registries", ["image_id"], name: "index_images_registries_on_image_id"
+  add_index "images_registries", ["registry_id"], name: "index_images_registries_on_registry_id"
 
   create_table "instances", force: true do |t|
     t.string   "name"

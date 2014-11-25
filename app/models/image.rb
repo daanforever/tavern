@@ -14,7 +14,7 @@
 #
 
 class Image < ActiveRecord::Base
-  belongs_to :registry
+  has_and_belongs_to_many :registries
   belongs_to :project
   belongs_to :release
   belongs_to :component

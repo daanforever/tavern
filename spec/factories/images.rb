@@ -19,7 +19,7 @@ FactoryGirl.define do
   factory :image do
     name        { Faker::Lorem.word }
     disabled    false
-    registry    { create(:registry) }
+    registries  { [ create(:registry) ] }
     project     { create(:project) }
     release     { create(:release) }
     component   { create(:component, project: project) }
