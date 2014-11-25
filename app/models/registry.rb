@@ -61,7 +61,9 @@ class Registry < ActiveRecord::Base
 
   def parse(data)
 
-    return nil if data.blank? or self.disabled? or not data.is_a?(Array)
+    return nil if data.blank? or self.disabled? 
+    raise ArgumentError.new('Not array given') unless data.is_a?(Array)
+    
     data.map do |r|
 
       project_name, component_name = r.name.split('/')
