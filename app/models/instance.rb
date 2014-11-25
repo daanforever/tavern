@@ -89,6 +89,9 @@ class Instance < ActiveRecord::Base
 
   def start!
     self.running!
+    logger.info("Instance#start: name:'#{self.name}', image:'#{self.image.name}', host:'#{self.host.url}' ")
+    connection = Docker::Connection.new(self.host.url, {})
+    Docker::Container.create({'Image' => self.image.name}, connection)
   end
 
   def stop!
