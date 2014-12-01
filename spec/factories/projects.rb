@@ -16,10 +16,10 @@
 
 FactoryGirl.define do
   factory :project do
-    name "MyString"
-    description "MyString"
-    label "MyString"
-    visible false
-    disabled false
+    name        { Faker::Lorem.word }
+    description { Faker::Lorem.sentence }
+    label       { Faker::Lorem.word }
+    visible     true
+    disabled    false
   end
 end

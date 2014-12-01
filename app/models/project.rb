@@ -21,6 +21,8 @@ class Project < ActiveRecord::Base
 
   before_save :set_label
 
+  validates :name, presence: true
+
   protected
   def set_label
     self.label ||= self.name

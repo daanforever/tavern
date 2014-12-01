@@ -20,6 +20,8 @@ class Release < ActiveRecord::Base
 
   before_create           :set_label
 
+  validates :name, presence: true
+
   enum state: {
     inactive: 0,
     active:   1

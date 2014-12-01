@@ -24,11 +24,11 @@ RSpec.describe ProjectsController, :type => :controller do
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:project)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    attributes_for(:project, name: nil)
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +103,14 @@ RSpec.describe ProjectsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:project)
       }
 
       it "updates the requested project" do
         project = Project.create! valid_attributes
         put :update, {:id => project.to_param, :project => new_attributes}, valid_session
         project.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:project).name).to eq(project['name'])
       end
 
       it "assigns the requested project as @project" do
