@@ -24,11 +24,11 @@ RSpec.describe ReleasesController, :type => :controller do
   # Release. As you add validations to Release, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:release)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    attributes_for(:release, name: nil)
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +103,14 @@ RSpec.describe ReleasesController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:release)
       }
 
       it "updates the requested release" do
         release = Release.create! valid_attributes
         put :update, {:id => release.to_param, :release => new_attributes}, valid_session
         release.reload
-        skip("Add assertions for updated state")
+        expect(assigns[:release].name).to eq(new_attributes[:name])
       end
 
       it "assigns the requested release as @release" do

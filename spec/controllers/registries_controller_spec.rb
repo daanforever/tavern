@@ -103,14 +103,14 @@ RSpec.describe RegistriesController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:registry)
       }
 
       it "updates the requested registry" do
         registry = Registry.create! valid_attributes
         put :update, {:id => registry.to_param, :registry => new_attributes}, valid_session
         registry.reload
-        skip("Add assertions for updated state")
+        expect(assigns[:registry].url).to eq(new_attributes[:url])
       end
 
       it "assigns the requested registry as @registry" do
