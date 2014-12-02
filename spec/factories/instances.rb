@@ -27,7 +27,7 @@ FactoryGirl.define do
     disabled        false
     public_port     { rand(65535) }
     private_port    { rand(65535) }
-    container       { Faker::Name.name }
+    container       nil
     properties      { Faker::Lorem.paragraph }
     component_id    { create(:component).id }
     image_id        { create(:image, component: component).id }

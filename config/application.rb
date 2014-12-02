@@ -20,6 +20,8 @@ module Tavern
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.autoload_paths    << 'lib/docker_shell'
+
     config.assets.compile     = true
     config.assets.precompile += %w(welcome.* registries.* projects.* releases.* hosts.* components.* instances.* environments.*)
 
