@@ -66,13 +66,14 @@ group :development, :test do
 end
 
 group :test do
-  gem "rspec-rails"                   # Test suite
-  gem 'factory_girl_rails'            # Fixtures replacement
-  gem 'database_cleaner'              # Helper gem for rspec
-  gem 'shoulda-matchers'              # Rspec-compatible one-liners
-  gem 'faker'                         # A library for generating fake data
-  gem 'simplecov', require: false     # Code coverage
-  gem 'coveralls', require: false     # A Ruby implementation of the Coveralls API
+  gem "rspec-rails"                       # Test suite
+  gem 'factory_girl_rails'                # Fixtures replacement
+  gem 'database_cleaner'                  # Helper gem for rspec
+  gem 'shoulda-matchers', require: false  # Rspec-compatible one-liners
+  gem 'faker'                             # A library for generating fake data
+  gem 'simplecov', require: false         # Code coverage
+  gem 'coveralls', require: false         # A Ruby implementation of the Coveralls API
+  gem 'webmock'                           # Library for stubbing and setting expectations on HTTP requests
 end
 
 # Use ActiveModel has_secure_password

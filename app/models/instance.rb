@@ -75,8 +75,7 @@ class Instance < ActiveRecord::Base
   end
 
   def start
-    self.starting!
-    self.delay.start!
+    self.delay.start! if self.starting!
   end
 
   def stop
@@ -88,10 +87,70 @@ class Instance < ActiveRecord::Base
 # Delayed jobs
 
   def start!
-    self.running!
-    logger.info("Instance#start: name:'#{self.name}', image:'#{self.image.name}', host:'#{self.host.url}' ")
-    connection = Docker::Connection.new(self.host.url, {})
-    Docker::Container.create({'Image' => self.image.name}, connection)
+
+    return nil unless self.may_running?
+
+    logger.info("Instance#start!: id:'#{self.id}', image:'#{self.image.name}:#{self.image.release.name}', host:'#{self.host.url}' ")
+    docker = DockerShell.new( instance: self )
+
+    # Container present?
+    # |\_ (yes) Found container by Id?
+    # |  |\_ (yes) Container started?
+    # |  | |\_(no) Container.start
+    # |  | | \_ Container started?
+    # |  | |  \_ (no) Set error state
+    # |  |  \_(yes) Update status
+    # |   \_ (no) Proceed as new container
+    # |
+    #  \_ (no) Image present?
+    #   |\_ (no) Create image
+    #   |\_ (yes) Good
+    #   |/ 
+    #    \_ Create container
+    #     \_ Start container
+    #      \_ Update status
+
+
+    if docker.container.exists?
+
+      if docker.container.running?
+        logger.info("Instance#start!: instance id:#{self.id} already running")
+        self.running!
+      elsif docker.container.start
+        logger.info("Instance#start!: instance id:#{self.id} running!")
+        self.running!
+      else
+        logger.error("Instance#start!: instance id:#{self.id} run error!")
+        self.failed!
+      end
+
+    else # container not exists
+
+      if docker.image.exists?
+        logger.info("Instance#start!: image #{self.image.name} exist")
+      else # image not exists
+        logger.info("Instance#start!: pulling image #{self.image.name}")
+        if docker.image.pull
+          logger.info("Instance#start!: pulling image #{self.image.name} complete")
+        else
+          logger.error("Instance#start!: pulling image #{self.image.name} error!")
+          self.failed!
+        end
+      end
+
+      unless self.failed?
+        if docker.container.start
+          logger.info("Instance#start!: instance id:#{self.id} running!")
+          self.running!
+        else
+          logger.error("Instance#start!: instance id:#{self.id} run error!")
+          self.failed!
+        end
+      end
+
+    end
+
+
   end
 
   def stop!
