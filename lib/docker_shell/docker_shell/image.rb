@@ -6,7 +6,11 @@ class DockerShell::Image
     @image      = image
   end
 
-  def exists?
+  def exist?
+    false
+  end
+
+  def pull
     false
   end
 

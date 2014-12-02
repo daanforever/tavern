@@ -47,11 +47,12 @@ RSpec.describe Instance, :type => :model do
   describe '#start!' do
 
     let(:instance){ create(:instance, state: :starting) }
-
+    let(:container){ double(DockerShell::Container) }
+    let(:docker_image){ double(DockerShell::Image) }
+    
     before do
-      stub_request(:post, /.*/).
-        with(:headers => {'Content-Type'=>'application/json'}).
-        to_return(:status => 404, :body => "", :headers => {})
+      allow(DockerShell::Container).to receive(:new).and_return(container)
+      allow(DockerShell::Image).to receive(:new).and_return(docker_image)
     end
 
     it 'returns nil for invalid state' do
@@ -60,9 +61,36 @@ RSpec.describe Instance, :type => :model do
     end
 
     context 'with container ID' do
-      it 'raises NotImplementedError' do
-        instance = create(:instance, state: :starting, container: '123')
-        expect{ instance.start! }.to raise_error(NotImplementedError)
+      let(:instance){ create(:instance, state: :starting, container: rand(1..1000)) }
+      context 'when container already running' do
+        it 'change state' do
+          expect(container).to receive(:exist?).and_return(true)
+          expect(container).to receive(:running?).and_return(true)
+
+          instance.start!
+          expect(instance.state.to_sym).to eq(:running)
+        end
+      end
+      context 'when container started' do
+        it 'change state' do
+          expect(container).to receive(:exist?).and_return(true)
+          expect(container).to receive(:running?).and_return(false)
+          expect(container).to receive(:start).and_return(true)
+
+          instance.start!
+          expect(instance.state.to_sym).to eq(:running)
+        end
+      end
+
+      context 'when starting error' do
+        it 'change state to :failed' do
+          expect(container).to receive(:exist?).and_return(true)
+          expect(container).to receive(:running?).and_return(false)
+          expect(container).to receive(:start).and_return(false)
+
+          instance.start!
+          expect(instance.state.to_sym).to eq(:failed)
+        end
       end
     end
 
@@ -74,6 +102,7 @@ RSpec.describe Instance, :type => :model do
       end
 
       it 'change state from "starting" to "running"' do
+        skip
         instance = create(:instance, state: :starting)
         instance.start!
         expect(instance.state.to_sym).to eq(:running)

@@ -111,7 +111,7 @@ class Instance < ActiveRecord::Base
     #      \_ Update status
 
 
-    if docker.container.exists?
+    if docker.container.exist?
 
       if docker.container.running?
         logger.info("Instance#start!: instance id:#{self.id} already running")
@@ -121,31 +121,34 @@ class Instance < ActiveRecord::Base
         self.running!
       else
         logger.error("Instance#start!: instance id:#{self.id} run error!")
-        self.failed!
+        self.failed! unless self.failed?
       end
 
     else # container not exists
 
-      if docker.image.exists?
+      if docker.image.exist?
         logger.info("Instance#start!: image #{self.image.name} exist")
       else # image not exists
-        logger.info("Instance#start!: pulling image #{self.image.name}")
+        logger.info("Instance#start!: image #{self.image.name} not exists")
         if docker.image.pull
           logger.info("Instance#start!: pulling image #{self.image.name} complete")
         else
           logger.error("Instance#start!: pulling image #{self.image.name} error!")
-          self.failed!
+          self.failed! unless self.failed?
         end
       end
 
-      unless self.failed?
+      if docker.image.exist?
         if docker.container.start
           logger.info("Instance#start!: instance id:#{self.id} running!")
           self.running!
         else
           logger.error("Instance#start!: instance id:#{self.id} run error!")
-          self.failed!
+          self.failed! unless self.failed?
         end
+      else
+        logger.error("Instance#start!: skipped without image for instance id:#{self.id}")
+        self.failed! unless self.failed?
       end
 
     end
