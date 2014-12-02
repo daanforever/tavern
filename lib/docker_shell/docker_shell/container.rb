@@ -8,4 +8,12 @@ class DockerShell::Container
     @image      = image
   end
 
+  def exist?
+    @instance.container.present?
+  end
+
+  def running?
+    raise NotImplementedError.new
+  end
+
 end
