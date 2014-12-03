@@ -48,11 +48,11 @@ RSpec.describe Instance, :type => :model do
 
     let(:instance){ create(:instance, state: :starting) }
     let(:container){ double(DockerShell::Container) }
-    let(:docker_image){ double(DockerShell::Image) }
+    let(:image){ double(DockerShell::Image) }
     
     before do
       allow(DockerShell::Container).to receive(:new).and_return(container)
-      allow(DockerShell::Image).to receive(:new).and_return(docker_image)
+      allow(DockerShell::Image).to receive(:new).and_return(image)
     end
 
     it 'returns nil for invalid state' do
@@ -83,7 +83,7 @@ RSpec.describe Instance, :type => :model do
       end
 
       context 'when starting error' do
-        it 'change state to :failed' do
+        it 'change state' do
           expect(container).to receive(:exist?).and_return(true)
           expect(container).to receive(:running?).and_return(false)
           expect(container).to receive(:start).and_return(false)
@@ -101,16 +101,53 @@ RSpec.describe Instance, :type => :model do
         expect{ instance.start! }.to_not raise_error
       end
 
-      it 'change state from "starting" to "running"' do
-        skip
-        instance = create(:instance, state: :starting)
-        instance.start!
-        expect(instance.state.to_sym).to eq(:running)
-      end
+      context 'when image exist' do
+        context 'and container started' do
+          it 'change state' do
+            expect(container).to receive(:exist?).and_return(false)
+            expect(image).to receive(:exist?).twice.and_return(true)
+            expect(container).to receive(:start).and_return(true)
+            instance.start!
+            expect(instance.state.to_sym).to eq(:running)
+          end
+        end # and container started
+        context 'and container not started' do
+          it 'change state' do
+            expect(container).to receive(:exist?).and_return(false)
+            expect(image).to receive(:exist?).twice.and_return(true)
+            expect(container).to receive(:start).and_return(false)
+            instance.start!
+            expect(instance.state.to_sym).to eq(:failed)
+          end
+        end
+      end # when image exist
 
+      context 'when image does not exist' do
+        context 'but pulled' do
+          context 'and container started' do
+            it 'change state' do
+              expect(container).to receive(:exist?).and_return(false)
+              expect(image).to receive(:exist?).and_return(false)
+              expect(image).to receive(:exist?).and_return(true)
+              expect(image).to receive(:pull).and_return(true)
+              expect(container).to receive(:start).and_return(true)
+              instance.start!
+              expect(instance.state.to_sym).to eq(:running)
+            end
+          end # and container started
+        end # but pulled
+        context 'and not pulled' do
+          it 'change state' do
+            expect(container).to receive(:exist?).and_return(false)
+            expect(image).to receive(:exist?).twice.and_return(false)
+            expect(image).to receive(:pull).and_return(false)
+            instance.start!
+            expect(instance.state.to_sym).to eq(:failed)
+          end
+        end # and not pulled
+      end # when image does not exist
+    end # without container ID
 
-    end
-
-  end
+  end # #start!
 
 end
