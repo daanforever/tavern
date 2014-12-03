@@ -117,18 +117,18 @@ class Instance < ActiveRecord::Base
         logger.info("Instance#start!: instance id:#{self.id} already running")
         self.running!
       elsif docker.container.start
-        logger.info("Instance#start!: instance id:#{self.id} running!")
+        logger.info("Instance#start!: instance id:#{self.id} started!")
         self.running!
       else
         logger.error("Instance#start!: instance id:#{self.id} run error!")
         self.failed! unless self.failed?
       end
 
-    else # container not exists
+    else # container doesn't exist
 
       if docker.image.exist?
         logger.info("Instance#start!: image #{self.image.name} exist")
-      else # image not exists
+      else # image doesn't exist
         logger.info("Instance#start!: image #{self.image.name} not exists")
         if docker.image.pull
           logger.info("Instance#start!: pulling image #{self.image.name} complete")
@@ -140,7 +140,7 @@ class Instance < ActiveRecord::Base
 
       if docker.image.exist?
         if docker.container.start
-          logger.info("Instance#start!: instance id:#{self.id} running!")
+          logger.info("Instance#start!: instance id:#{self.id} started!")
           self.running!
         else
           logger.error("Instance#start!: instance id:#{self.id} run error!")
