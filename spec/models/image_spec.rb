@@ -5,12 +5,12 @@
 #  id           :integer          not null, primary key
 #  name         :string(255)
 #  disabled     :boolean
-#  registry_id  :integer
 #  project_id   :integer
 #  release_id   :integer
 #  component_id :integer
 #  created_at   :datetime
 #  updated_at   :datetime
+#  docker_id    :string(255)
 #
 
 require 'rails_helper'
