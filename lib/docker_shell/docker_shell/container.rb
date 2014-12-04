@@ -9,8 +9,14 @@ class DockerShell::Container
   end
 
   def exist?
-    @instance.container.present?
+    if @instance.container.present?
+      raise NotImplementedError.new
+    else
+      false
+    end
   end
+
+  alias_method :exists?, :exist?
 
   def running?
     raise NotImplementedError.new

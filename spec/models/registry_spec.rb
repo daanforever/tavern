@@ -24,7 +24,8 @@ describe Registry, :type => :model do
         tags: [
           OpenStruct.new({
             name: Faker::Lorem.word,
-            repository: OpenStruct.new({ full_name: Faker::Lorem.word })
+            repository: OpenStruct.new({ full_name: Faker::Lorem.word }),
+            image_id: 64.times.map{ rand(0xf).to_s(16) }.join.to_s
           })
         ]
       })
@@ -67,5 +68,13 @@ describe Registry, :type => :model do
     it 'creates new Image' do
       expect{ registry.parse( data ) }.to change(Image, :count).by(1)
     end
+
+    it 'set docker_id for image' do
+      registry.parse( data )
+      pp Image.last
+      pp data
+      expect(Image.last.docker_id).to be(data.first.tags.first.image_id)
+    end
+
   end
 end

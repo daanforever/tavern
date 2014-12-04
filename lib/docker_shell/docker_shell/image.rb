@@ -10,6 +10,8 @@ class DockerShell::Image
     false
   end
 
+  alias_method :exists?, :exist?
+
   def pull
     false
   end

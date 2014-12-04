@@ -78,9 +78,11 @@ class Registry < ActiveRecord::Base
 
         component = Component.find_or_create!(project: project, release: release, name: component_name)
 
-        image     = (self.images.find_by(project: project, release: release, component: component) or 
+        image     = (self.images.find_by(project: project, release: release, 
+                                         component: component, docker_id: tag.image_id) or 
                      self.images.create!(project: project, release: release, component: component, 
-                                         name: "#{tag.repository.full_name}:#{tag.name}"))
+                                         name: "#{tag.repository.full_name}:#{tag.name}",
+                                         docker_id: "#{tag.image_id}"))
         
         OpenStruct.new( { project: project_name, release: tag.name, component: component_name } )
       end
