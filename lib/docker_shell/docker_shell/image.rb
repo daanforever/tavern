@@ -18,5 +18,4 @@ class DockerShell::Image
   def pull
     false
   end
-
 end

@@ -15,11 +15,12 @@ class InstancesController < ApplicationController
   end
 
   def new
-
-    if    @component
-      @instance = Instance.new(component: @component)
+    if @component
+      @environments = @component.project.environments
+      @instance = @component.instances.new
     elsif @environment
-      @instance = Instance.new(environment: @environment)
+      @components = @environment.project.components
+      @instance = @environment.instances.new
     else
       @instance = Instance.new
     end
