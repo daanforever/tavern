@@ -5,5 +5,6 @@ json.images do
     json.project    image.project.name
     json.component  image.component.name
     json.release    image.release.name
+    json.docker_id  image.docker_id
   end
 end

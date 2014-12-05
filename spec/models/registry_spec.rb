@@ -14,22 +14,24 @@
 
 require 'rails_helper'
 
+def item
+  OpenStruct.new({ 
+    name: Faker::Lorem.word + '/' + Faker::Lorem.word,
+    tags: [
+      OpenStruct.new({
+        name: Faker::Lorem.word,
+        repository: OpenStruct.new({ full_name: Faker::Lorem.word }),
+        docker_image: 64.times.map{ rand(0xf).to_s(16) }.join
+      })
+    ]
+  })
+end
+
 describe Registry, :type => :model do
   let(:registry){ create(:registry) }
 
   let(:data) do
-    [
-      OpenStruct.new({ 
-        name: Faker::Lorem.word + '/' + Faker::Lorem.word,
-        tags: [
-          OpenStruct.new({
-            name: Faker::Lorem.word,
-            repository: OpenStruct.new({ full_name: Faker::Lorem.word }),
-            image_id: 64.times.map{ rand(0xf).to_s(16) }.join.to_s
-          })
-        ]
-      })
-    ]
+    [ item ]
   end
 
   before do
@@ -71,9 +73,12 @@ describe Registry, :type => :model do
 
     it 'set docker_id for image' do
       registry.parse( data )
-      pp Image.last
-      pp data
       expect(Image.last.docker_id).to be(data.first.tags.first.image_id)
+    end
+
+    it 'creates only unique components' do
+      item1 = item2 = item
+      expect{ registry.parse( [ item1, item2 ] ) }.to change(Component, :count).by(1)
     end
 
   end

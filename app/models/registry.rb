@@ -70,20 +70,21 @@ class Registry < ActiveRecord::Base
 
       r.tags.map do |tag|
         # ap ({ project: project_name, release: tag.name, component: component_name })
-        project   = (Project.find_by(      name: project_name) or 
-                     self.projects.create!(name: project_name))
+        project   = self.projects.find_or_create_by!(name: project_name)
 
-        release   = (project.releases.find_by(name: tag.name) or 
-                     project.releases.create!(name: tag.name))
+        release   = project.releases.find_or_create_by!(name: tag.name)
 
-        component = Component.find_or_create!(project: project, release: release, name: component_name)
+        component = project.components.find_or_create_by!(
+                      name: component_name)
 
-        image     = (self.images.find_by(project: project, release: release, 
-                                         component: component, docker_id: tag.image_id) or 
-                     self.images.create!(project: project, release: release, component: component, 
-                                         name: "#{tag.repository.full_name}:#{tag.name}",
-                                         docker_id: "#{tag.image_id}"))
-        
+        component.releases.find_or_create_by(id: release.id)
+
+        image     = self.images.find_or_create_by!(
+                      project: project, release: release, 
+                      component: component,
+                      name: "#{tag.repository.full_name}:#{tag.name}",
+                      docker_id: tag.image_id)
+
         OpenStruct.new( { project: project_name, release: tag.name, component: component_name } )
       end
       
