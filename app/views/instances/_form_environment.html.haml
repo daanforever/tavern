@@ -5,7 +5,7 @@
   .row
     .form-inputs.col-md-8.col-md-offset-1
       = f.association :environment, disabled: true
-      = f.association :component, collection: @environment.release.components, include_blank: false
+      = f.association :component, collection: @components, include_blank: false
       = f.association :host, collection: @environment.hosts, include_blank: false
       = f.input :public_port
       = f.input :private_port

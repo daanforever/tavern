@@ -23,9 +23,9 @@ RSpec.describe InstancesController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Instance. As you add validations to Instance, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    attributes_for(:instance)
-  }
+  let(:valid_attributes) { attributes_for(:instance) }
+  let(:environment){ create(:environment) }
+  let(:component){ create(:component) }
 
   let(:valid_request) {
     component = create(:component)
@@ -73,9 +73,29 @@ RSpec.describe InstancesController, :type => :controller do
   end
 
   describe "GET new" do
-    it "assigns a new instance as @instance" do
+    it 'assigns a new instance as @instance' do
       get :new, {}, valid_session
       expect(assigns(:instance)).to be_a_new(Instance)
+    end
+    context 'for environment' do
+      it 'assigns a new instance as @instance' do
+        get :new, { environment_id: environment.id }, valid_session
+        expect(assigns(:instance)).to be_a_new(Instance)
+      end
+      it 'assigns a components as @components' do
+        get :new, { environment_id: environment.id }, valid_session
+        expect(assigns(:components)).to_not be(nil)
+      end
+    end
+    context 'for component' do
+      it 'assigns a new instance as @instance' do
+        get :new, { component_id: component.id }, valid_session
+        expect(assigns(:instance)).to be_a_new(Instance)
+      end
+      it 'assigns a environments as @environments' do
+        get :new, { component_id: component.id }, valid_session
+        expect(assigns(:environments)).to_not be(nil)
+      end
     end
   end
 

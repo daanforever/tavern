@@ -99,7 +99,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    docker-api (1.16.1)
+    docker-api (1.14.0)
       archive-tar-minitar
       excon (>= 0.38.0)
       json
@@ -311,7 +311,7 @@ DEPENDENCIES
   delayed_job_active_record
   delayed_job_recurring
   devise
-  docker-api
+  docker-api (~> 1.14.0)
   docker_registry
   factory_girl_rails
   faker
