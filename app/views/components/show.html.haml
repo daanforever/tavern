@@ -35,3 +35,11 @@
   .col-md-10
     %p
       = @component.description
+
+.row
+  .col-md-2
+    %p
+      %b Images:
+  .col-md-10
+    - @component.images.each do |image|
+      %p=image.name

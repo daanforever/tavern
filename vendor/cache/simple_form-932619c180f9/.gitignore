@@ -1,4 +1,0 @@
-.bundle/
-pkg/
-rdoc/
-gemfiles/*.lock

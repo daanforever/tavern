@@ -10,7 +10,8 @@
   %hr
 
 %span{ 'ng-controller' => 'showRegistryController', 'ng-init' => 'refresh()' }
-  .row
-    .col-md-12
-      %p{ 'ng-repeat' => 'image in images | orderBy:"name"' }
-        {{ image.project }}/{{ image.component }}:{{ image.release}}
+  .row{ 'ng-repeat' => 'image in images | orderBy:"name"' }
+    .col-md-6
+      {{ image.project }}/{{ image.component }}:{{ image.release}}
+    .col-md-6
+      {{ image.docker_id }}

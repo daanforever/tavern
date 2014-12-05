@@ -7,6 +7,9 @@ class DockerShell::Image
   end
 
   def exist?
+    # TODO: set timeout for external (Docker) call
+    Docker::Image.exist?(image.docker_id, {}, @connection)
+  rescue
     false
   end
 

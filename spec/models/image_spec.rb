@@ -10,7 +10,7 @@
 #  component_id :integer
 #  created_at   :datetime
 #  updated_at   :datetime
-#  docker_id    :string(255)
+#  docker_image :string(255)
 #
 
 require 'rails_helper'
