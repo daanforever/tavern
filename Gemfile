@@ -43,7 +43,7 @@ gem 'seed_dump'                       # Rails plugin to create seed data
 gem 'awesome_print'                   # For rails console
 
 gem 'docker_registry'                 # Docker registry HTTP API client
-gem 'docker-api', '~> 1.14.0', require: 'docker' # Provides an object-oriented interface to the Docker Remote API
+gem 'docker-api', '~> 1.15.0', require: 'docker' # Provides an object-oriented interface to the Docker Remote API
 
 gem 'delayed_job_active_record'       # Database based asynchronous priority queue system
 gem 'delayed_job_recurring'           # Extends delayed_job to support recurring jobs

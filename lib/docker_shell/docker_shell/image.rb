@@ -16,6 +16,12 @@ class DockerShell::Image
   alias_method :exists?, :exist?
 
   def pull
+    # TODO: change to pull from best registry
+    Docker::Image.create({registry: image.registries.first.name, 
+                          repo: image.project.name, 
+                          fromImage: image.component.name, 
+                          tag: image.release.name}, nil, @connection)
+  rescue
     false
   end
 end
