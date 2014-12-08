@@ -13,7 +13,7 @@ describe DockerShell::Image do
       end
       it 'returns true' do
         expect(Docker::Image).to receive(:get).and_return(true)
-        expect( image.exist? ).to eq( true )
+        expect( image.exist? ).to eq(true)
       end
     end # when image present
     context 'when image empty' do

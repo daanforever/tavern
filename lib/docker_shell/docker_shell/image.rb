@@ -17,10 +17,12 @@ class DockerShell::Image
 
   def pull
     # TODO: change to pull from best registry
-    Docker::Image.create({registry: image.registries.first.name, 
-                          repo: image.project.name, 
-                          fromImage: image.component.name, 
-                          tag: image.release.name}, nil, @connection)
+    # Docker::Image.create({registry: image.registries.first.name, 
+    #                       repo: image.project.name, 
+    #                       fromImage: image.component.name, 
+    #                       tag: image.release.name}, nil, @connection)
+    Docker::Image.create({ fromImage: "#{image.name}" }, 
+                           nil, @connection)
   rescue
     false
   end
