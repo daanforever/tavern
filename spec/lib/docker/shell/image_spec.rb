@@ -1,9 +1,9 @@
 
 require 'rails_helper'
 
-describe DockerShell::Image do
+describe Docker::Shell::Image do
   let(:instance){ create(:instance) }
-  let(:image){ DockerShell.new(instance: instance).image }
+  let(:image){ Docker::Shell.new(instance: instance).image }
 
   describe '#exist?' do
     context 'when image exist' do

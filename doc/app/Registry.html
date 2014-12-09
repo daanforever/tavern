@@ -75,9 +75,19 @@
     
     <li ><a href="#method-c-refresh">::refresh</a>
     
+    <li ><a href="#method-i-components_count">#components_count</a>
+    
+    <li ><a href="#method-i-parse">#parse</a>
+    
+    <li ><a href="#method-i-projects_count">#projects_count</a>
+    
     <li ><a href="#method-i-refresh">#refresh</a>
     
-    <li ><a href="#method-i-search">#search</a>
+    <li ><a href="#method-i-releases_count">#releases_count</a>
+    
+    <li ><a href="#method-i-scan">#scan</a>
+    
+    <li ><a href="#method-i-set_name">#set_name</a>
     
     <li ><a href="#method-i-statistics">#statistics</a>
     
@@ -147,7 +157,7 @@ updated_at  :datetime</pre>
 
           
           <div class="method-source-code" id="refresh-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 57</span>
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">refresh</span>
   <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">r</span>.<span class="ruby-identifier">refresh</span>
@@ -171,6 +181,68 @@ updated_at  :datetime</pre>
        </header>
 
     
+      <div id="method-i-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">(data)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-keyword">or</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">disabled?</span> 
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&#39;Not array given&#39;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+  
+  <span class="ruby-identifier">data</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+
+    <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">component_name</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;/&#39;</span>)
+
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># ap ({ project: project_name, release: tag.name, component: component_name })</span>
+      <span class="ruby-identifier">project</span>   = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">projects</span>.<span class="ruby-identifier">find_or_create_by!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>)
+
+      <span class="ruby-identifier">release</span>   = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">find_or_create_by!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>)
+
+      <span class="ruby-identifier">component</span> = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">components</span>.<span class="ruby-identifier">find_or_create_by!</span>(
+                    <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span>)
+
+      <span class="ruby-identifier">component</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">find_or_create_by</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>.<span class="ruby-identifier">id</span>)
+
+      <span class="ruby-identifier">image</span>     = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">images</span>.<span class="ruby-identifier">find_or_create_by!</span>(
+                    <span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, 
+                    <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component</span>,
+                    <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{tag.repository.full_name}:#{tag.name}&quot;</span>,
+                    <span class="ruby-identifier">docker_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">image_id</span>)
+
+      <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>( { <span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span> } )
+    <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">flatten</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-i-refresh" class="method-detail ">
         
         <div class="method-heading">
@@ -190,36 +262,13 @@ updated_at  :datetime</pre>
 
           
           <div class="method-source-code" id="refresh-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">refresh</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>.<span class="ruby-identifier">blank?</span>
 
-  <span class="ruby-ivar">@statistics</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">parse</span>( <span class="ruby-identifier">scan</span> )
 
-  <span class="ruby-identifier">scan</span> = <span class="ruby-identifier">search</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
-
-    <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">component_name</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;/&#39;</span>)
-
-    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span>
-      <span class="ruby-comment"># ap ({ project: project_name, release: tag.name, component: component_name })</span>
-      <span class="ruby-identifier">project</span>   = (<span class="ruby-constant">Project</span>.<span class="ruby-identifier">find_by</span>(      <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>) <span class="ruby-keyword">or</span> 
-                   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">projects</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>))
-
-      <span class="ruby-identifier">release</span>   = (<span class="ruby-identifier">project</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>) <span class="ruby-keyword">or</span> 
-                   <span class="ruby-identifier">project</span>.<span class="ruby-identifier">releases</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>))
-
-      <span class="ruby-identifier">component</span> = <span class="ruby-constant">Component</span>.<span class="ruby-identifier">find_or_create!</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span>)
-
-      <span class="ruby-identifier">image</span>     = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">images</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component</span>) <span class="ruby-keyword">or</span> 
-                   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">images</span>.<span class="ruby-identifier">create!</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component</span>, 
-                                       <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{tag.repository.full_name}:#{tag.name}&quot;</span>))
-      
-      <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>( { <span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">component</span><span class="ruby-operator">:</span> <span class="ruby-identifier">component_name</span> } )
-    <span class="ruby-keyword">end</span>
-    
-  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">flatten</span>
-
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update!</span>( <span class="ruby-identifier">info</span><span class="ruby-operator">:</span> <span class="ruby-identifier">scan</span> )
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update!</span>( <span class="ruby-identifier">info</span><span class="ruby-operator">:</span> <span class="ruby-identifier">result</span> )
 
   <span class="ruby-keyword">self</span>
 
@@ -234,10 +283,10 @@ updated_at  :datetime</pre>
       </div>
 
     
-      <div id="method-i-search" class="method-detail ">
+      <div id="method-i-scan" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">search</span><span
+          <span class="method-name">scan</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -252,12 +301,47 @@ updated_at  :datetime</pre>
           
 
           
-          <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 65</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
-  <span class="ruby-ivar">@search</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DockerRegistry</span><span class="ruby-operator">::</span><span class="ruby-constant">Registry</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>).<span class="ruby-identifier">search</span>
+          <div class="method-source-code" id="scan-source">
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">scan</span>
+  <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-identifier">timeout</span>(<span class="ruby-value">5</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-ivar">@search</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DockerRegistry</span><span class="ruby-operator">::</span><span class="ruby-constant">Registry</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>).<span class="ruby-identifier">search</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
   <span class="ruby-identifier">e</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_name</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_name-source">
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_name</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>).<span class="ruby-identifier">host</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">blank?</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -288,12 +372,118 @@ updated_at  :datetime</pre>
 
           
           <div class="method-source-code" id="statistics-source">
-            <pre><span class="ruby-comment"># File app/models/registry.rb, line 71</span>
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">statistics</span>
-  <span class="ruby-identifier">refresh</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">blank?</span>
-  <span class="ruby-ivar">@statistics</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>({ <span class="ruby-identifier">projects</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">project</span> }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">count</span>,
-                   <span class="ruby-identifier">releases</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">release</span> }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">count</span>,
-                   <span class="ruby-identifier">components</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">component</span> }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">count</span>})
+  <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>({ <span class="ruby-identifier">projects</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">projects_count</span>,
+                   <span class="ruby-identifier">releases</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">releases_count</span>,
+                   <span class="ruby-identifier">components</span><span class="ruby-operator">:</span> <span class="ruby-identifier">components_count</span> })
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Protected Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-components_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">components_count</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="components_count-source">
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">components_count</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">component</span> }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">count</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-projects_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">projects_count</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="projects_count-source">
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">projects_count</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">project</span> }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">count</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-releases_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">releases_count</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="releases_count-source">
+            <pre><span class="ruby-comment"># File app/models/registry.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">releases_count</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">release</span> }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">count</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

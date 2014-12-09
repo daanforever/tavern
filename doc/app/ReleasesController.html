@@ -140,7 +140,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@release</span> = <span class="ruby-constant">Release</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">release_params</span>)
   <span class="ruby-ivar">@release</span>.<span class="ruby-identifier">save</span>
@@ -175,7 +175,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 34</span>
+            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@release</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@release</span>)
@@ -209,7 +209,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 20</span>
+            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -241,9 +241,9 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-ivar">@releases</span> = <span class="ruby-constant">Release</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@releases</span> = <span class="ruby-ivar">@project</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">releases</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Release</span>.<span class="ruby-identifier">all</span>
   <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@releases</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -275,7 +275,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@release</span> = <span class="ruby-constant">Release</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@release</span>)
@@ -309,7 +309,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@release</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -342,7 +342,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 29</span>
+            <pre><span class="ruby-comment"># File app/controllers/releases_controller.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@release</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">release_params</span>)
   <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@release</span>)

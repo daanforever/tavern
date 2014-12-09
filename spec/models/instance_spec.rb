@@ -48,12 +48,12 @@ RSpec.describe Instance, :type => :model do
   describe '#start!' do
 
     let(:instance){ create(:instance, state: :starting) }
-    let(:container){ double(DockerShell::Container) }
-    let(:image){ double(DockerShell::Image) }
+    let(:container){ double(Docker::Shell::Container) }
+    let(:image){ double(Docker::Shell::Image) }
     
     before do
-      allow(DockerShell::Container).to receive(:new).and_return(container)
-      allow(DockerShell::Image).to receive(:new).and_return(image)
+      allow(Docker::Shell::Container).to receive(:new).and_return(container)
+      allow(Docker::Shell::Image).to receive(:new).and_return(image)
     end
 
     it 'returns nil for invalid state' do

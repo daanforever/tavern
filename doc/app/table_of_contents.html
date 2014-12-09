@@ -34,6 +34,7 @@
       <li><a href="README_rdoc.html#label-Tavern">Tavern</a>
       <li><a href="README_rdoc.html#label-Help">Help</a>
       <li><a href="README_rdoc.html#label-Requirement">Requirement</a>
+      <li><a href="README_rdoc.html#label-How+to+run">How to run</a>
       <li><a href="README_rdoc.html#label-Contributing">Contributing</a>
     </ul>
   </li>
@@ -49,6 +50,9 @@
     <a href="ApplicationHelper.html">ApplicationHelper</a>
   </li>
   <li class="class">
+    <a href="Background.html">Background</a>
+  </li>
+  <li class="class">
     <a href="Component.html">Component</a>
 
     <ul>
@@ -56,7 +60,65 @@
     </ul>
   </li>
   <li class="class">
+    <a href="ComponentsController.html">ComponentsController</a>
+  </li>
+  <li class="module">
+    <a href="ComponentsHelper.html">ComponentsHelper</a>
+  </li>
+  <li class="class">
+    <a href="Docker/Shell.html">Docker::Shell</a>
+  </li>
+  <li class="class">
+    <a href="Docker/Shell/Container.html">Docker::Shell::Container</a>
+  </li>
+  <li class="class">
+    <a href="Docker/Shell/Image.html">Docker::Shell::Image</a>
+  </li>
+  <li class="class">
+    <a href="Environment.html">Environment</a>
+
+    <ul>
+      <li><a href="Environment.html#label-Schema+Information">Schema Information</a>
+    </ul>
+  </li>
+  <li class="class">
+    <a href="EnvironmentsController.html">EnvironmentsController</a>
+  </li>
+  <li class="module">
+    <a href="EnvironmentsHelper.html">EnvironmentsHelper</a>
+  </li>
+  <li class="class">
+    <a href="Host.html">Host</a>
+
+    <ul>
+      <li><a href="Host.html#label-Schema+Information">Schema Information</a>
+    </ul>
+  </li>
+  <li class="class">
+    <a href="HostsController.html">HostsController</a>
+  </li>
+  <li class="module">
+    <a href="HostsHelper.html">HostsHelper</a>
+  </li>
+  <li class="class">
     <a href="Image.html">Image</a>
+
+    <ul>
+      <li><a href="Image.html#label-Schema+Information">Schema Information</a>
+    </ul>
+  </li>
+  <li class="class">
+    <a href="Instance.html">Instance</a>
+
+    <ul>
+      <li><a href="Instance.html#label-Schema+Information">Schema Information</a>
+    </ul>
+  </li>
+  <li class="class">
+    <a href="InstancesController.html">InstancesController</a>
+  </li>
+  <li class="module">
+    <a href="InstancesHelper.html">InstancesHelper</a>
   </li>
   <li class="class">
     <a href="Project.html">Project</a>
@@ -114,6 +176,21 @@
     <span class="container">Component</span>
 
   <li class="method">
+    <a href="Docker/Shell/Image.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">Docker::Shell::Image</span>
+
+  <li class="method">
+    <a href="Docker/Shell/Container.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">Docker::Shell::Container</span>
+
+  <li class="method">
+    <a href="Docker/Shell.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">Docker::Shell</span>
+
+  <li class="method">
     <a href="Registry.html#method-c-refresh">::refresh</a>
     &mdash;
     <span class="container">Registry</span>
@@ -124,14 +201,14 @@
     <span class="container">ApplicationHelper</span>
 
   <li class="method">
-    <a href="RegistriesController.html#method-i-create">#create</a>
+    <a href="Registry.html#method-i-components_count">#components_count</a>
     &mdash;
-    <span class="container">RegistriesController</span>
+    <span class="container">Registry</span>
 
   <li class="method">
-    <a href="ProjectsController.html#method-i-create">#create</a>
+    <a href="ComponentsController.html#method-i-create">#create</a>
     &mdash;
-    <span class="container">ProjectsController</span>
+    <span class="container">ComponentsController</span>
 
   <li class="method">
     <a href="ReleasesController.html#method-i-create">#create</a>
@@ -139,9 +216,39 @@
     <span class="container">ReleasesController</span>
 
   <li class="method">
-    <a href="ReleasesController.html#method-i-destroy">#destroy</a>
+    <a href="HostsController.html#method-i-create">#create</a>
     &mdash;
-    <span class="container">ReleasesController</span>
+    <span class="container">HostsController</span>
+
+  <li class="method">
+    <a href="ProjectsController.html#method-i-create">#create</a>
+    &mdash;
+    <span class="container">ProjectsController</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-create">#create</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
+    <a href="RegistriesController.html#method-i-create">#create</a>
+    &mdash;
+    <span class="container">RegistriesController</span>
+
+  <li class="method">
+    <a href="EnvironmentsController.html#method-i-create">#create</a>
+    &mdash;
+    <span class="container">EnvironmentsController</span>
+
+  <li class="method">
+    <a href="Release.html#method-i-deactivate_previous">#deactivate_previous</a>
+    &mdash;
+    <span class="container">Release</span>
+
+  <li class="method">
+    <a href="EnvironmentsController.html#method-i-destroy">#destroy</a>
+    &mdash;
+    <span class="container">EnvironmentsController</span>
 
   <li class="method">
     <a href="ProjectsController.html#method-i-destroy">#destroy</a>
@@ -154,6 +261,26 @@
     <span class="container">RegistriesController</span>
 
   <li class="method">
+    <a href="ReleasesController.html#method-i-destroy">#destroy</a>
+    &mdash;
+    <span class="container">ReleasesController</span>
+
+  <li class="method">
+    <a href="ComponentsController.html#method-i-destroy">#destroy</a>
+    &mdash;
+    <span class="container">ComponentsController</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-destroy">#destroy</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
+    <a href="HostsController.html#method-i-destroy">#destroy</a>
+    &mdash;
+    <span class="container">HostsController</span>
+
+  <li class="method">
     <a href="RegistriesController.html#method-i-edit">#edit</a>
     &mdash;
     <span class="container">RegistriesController</span>
@@ -164,24 +291,49 @@
     <span class="container">ReleasesController</span>
 
   <li class="method">
+    <a href="HostsController.html#method-i-edit">#edit</a>
+    &mdash;
+    <span class="container">HostsController</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-edit">#edit</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
     <a href="ProjectsController.html#method-i-edit">#edit</a>
     &mdash;
     <span class="container">ProjectsController</span>
 
   <li class="method">
-    <a href="RegistriesController.html#method-i-index">#index</a>
+    <a href="EnvironmentsController.html#method-i-edit">#edit</a>
     &mdash;
-    <span class="container">RegistriesController</span>
+    <span class="container">EnvironmentsController</span>
 
   <li class="method">
-    <a href="ReleasesController.html#method-i-index">#index</a>
+    <a href="ComponentsController.html#method-i-edit">#edit</a>
     &mdash;
-    <span class="container">ReleasesController</span>
+    <span class="container">ComponentsController</span>
 
   <li class="method">
-    <a href="WelcomeController.html#method-i-index">#index</a>
+    <a href="Docker/Shell/Container.html#method-i-exist-3F">#exist?</a>
     &mdash;
-    <span class="container">WelcomeController</span>
+    <span class="container">Docker::Shell::Container</span>
+
+  <li class="method">
+    <a href="Docker/Shell/Image.html#method-i-exist-3F">#exist?</a>
+    &mdash;
+    <span class="container">Docker::Shell::Image</span>
+
+  <li class="method">
+    <a href="Docker/Shell/Container.html#method-i-exists-3F">#exists?</a>
+    &mdash;
+    <span class="container">Docker::Shell::Container</span>
+
+  <li class="method">
+    <a href="Docker/Shell/Image.html#method-i-exists-3F">#exists?</a>
+    &mdash;
+    <span class="container">Docker::Shell::Image</span>
 
   <li class="method">
     <a href="ProjectsController.html#method-i-index">#index</a>
@@ -189,9 +341,39 @@
     <span class="container">ProjectsController</span>
 
   <li class="method">
-    <a href="ReleasesController.html#method-i-new">#new</a>
+    <a href="ReleasesController.html#method-i-index">#index</a>
     &mdash;
     <span class="container">ReleasesController</span>
+
+  <li class="method">
+    <a href="EnvironmentsController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">EnvironmentsController</span>
+
+  <li class="method">
+    <a href="WelcomeController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">WelcomeController</span>
+
+  <li class="method">
+    <a href="HostsController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">HostsController</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
+    <a href="RegistriesController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">RegistriesController</span>
+
+  <li class="method">
+    <a href="ComponentsController.html#method-i-index">#index</a>
+    &mdash;
+    <span class="container">ComponentsController</span>
 
   <li class="method">
     <a href="RegistriesController.html#method-i-new">#new</a>
@@ -204,9 +386,54 @@
     <span class="container">ProjectsController</span>
 
   <li class="method">
+    <a href="ComponentsController.html#method-i-new">#new</a>
+    &mdash;
+    <span class="container">ComponentsController</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-new">#new</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
+    <a href="HostsController.html#method-i-new">#new</a>
+    &mdash;
+    <span class="container">HostsController</span>
+
+  <li class="method">
+    <a href="ReleasesController.html#method-i-new">#new</a>
+    &mdash;
+    <span class="container">ReleasesController</span>
+
+  <li class="method">
+    <a href="EnvironmentsController.html#method-i-new">#new</a>
+    &mdash;
+    <span class="container">EnvironmentsController</span>
+
+  <li class="method">
+    <a href="Registry.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">Registry</span>
+
+  <li class="method">
     <a href="RegistriesController.html#method-i-partial">#partial</a>
     &mdash;
     <span class="container">RegistriesController</span>
+
+  <li class="method">
+    <a href="Background.html#method-i-perform">#perform</a>
+    &mdash;
+    <span class="container">Background</span>
+
+  <li class="method">
+    <a href="Registry.html#method-i-projects_count">#projects_count</a>
+    &mdash;
+    <span class="container">Registry</span>
+
+  <li class="method">
+    <a href="Docker/Shell/Image.html#method-i-pull">#pull</a>
+    &mdash;
+    <span class="container">Docker::Shell::Image</span>
 
   <li class="method">
     <a href="RegistriesController.html#method-i-refresh">#refresh</a>
@@ -219,9 +446,34 @@
     <span class="container">Registry</span>
 
   <li class="method">
-    <a href="Registry.html#method-i-search">#search</a>
+    <a href="Host.html#method-i-refresh">#refresh</a>
+    &mdash;
+    <span class="container">Host</span>
+
+  <li class="method">
+    <a href="Registry.html#method-i-releases_count">#releases_count</a>
     &mdash;
     <span class="container">Registry</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-run">#run</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
+    <a href="Docker/Shell/Container.html#method-i-running-3F">#running?</a>
+    &mdash;
+    <span class="container">Docker::Shell::Container</span>
+
+  <li class="method">
+    <a href="Registry.html#method-i-scan">#scan</a>
+    &mdash;
+    <span class="container">Registry</span>
+
+  <li class="method">
+    <a href="Instance.html#method-i-set_image">#set_image</a>
+    &mdash;
+    <span class="container">Instance</span>
 
   <li class="method">
     <a href="Project.html#method-i-set_label">#set_label</a>
@@ -229,9 +481,39 @@
     <span class="container">Project</span>
 
   <li class="method">
-    <a href="ProjectsController.html#method-i-show">#show</a>
+    <a href="Release.html#method-i-set_label">#set_label</a>
     &mdash;
-    <span class="container">ProjectsController</span>
+    <span class="container">Release</span>
+
+  <li class="method">
+    <a href="Host.html#method-i-set_name">#set_name</a>
+    &mdash;
+    <span class="container">Host</span>
+
+  <li class="method">
+    <a href="Registry.html#method-i-set_name">#set_name</a>
+    &mdash;
+    <span class="container">Registry</span>
+
+  <li class="method">
+    <a href="EnvironmentsController.html#method-i-show">#show</a>
+    &mdash;
+    <span class="container">EnvironmentsController</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-show">#show</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
+    <a href="ComponentsController.html#method-i-show">#show</a>
+    &mdash;
+    <span class="container">ComponentsController</span>
+
+  <li class="method">
+    <a href="HostsController.html#method-i-show">#show</a>
+    &mdash;
+    <span class="container">HostsController</span>
 
   <li class="method">
     <a href="ReleasesController.html#method-i-show">#show</a>
@@ -239,9 +521,29 @@
     <span class="container">ReleasesController</span>
 
   <li class="method">
+    <a href="ProjectsController.html#method-i-show">#show</a>
+    &mdash;
+    <span class="container">ProjectsController</span>
+
+  <li class="method">
     <a href="RegistriesController.html#method-i-show">#show</a>
     &mdash;
     <span class="container">RegistriesController</span>
+
+  <li class="method">
+    <a href="Docker/Shell/Container.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">Docker::Shell::Container</span>
+
+  <li class="method">
+    <a href="Instance.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">Instance</span>
+
+  <li class="method">
+    <a href="Instance.html#method-i-start-21">#start!</a>
+    &mdash;
+    <span class="container">Instance</span>
 
   <li class="method">
     <a href="Registry.html#method-i-statistics">#statistics</a>
@@ -249,9 +551,19 @@
     <span class="container">Registry</span>
 
   <li class="method">
-    <a href="ProjectsController.html#method-i-toggle">#toggle</a>
+    <a href="InstancesController.html#method-i-stop">#stop</a>
     &mdash;
-    <span class="container">ProjectsController</span>
+    <span class="container">InstancesController</span>
+
+  <li class="method">
+    <a href="Instance.html#method-i-stop">#stop</a>
+    &mdash;
+    <span class="container">Instance</span>
+
+  <li class="method">
+    <a href="Instance.html#method-i-stop-21">#stop!</a>
+    &mdash;
+    <span class="container">Instance</span>
 
   <li class="method">
     <a href="RegistriesController.html#method-i-toggle">#toggle</a>
@@ -259,9 +571,39 @@
     <span class="container">RegistriesController</span>
 
   <li class="method">
+    <a href="ProjectsController.html#method-i-toggle">#toggle</a>
+    &mdash;
+    <span class="container">ProjectsController</span>
+
+  <li class="method">
+    <a href="HostsController.html#method-i-toggle">#toggle</a>
+    &mdash;
+    <span class="container">HostsController</span>
+
+  <li class="method">
+    <a href="InstancesController.html#method-i-update">#update</a>
+    &mdash;
+    <span class="container">InstancesController</span>
+
+  <li class="method">
     <a href="RegistriesController.html#method-i-update">#update</a>
     &mdash;
     <span class="container">RegistriesController</span>
+
+  <li class="method">
+    <a href="ComponentsController.html#method-i-update">#update</a>
+    &mdash;
+    <span class="container">ComponentsController</span>
+
+  <li class="method">
+    <a href="ProjectsController.html#method-i-update">#update</a>
+    &mdash;
+    <span class="container">ProjectsController</span>
+
+  <li class="method">
+    <a href="EnvironmentsController.html#method-i-update">#update</a>
+    &mdash;
+    <span class="container">EnvironmentsController</span>
 
   <li class="method">
     <a href="ReleasesController.html#method-i-update">#update</a>
@@ -269,9 +611,9 @@
     <span class="container">ReleasesController</span>
 
   <li class="method">
-    <a href="ProjectsController.html#method-i-update">#update</a>
+    <a href="HostsController.html#method-i-update">#update</a>
     &mdash;
-    <span class="container">ProjectsController</span>
+    <span class="container">HostsController</span>
 </ul>
 </main>
 

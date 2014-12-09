@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe DockerShell::Container do
+describe Docker::Shell::Container do
   let(:instance){ create(:instance) }
   describe '#exist?' do
     context 'when container present' do
       it 'returns true' do
         instance.update(container: rand(1000))
-        container = DockerShell.new(instance: instance).container
+        container = Docker::Shell.new(instance: instance).container
         expect{ container.exist? }.to raise_error(NotImplementedError)
         # expect( container.exist? ).to eq( true )
       end
@@ -14,7 +14,7 @@ describe DockerShell::Container do
 
     context 'when container empty' do
       it 'returns false' do
-        container = DockerShell.new(instance: instance).container
+        container = Docker::Shell.new(instance: instance).container
         expect( container.exist? ).to eq(false)        
       end
     end # when container present
@@ -23,11 +23,11 @@ describe DockerShell::Container do
   describe '#start' do
     context 'when container exist' do
       it 'not raises error' do
-        container = DockerShell.new(instance: instance).container
+        container = Docker::Shell.new(instance: instance).container
         expect{ container.start }.to_not raise_error
       end
       it 'returns true if Docker return no errors' do
-        container = DockerShell.new(instance: instance).container
+        container = Docker::Shell.new(instance: instance).container
         expect container.start
       end
       it 'returns false on errors'

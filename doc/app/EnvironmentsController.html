@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>class RegistriesController - Rails Application Documentation</title>
+<title>class EnvironmentsController - Rails Application Documentation</title>
 
 <link href="./fonts.css" rel="stylesheet">
 <link href="./rdoc.css" rel="stylesheet">
@@ -83,13 +83,7 @@
     
     <li ><a href="#method-i-new">#new</a>
     
-    <li ><a href="#method-i-partial">#partial</a>
-    
-    <li ><a href="#method-i-refresh">#refresh</a>
-    
     <li ><a href="#method-i-show">#show</a>
-    
-    <li ><a href="#method-i-toggle">#toggle</a>
     
     <li ><a href="#method-i-update">#update</a>
     
@@ -99,9 +93,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-RegistriesController">
-  <h1 id="class-RegistriesController" class="class">
-    class RegistriesController
+<main role="main" aria-labelledby="class-EnvironmentsController">
+  <h1 id="class-EnvironmentsController" class="class">
+    class EnvironmentsController
   </h1>
 
   <section class="description">
@@ -146,11 +140,12 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 24</span>
+            <pre><span class="ruby-comment"># File app/controllers/environments_controller.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-ivar">@registry</span> = <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">registry_params</span>)
-  <span class="ruby-ivar">@registry</span>.<span class="ruby-identifier">save</span>
-  <span class="ruby-identifier">respond_with</span> <span class="ruby-ivar">@registry</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">registries_path</span> }
+  <span class="ruby-ivar">@environment</span> = <span class="ruby-constant">Environment</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">environment_params</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@project</span>))
+  <span class="ruby-ivar">@environment</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-ivar">@environment</span>.<span class="ruby-identifier">errors</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@environment</span>.<span class="ruby-identifier">errors</span>
+  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@environment</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -181,10 +176,10 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 35</span>
+            <pre><span class="ruby-comment"># File app/controllers/environments_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-ivar">@registry</span>.<span class="ruby-identifier">destroy</span>
-  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@registry</span>)
+  <span class="ruby-ivar">@environment</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">projects_path</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -215,7 +210,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 21</span>
+            <pre><span class="ruby-comment"># File app/controllers/environments_controller.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -247,9 +242,14 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 8</span>
+            <pre><span class="ruby-comment"># File app/controllers/environments_controller.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@registries</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@project</span>
+    <span class="ruby-ivar">@environments</span> = <span class="ruby-ivar">@project</span>.<span class="ruby-identifier">environments</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@environments</span> = <span class="ruby-constant">Environment</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@environments</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -280,77 +280,10 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 16</span>
+            <pre><span class="ruby-comment"># File app/controllers/environments_controller.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@registry</span> = <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@registry</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-partial" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">partial</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="partial-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 55</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">partial</span>
-  <span class="ruby-identifier">render</span> <span class="ruby-identifier">partial</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;registries&#39;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-refresh" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">refresh</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="refresh-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 40</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">refresh</span>
-  <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">refresh</span>
-  <span class="ruby-identifier">render</span> <span class="ruby-identifier">partial</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;registries&#39;</span>
+  <span class="ruby-ivar">@environment</span> = <span class="ruby-constant">Environment</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@project</span>)
+  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@environment</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -381,48 +314,9 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 12</span>
+            <pre><span class="ruby-comment"># File app/controllers/environments_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@registry</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-toggle" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">toggle</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="toggle-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 45</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">toggle</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
-    <span class="ruby-ivar">@registry</span> = <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-ivar">@registry</span>.<span class="ruby-identifier">toggle!</span>(<span class="ruby-value">:disabled</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">toggle!</span>(<span class="ruby-value">:disabled</span>) }
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> {}
+  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@environment</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -453,10 +347,10 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/registries_controller.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/controllers/environments_controller.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
-  <span class="ruby-ivar">@registry</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">registry_params</span>)
-  <span class="ruby-identifier">respond_with</span> <span class="ruby-ivar">@registry</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">registries_path</span> }
+  <span class="ruby-ivar">@environment</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">environment_params</span>)
+  <span class="ruby-identifier">respond_with</span>(<span class="ruby-ivar">@environment</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           

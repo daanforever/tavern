@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>class Release - Rails Application Documentation</title>
+<title>class Background - Rails Application Documentation</title>
 
 <link href="./fonts.css" rel="stylesheet">
 <link href="./rdoc.css" rel="stylesheet">
@@ -61,7 +61,7 @@
   <h3>Parent</h3>
 
   
-  <p class="link">ActiveRecord::Base
+  <p class="link">Object
   
 </div>
 
@@ -71,7 +71,7 @@
   <ul class="link-list">
   
   
-    <li><span class="include">AASM</span>
+    <li><span class="include">Delayed::RecurringJob</span>
   
   
   </ul>
@@ -84,9 +84,7 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-deactivate_previous">#deactivate_previous</a>
-    
-    <li ><a href="#method-i-set_label">#set_label</a>
+    <li ><a href="#method-i-perform">#perform</a>
     
   </ul>
 </div>
@@ -94,26 +92,13 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-Release">
-  <h1 id="class-Release" class="class">
-    class Release
+<main role="main" aria-labelledby="class-Background">
+  <h1 id="class-Background" class="class">
+    class Background
   </h1>
 
   <section class="description">
     
-<h2 id="class-Release-label-Schema+Information">Schema Information<span><a href="#class-Release-label-Schema+Information">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
-
-<p>Table name: releases</p>
-
-<pre>id          :integer          not null, primary key
-name        :string(255)
-description :string(255)
-label       :string(255)
-created_at  :datetime
-updated_at  :datetime
-project_id  :integer
-state       :integer</pre>
-
   </section>
 
   
@@ -135,10 +120,10 @@ state       :integer</pre>
        </header>
 
     
-      <div id="method-i-deactivate_previous" class="method-detail ">
+      <div id="method-i-perform" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">deactivate_previous</span><span
+          <span class="method-name">perform</span><span
             class="method-args">()</span>
           
           <span class="method-click-advice">click to toggle source</span>
@@ -153,52 +138,12 @@ state       :integer</pre>
           
 
           
-          <div class="method-source-code" id="deactivate_previous-source">
-            <pre><span class="ruby-comment"># File app/models/release.rb, line 44</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">deactivate_previous</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-constant">Release</span>.<span class="ruby-identifier">active</span>.<span class="ruby-identifier">to_a</span>
-  <span class="ruby-constant">Release</span>.<span class="ruby-identifier">active</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">deactivate!</span> }
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
-     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Protected Instance Methods</h3>
-       </header>
-
-    
-      <div id="method-i-set_label" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">set_label</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="set_label-source">
-            <pre><span class="ruby-comment"># File app/models/release.rb, line 50</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_label</span>
-  <span class="ruby-identifier">label</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">name</span>
+          <div class="method-source-code" id="perform-source">
+            <pre><span class="ruby-comment"># File app/models/background.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">perform</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&#39;Background job start&#39;</span>)
+  <span class="ruby-constant">Registry</span>.<span class="ruby-identifier">delay</span>(<span class="ruby-identifier">queue</span><span class="ruby-operator">:</span> <span class="ruby-value">:registries</span>).<span class="ruby-identifier">refresh</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&#39;Background job end&#39;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
