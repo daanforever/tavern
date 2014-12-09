@@ -1,8 +1,5 @@
 class Docker::Shell
 
-  require 'docker/shell/images'
-  require 'docker/shell/container'
-
   attr_reader :connection, :instance, :image, :container
 
   def initialize( instance: instance )
@@ -12,6 +9,7 @@ class Docker::Shell
     @container  = Docker::Shell::Container.new( connection: @connection, instance: @instance, image: @instance.image )
     @image      = Docker::Shell::Images.new( connection: @connection, image: @instance.image )
   end
+  
 end
 
 class Docker::Connection

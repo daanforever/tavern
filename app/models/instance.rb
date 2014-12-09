@@ -91,7 +91,7 @@ class Instance < ActiveRecord::Base
     return nil unless self.may_running?
 
     logger.info("Instance#start!: id:'#{self.id}', image:'#{self.image.name}:#{self.image.release.name}', host:'#{self.host.url}' ")
-    docker = DockerShell.new( instance: self )
+    docker = Docker::Shell.new( instance: self )
 
     # Container present?
     # |\_ (yes) Found container by Id?
