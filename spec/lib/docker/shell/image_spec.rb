@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-describe Docker::Shell::Image do
+describe Docker::Shell::Images do
   let(:instance){ create(:instance) }
   let(:image){ Docker::Shell.new(instance: instance).image }
 
