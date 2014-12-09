@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>class Project - Rails Application Documentation</title>
+<title>class Environment - Rails Application Documentation</title>
 
 <link href="./fonts.css" rel="stylesheet">
 <link href="./rdoc.css" rel="stylesheet">
@@ -67,39 +67,27 @@
 
     
     
-    <!-- Method Quickref -->
-<div id="method-list-section" class="nav-section">
-  <h3>Methods</h3>
-
-  <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-set_label">#set_label</a>
-    
-  </ul>
-</div>
-
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-Project">
-  <h1 id="class-Project" class="class">
-    class Project
+<main role="main" aria-labelledby="class-Environment">
+  <h1 id="class-Environment" class="class">
+    class Environment
   </h1>
 
   <section class="description">
     
-<h2 id="class-Project-label-Schema+Information">Schema Information<span><a href="#class-Project-label-Schema+Information">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<h2 id="class-Environment-label-Schema+Information">Schema Information<span><a href="#class-Environment-label-Schema+Information">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 
-<p>Table name: projects</p>
+<p>Table name: environments</p>
 
-<pre>id          :integer          not null, primary key
-name        :string(255)
-description :string(255)
-label       :string(255)
-visible     :boolean
-disabled    :boolean
-created_at  :datetime
-updated_at  :datetime</pre>
+<pre>id         :integer          not null, primary key
+name       :string(255)
+project_id :integer
+release_id :integer
+created_at :datetime
+updated_at :datetime</pre>
 
   </section>
 
@@ -116,47 +104,6 @@ updated_at  :datetime</pre>
     
 
     
-     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Protected Instance Methods</h3>
-       </header>
-
-    
-      <div id="method-i-set_label" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">set_label</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="set_label-source">
-            <pre><span class="ruby-comment"># File app/models/project.rb, line 27</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_label</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">label</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">name</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
   </section>
 </main>
 

@@ -97,7 +97,8 @@ name        :string(255)
 description :string(255)
 disabled    :boolean
 created_at  :datetime
-updated_at  :datetime</pre>
+updated_at  :datetime
+project_id  :integer</pre>
 
   </section>
 
@@ -133,13 +134,13 @@ updated_at  :datetime</pre>
 
         <div class="method-description">
           
-          <p>has_many :instances</p>
+          
           
           
 
           
           <div class="method-source-code" id="find_or_create-21-source">
-            <pre><span class="ruby-comment"># File app/models/component.rb, line 19</span>
+            <pre><span class="ruby-comment"># File app/models/component.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_or_create!</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">release</span><span class="ruby-operator">:</span> <span class="ruby-identifier">release</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">component</span> = <span class="ruby-constant">Component</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">project</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>)
     <span class="ruby-identifier">release</span>.<span class="ruby-identifier">components</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">component</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">release</span>.<span class="ruby-identifier">components</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>)
