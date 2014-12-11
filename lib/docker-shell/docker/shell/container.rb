@@ -12,7 +12,15 @@ class Docker::Shell::Container
 
   def exist?
     if @instance.container.present?
-      raise NotImplementedError.new
+      container = nil
+      timeout( Settings.docker.timeout.to_i ){
+        container = Docker::Container.get({'Id' => @instance.container}, connection)
+      }
+      if container
+        true
+      else
+        false
+      end
     else
       false
     end
@@ -25,10 +33,25 @@ class Docker::Shell::Container
   end
 
   def start
+    container = false
     timeout( Settings.docker.timeout.to_i ){
-      Docker::Container.create({'Image' => @image.name}, connection)
+      container = Docker::Container.create({'Image' => @image.name}, connection)
     }
-  rescue Exception => e
+    if container
+      Rails.logger.info("Container#start: found container with id:#{container.id}")
+      timeout( Settings.docker.timeout.to_i ){
+        Rails.logger.info("Container#start: trying to start container with id: #{container.id}")
+        if container.start
+          Rails.logger.info("Container#start: container with id: #{container.id} started!")
+          @instance.container = container.id
+        else
+          Rails.logger.info("Container#start: container with id: #{container.id} failed to start")
+        end
+      }
+    else
+      false
+    end
+  rescue Exception => e # TODO: rescue only specified exceptions
     Rails.logger.debug("Container#start: instance: #{instance.id} #{e.class}: #{e.message}")
     false
   end
