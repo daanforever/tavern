@@ -64,7 +64,7 @@ class Registry < ActiveRecord::Base
   def parse(data)
 
     return nil if data.blank? or self.disabled? 
-    raise ArgumentError.new('Not array given') unless data.is_a?(Array)
+    return nil unless data.is_a?(Array)
     
     data.map do |r|
 
