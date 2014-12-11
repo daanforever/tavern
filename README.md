@@ -1,18 +1,18 @@
 [![Build Status](https://travis-ci.org/daanforever/tavern.svg?branch=master)](https://travis-ci.org/daanforever/tavern)
 [![Code Climate](https://codeclimate.com/github/daanforever/tavern/badges/gpa.svg)](https://codeclimate.com/github/daanforever/tavern)
-[![Code Climate](https://codeclimate.com/github/daanforever/tavern/badges/gpa.svg)](https://codeclimate.com/github/daanforever/tavern)
+[![Test Coverage](https://codeclimate.com/github/daanforever/tavern/badges/coverage.svg)](https://codeclimate.com/github/daanforever/tavern)
 
-== Tavern
+## Tavern
 Web interface for private registry and docker images deployment on multiple hosts.
 
-== Help
+## Help
 Your help is needed to describe the project and writing README file.
 
-== Requirement
+## Requirement
 
 * Ruby version >= 2.1.1
 
-== How to run
+## How to run
 
  git clone git@github.com:daanforever/tavern.git 
  cd tavern
@@ -21,7 +21,7 @@ Your help is needed to describe the project and writing README file.
 
 and open in web browser: link:http://localhost:3000
 
-== Contributing
+## Contributing
 
 Once you've made your great commits:
 
