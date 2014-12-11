@@ -12,29 +12,29 @@ class Docker::Shell
   
 end
 
-class Docker::Connection
-  def request(*args, &block)
-      request = compile_request_params(*args, &block)
-      if Docker.logger
-        Docker.logger.debug(
-          [request[:method], request[:path], request[:query], request[:body]]
-        )
-      end
+# class Docker::Connection
+#   def request(*args, &block)
+#       request = compile_request_params(*args, &block)
+#       if Docker.logger
+#         Docker.logger.debug(
+#           [request[:method], request[:path], request[:query], request[:body]]
+#         )
+#       end
 
-      response = resource.request(request)
-      Docker.logger.debug(response.inspect.to_json) if Docker.logger
-      response.body
+#       response = resource.request(request)
+#       Docker.logger.debug(response.inspect.to_json) if Docker.logger
+#       response.body
 
-    rescue Excon::Errors::BadRequest => ex
-      raise ClientError, ex.message
-    rescue Excon::Errors::Unauthorized => ex
-      raise UnauthorizedError, ex.message
-    rescue Excon::Errors::NotFound => ex
-      raise NotFoundError, ex.message
-    rescue Excon::Errors::InternalServerError => ex
-      raise ServerError, ex.response.data[:body]
-    rescue Excon::Errors::Timeout => ex
-      raise TimeoutError, ex.message
-    end
-end
+#     rescue Excon::Errors::BadRequest => ex
+#       raise ClientError, ex.message
+#     rescue Excon::Errors::Unauthorized => ex
+#       raise UnauthorizedError, ex.message
+#     rescue Excon::Errors::NotFound => ex
+#       raise NotFoundError, ex.message
+#     rescue Excon::Errors::InternalServerError => ex
+#       raise ServerError, ex.response.data[:body]
+#     rescue Excon::Errors::Timeout => ex
+#       raise TimeoutError, ex.message
+#     end
+# end
 

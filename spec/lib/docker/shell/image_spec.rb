@@ -44,4 +44,14 @@ describe Docker::Shell::Images do
       expect( image.pull ).to eq(false)
     end
   end
+
+  describe '#info' do
+    it 'not raises error' do
+      docker_image = double(Docker::Image)
+      expect( docker_image ).to receive(:info).and_return(true)
+      expect( Docker::Image ).to receive(:get).and_return( docker_image )
+      expect( image ).to receive(:exist?).and_return(true)
+      expect{ image.info }.to_not raise_error
+    end
+  end
 end

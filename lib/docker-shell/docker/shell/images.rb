@@ -29,4 +29,8 @@ class Docker::Shell::Images
   rescue
     false
   end
+
+  def info
+    Docker::Image.get(image.docker_id, {}, @connection).info if self.exist?
+  end
 end
