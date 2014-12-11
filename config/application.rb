@@ -23,7 +23,6 @@ module Tavern
     config.autoload_paths    << 'lib/docker-shell'
 
     config.assets.compile     = true
-    config.assets.precompile += %w(welcome.* registries.* projects.* releases.* hosts.* components.* instances.* environments.*)
 
     config.generators do |g|
       g.test_framework :rspec, :views => false, :fixture => true
