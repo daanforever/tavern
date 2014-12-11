@@ -21,12 +21,12 @@ class Component < ActiveRecord::Base
   accepts_nested_attributes_for :instances
   validates :project, :name, presence: true
 
-  def self.find_or_create!(project: project, release: release, name: name)
-    if component = Component.find_by(project: project, name: name)
-      release.components << component unless release.components.find_by(name: name)
-      component
-    else
-      release.components.create!(project: project, name: name)
-    end
-  end
+  # def self.find_or_create!(project: project, release: release, name: name)
+  #   if component = Component.find_by(project: project, name: name)
+  #     release.components << component unless release.components.find_by(name: name)
+  #     component
+  #   else
+  #     release.components.create!(project: project, name: name)
+  #   end
+  # end
 end
