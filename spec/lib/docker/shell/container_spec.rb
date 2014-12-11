@@ -45,12 +45,18 @@ describe Docker::Shell::Container do
         expect( docker_container ).to receive(:start).and_return( docker_container )
         expect( container.start ).to eq( docker_container_id )
       end
-      it 'returns false on errors'
+      it 'returns false on errors' do
+        expect( Docker::Container ).to receive(:create).and_return( docker_container )
+        expect( docker_container ).to receive(:start){ raise }
+        expect( container.start ).to eq( false )
+      end
     end
     context 'when container not exist' do
-      it 'call #create'
-      it 'returns true if Docker return no errors'
-      it 'returns false on errors'
+      it 'call #create' do
+        expect( container ).to receive(:exist?).and_return(false)
+        expect( container ).to receive(:create).and_return(docker_container)
+        expect{ container.start }.to_not raise_error
+      end
     end
   end
 
