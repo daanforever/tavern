@@ -25,7 +25,8 @@ class Docker::Shell::Container
   end
 
   def start
-    response = Docker::Container.create({'Image' => @image.name}, connection)
+      
+    Docker::Container.create({'Image' => @image.name}, connection)
   rescue Exception => e
     Rails.logger.debug("#{e.class}: #{e.message}")
     # raise
