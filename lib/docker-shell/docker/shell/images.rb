@@ -8,7 +8,7 @@ class Docker::Shell::Images
 
   def exist?
     # TODO: set timeout for external (Docker) call
-    timeout( Settings.docker.timeout ){
+    timeout( Settings.docker.timeout.to_i ){
       Docker::Image.exist?(image.docker_id, {}, @connection)
     }
   rescue
@@ -23,7 +23,7 @@ class Docker::Shell::Images
     #                       repo: image.project.name, 
     #                       fromImage: image.component.name, 
     #                       tag: image.release.name}, nil, @connection)
-    timeout( Settings.docker.timeout ){
+    timeout( Settings.docker.timeout.to_i ){
       Docker::Image.create({ fromImage: "#{image.name}" }, nil, @connection)
     }
   rescue
