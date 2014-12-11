@@ -76,6 +76,7 @@ group :test do
   gem 'simplecov', require: false         # Code coverage
   gem 'coveralls', require: false         # A Ruby implementation of the Coveralls API
   gem 'webmock'                           # Library for stubbing and setting expectations on HTTP requests
+  gem "codeclimate-test-reporter", require: nil # Code Climate
 end
 
 # Use ActiveModel has_secure_password

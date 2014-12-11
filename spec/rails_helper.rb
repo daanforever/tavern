@@ -1,5 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'simplecov'
@@ -32,6 +34,7 @@ ActiveRecord::Migration.maintain_test_schema!
 WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -74,6 +77,10 @@ RSpec.configure do |config|
     DatabaseCleaner.cleaning do
       example.run
     end
+  end
+
+  config.after(:suite) do
+    WebMock.disable_net_connect!(:allow => 'codeclimate.com')
   end
 
 end
