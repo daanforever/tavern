@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/daanforever/tavern.svg?branch=master)](https://travis-ci.org/daanforever/tavern)
 [![Code Climate](https://codeclimate.com/github/daanforever/tavern/badges/gpa.svg)](https://codeclimate.com/github/daanforever/tavern)
 [![Test Coverage](https://codeclimate.com/github/daanforever/tavern/badges/coverage.svg)](https://codeclimate.com/github/daanforever/tavern)
+[![Dependency Status](https://gemnasium.com/daanforever/tavern.svg)](https://gemnasium.com/daanforever/tavern)
 
 ## Tavern
 Web interface for private registry and docker images deployment on multiple hosts.
