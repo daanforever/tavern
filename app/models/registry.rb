@@ -28,10 +28,12 @@ class Registry < ActiveRecord::Base
   def refresh
     return if self.url.blank?
 
-    result = parse( scan )
+    scan_result = scan
 
-    self.update!( info: result )
-
+    if scan_result.present?
+      result = parse( scan_result )
+      self.update!( info: result ) if result.present?
+    end
     self
 
   end

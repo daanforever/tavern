@@ -25,11 +25,12 @@ class Docker::Shell::Container
   end
 
   def start
-      
-    Docker::Container.create({'Image' => @image.name}, connection)
+    timeout( Settings.docker.timeout ){
+      Docker::Container.create({'Image' => @image.name}, connection)
+    }
   rescue Exception => e
-    Rails.logger.debug("#{e.class}: #{e.message}")
-    # raise
+    Rails.logger.debug("Container#start: instance: #{instance.id} #{e.class}: #{e.message}")
+    false
   end
 
 end
