@@ -10,20 +10,23 @@ class Docker::Shell::Container
     @image      = image
   end
 
-  def exist?
+  def exist?    
+      self.get ? true : false
+  end
+
+  def get
     if @instance.container.present?
-      container = nil
+      @container = nil
       timeout( Settings.docker.timeout.to_i ){
-        container = Docker::Container.get({'Id' => @instance.container}, connection)
+        @container = Docker::Container.get({'Id' => @instance.container}, connection)
       }
-      if container
-        true
-      else
-        false
-      end
     else
       false
     end
+  rescue Exception => e
+    Rails.logger.info("Container#get: exception occurred: #{e.message}")
+    Rails.logger.debug(e.backtrace.join("\n"))
+    false
   end
 
   alias_method :exists?, :exist?
@@ -39,7 +42,7 @@ class Docker::Shell::Container
     }
     if container
       Rails.logger.info("Container#create: container created with id:#{container.id}")
-      container.id
+      container
     else
       Rails.logger.info("Container#create: failed to create container with image name: #{@image.name}")
       false
@@ -51,10 +54,7 @@ class Docker::Shell::Container
   end
 
   def start
-    container = false
-    timeout( Settings.docker.timeout.to_i ){
-      container = Docker::Container.create({'Image' => @image.name}, connection)
-    }
+    container = self.exist? ? @container : self.create
     if container
       Rails.logger.info("Container#start: found container with id:#{container.id}")
       timeout( Settings.docker.timeout.to_i ){
