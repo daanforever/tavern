@@ -16,7 +16,7 @@ class SettingsController < ApplicationController
 
   def update
     @setting.update(settings_params)
-    respond_with(@setting)
+    respond_with(@setting, location: settings_path)
   end
 
   def destroy
@@ -29,7 +29,7 @@ class SettingsController < ApplicationController
       @setting = Settings.find(params[:id])
     end
 
-    def setting_params
-      params[:setting]
+    def settings_params
+      params.require(:settings).permit(:value)
     end
 end
