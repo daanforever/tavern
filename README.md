@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/daanforever/tavern.svg?branch=master)](https://travis-ci.org/daanforever/tavern)
+
 == Tavern
 Web interface for private registry and docker images deployment on multiple hosts.
 
