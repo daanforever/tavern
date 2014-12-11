@@ -1,0 +1,9 @@
+/ TODO: tidy
+%h1 Settings
+
+- model_class = Settings
+- @settings.each do |setting|
+  = simple_form_for setting, html: { class: 'form-horizontal' } do |f|
+    = f.label :key, label: setting.key, class: 'section span2'
+    = f.input_field :value, label: setting.key, as: :string, class: 'inline span6'
+    = f.button :submit, :class => 'btn inline'

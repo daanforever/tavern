@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :settings, only: [ :index, :create, :update, :destroy ]
+
   resources :environments, except: [ :new, :create ] do
     resources :instances
     resources :hosts
