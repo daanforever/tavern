@@ -10,10 +10,12 @@ class Docker::Shell::Container
     @image      = image
   end
 
+  # => Boolean
   def exist?    
       self.get ? true : false
   end
 
+  # => Docker::Container
   def get
     if @instance.container.present?
       @container = nil
@@ -31,10 +33,12 @@ class Docker::Shell::Container
 
   alias_method :exists?, :exist?
 
+  # => Boolean
   def running?
     raise NotImplementedError.new
   end
 
+  # => Docker::Container
   def create
     container = false
     timeout( Settings.docker.timeout.to_i ){
@@ -53,6 +57,7 @@ class Docker::Shell::Container
     false
   end
 
+  # => Integer
   def start
     container = self.exist? ? @container : self.create
     if container

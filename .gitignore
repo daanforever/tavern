@@ -20,3 +20,6 @@
 
 # Ignore simple_coverage directory
 /coverage
+
+# Ignore documentation directory (use: rake doc:app)
+/doc
