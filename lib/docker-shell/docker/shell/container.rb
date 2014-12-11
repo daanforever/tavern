@@ -25,7 +25,7 @@ class Docker::Shell::Container
   end
 
   def start
-    timeout( Settings.docker.timeout ){
+    timeout( Settings.docker.timeout.to_i ){
       Docker::Container.create({'Image' => @image.name}, connection)
     }
   rescue Exception => e

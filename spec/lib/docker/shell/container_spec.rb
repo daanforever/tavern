@@ -28,6 +28,7 @@ describe Docker::Shell::Container do
       end
       it 'returns true if Docker return no errors' do
         container = Docker::Shell.new(instance: instance).container
+        expect( Docker::Container ).to receive(:create).and_return(true)
         expect( container.start ).to eq(true)
       end
       it 'returns false on errors'

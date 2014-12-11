@@ -44,62 +44,6 @@ RSpec.describe SettingsController, :type => :controller do
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested settings as @settings" do
-      settings = Settings.create! valid_attributes
-      get :show, {:id => settings.to_param}, valid_session
-      expect(assigns(:settings)).to eq(settings)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new settings as @settings" do
-      get :new, {}, valid_session
-      expect(assigns(:settings)).to be_a_new(Settings)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested settings as @settings" do
-      settings = Settings.create! valid_attributes
-      get :edit, {:id => settings.to_param}, valid_session
-      expect(assigns(:settings)).to eq(settings)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Settings" do
-        expect {
-          post :create, {:settings => valid_attributes}, valid_session
-        }.to change(Settings, :count).by(1)
-      end
-
-      it "assigns a newly created settings as @settings" do
-        post :create, {:settings => valid_attributes}, valid_session
-        expect(assigns(:settings)).to be_a(Settings)
-        expect(assigns(:settings)).to be_persisted
-      end
-
-      it "redirects to the created settings" do
-        post :create, {:settings => valid_attributes}, valid_session
-        expect(response).to redirect_to(Settings.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved settings as @settings" do
-        post :create, {:settings => invalid_attributes}, valid_session
-        expect(assigns(:settings)).to be_a_new(Settings)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:settings => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
-
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
@@ -138,21 +82,6 @@ RSpec.describe SettingsController, :type => :controller do
         put :update, {:id => settings.to_param, :settings => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested settings" do
-      settings = Settings.create! valid_attributes
-      expect {
-        delete :destroy, {:id => settings.to_param}, valid_session
-      }.to change(Settings, :count).by(-1)
-    end
-
-    it "redirects to the settings list" do
-      settings = Settings.create! valid_attributes
-      delete :destroy, {:id => settings.to_param}, valid_session
-      expect(response).to redirect_to(settings_index_url)
     end
   end
 
