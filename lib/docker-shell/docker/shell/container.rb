@@ -32,6 +32,24 @@ class Docker::Shell::Container
     raise NotImplementedError.new
   end
 
+  def create
+    container = false
+    timeout( Settings.docker.timeout.to_i ){
+      container = Docker::Container.create({'Image' => @image.name}, connection)
+    }
+    if container
+      Rails.logger.info("Container#create: container created with id:#{container.id}")
+      container.id
+    else
+      Rails.logger.info("Container#create: failed to create container with image name: #{@image.name}")
+      false
+    end
+  rescue Exception => e
+    Rails.logger.info("Container#create: exception occurred: #{e.message}")
+    Rails.logger.debug(e.backtrace.join("\n"))
+    false
+  end
+
   def start
     container = false
     timeout( Settings.docker.timeout.to_i ){
@@ -53,6 +71,7 @@ class Docker::Shell::Container
     end
   rescue Exception => e # TODO: rescue only specified exceptions
     Rails.logger.debug("Container#start: instance: #{instance.id} #{e.class}: #{e.message}")
+    Rails.logger.debug(e.backtrace.join("\n"))
     false
   end
 
