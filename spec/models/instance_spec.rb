@@ -65,11 +65,6 @@ RSpec.describe Instance, :type => :model do
       allow(Docker::Shell::Images).to receive(:new).and_return(image)
     end
 
-    it 'returns nil for invalid state' do
-      instance = create(:instance, state: :stopped)
-      expect( instance.start! ).to eq(nil)
-    end
-
     context 'with container ID' do
       let(:instance){ create(:instance, state: :starting, container: rand(1..1000)) }
       context 'when container already running' do
@@ -105,11 +100,6 @@ RSpec.describe Instance, :type => :model do
     end
 
     context 'without container ID' do
-
-      it 'not raises error' do
-        instance = create(:instance)
-        expect{ instance.start! }.to_not raise_error
-      end
 
       context 'when image exist' do
         context 'and container started' do
