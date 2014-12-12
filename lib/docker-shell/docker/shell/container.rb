@@ -81,4 +81,26 @@ class Docker::Shell::Container
     false
   end
 
+  # => Boolean
+  def stop
+    return false unless @instance.container.present?
+    return false unless self.exist?
+
+    container = false
+    timeout( Settings.docker.timeout.to_i ){
+      container = self.get.stop
+    }
+      
+    if container
+      Rails.logger.info("Container#stop: container with id: #{@instance.container} stopped!")
+      true
+    else
+      Rails.logger.info("Container#stop: container with id: #{@instance.container} failed to stop")
+      false
+    end
+  rescue Exception => e # TODO: rescue only specified exceptions
+    Rails.logger.debug("Container#stop: instance: #{instance.id} #{e.class}: #{e.message}")
+    Rails.logger.debug(e.backtrace.join("\n"))
+    false
+  end
 end
