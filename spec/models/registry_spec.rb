@@ -80,6 +80,21 @@ describe Registry, :type => :model do
       item1 = item2 = item
       expect{ registry.parse( [ item1, item2 ] ) }.to change(Component, :count).by(1)
     end
+  end # #parse
 
+  describe '#refresh' do
+    it 'not raises error' do
+      expect{ registry.refresh }.to_not raise_error
+    end
+    it 'returns false with blank url' do
+      registry.url = nil
+      expect( registry.refresh ).to eq(false)
+    end
+    it 'returns updated registry' do
+      word = Faker::Lorem.word
+      expect( registry ).to receive( :scan ).and_return(true)
+      expect( registry ).to receive( :parse ).and_return( word )
+      expect( registry.refresh.info ).to eq( word )
+    end
   end
 end
