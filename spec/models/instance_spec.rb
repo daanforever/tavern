@@ -33,15 +33,24 @@ RSpec.describe Instance, :type => :model do
   end
 
   describe '#start' do
+    let(:instance){ create(:instance, state: :starting) }
+    let(:container){ double(Docker::Shell::Container).as_null_object }
+    let(:image){ double(Docker::Shell::Images).as_null_object }
+    
+    before do
+      allow(Docker::Shell::Container).to receive(:new).and_return(container)
+      allow(Docker::Shell::Images).to receive(:new).and_return(image)
+    end
+
     it 'returns nil for invalid state' do
       instance = create(:instance, state: :starting)
       expect( instance.start ).to eq(nil)
     end
 
     it 'change valid states' do
-      skip
       instance = create(:instance, state: :stopped)
-      expect( instance.start ).to_not eq(nil)
+      expect{ instance.start }.to_not raise_error
+      expect( instance.start ).to eq(nil)
     end
   end
 
@@ -150,5 +159,27 @@ RSpec.describe Instance, :type => :model do
     end # without container ID
 
   end # #start!
+
+  describe '#stop!' do
+    let(:instance){ create(:instance, state: :stopping) }
+    let(:container){ double(Docker::Shell::Container) }
+
+    before{ expect( Docker::Shell::Container ).to receive( :new ).and_return( container ) }
+
+    context 'when container.stop returns false' do
+      it 'not changes state' do
+        expect( container ).to receive( :stop ).and_return( false )
+        expect{ instance.stop! }.to_not raise_error
+        expect(instance.state.to_sym).to eq(:stopping)
+      end
+    end
+    context 'when container.stop returns true' do
+      it 'changes state' do
+        expect( container ).to receive( :stop ).and_return( true )
+        expect{ instance.stop! }.to_not raise_error
+        expect(instance.state.to_sym).to eq(:stopped)
+      end
+    end
+  end
 
 end

@@ -157,7 +157,8 @@ class Instance < ActiveRecord::Base
   end
 
   def stop!
-    self.stopped!
+    docker = Docker::Shell.new( instance: self )
+    self.stopped! if docker.container.stop
   end
 
 #
