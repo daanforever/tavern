@@ -182,4 +182,12 @@ RSpec.describe Instance, :type => :model do
     end
   end
 
+  describe '#docker' do
+    let(:instance){ create(:instance) }
+
+    it 'not raises error' do
+      expect{ instance.docker }.to_not raise_error
+    end
+  end
+
 end

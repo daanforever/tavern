@@ -20,7 +20,8 @@ class Docker::Shell::Container
     if @instance.container.present?
       @container = nil
       timeout( Settings.docker.timeout.to_i ){
-        @container = Docker::Container.get({'Id' => @instance.container}, connection)
+        Rails.logger.debug("Container#get: container id: '#{@instance.container}'")
+        @container = Docker::Container.get(@instance.container.to_s, {}, connection)
       }
     else
       false
