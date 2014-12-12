@@ -83,4 +83,58 @@ describe Docker::Shell::Container do
       end
     end
   end
+
+  describe '#stop' do
+    before do
+      allow( Docker::Container ).to receive(:get).and_return( docker_container )
+    end
+
+    it 'not raises error' do
+      expect{ container.stop }.to_not raise_error
+    end
+    it 'returns false if container is nil' do
+      expect( container.stop ).to eq(false)
+    end
+    it 'returns false if container is nil' do
+      expect( container.stop ).to eq(false)
+    end
+    it 'returns true if stopped' do
+      instance.update(container: docker_container_id)
+      expect( docker_container ).to receive(:stop).and_return( true )
+      expect( container.stop ).to eq(true)
+    end
+    it 'returns false if failed to stop' do
+      instance.update(container: docker_container_id)
+      expect( docker_container ).to receive(:stop).and_return( false )
+      expect( container.stop ).to eq(false)
+    end
+    it 'returns false on exception' do
+      instance.update(container: docker_container_id)
+      expect( docker_container ).to receive(:stop){ raise }
+      expect( container.stop ).to eq(false)
+    end
+  end
+
+  describe '#get' do
+    before do
+      allow( Docker::Container ).to receive(:get).and_return( docker_container )
+    end
+
+    it 'not raises error' do
+      expect{ container.get }.to_not raise_error
+    end
+    it 'returns Docker::Container' do
+      instance.container = docker_container_id
+      expect( container.get ).to eq(docker_container)
+    end
+    it 'returns false without @instance.container' do
+      expect( container.get ).to eq(false)
+    end
+    it 'returns false on exception' do
+      instance.container = docker_container_id
+      expect( Docker::Container ).to receive(:get){ raise }
+      expect( container.get ).to eq(false)
+    end
+  end
+
 end
