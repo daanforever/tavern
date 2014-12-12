@@ -26,7 +26,7 @@ class Registry < ActiveRecord::Base
   scope :enabled, -> { where(disabled: false) }
 
   def refresh
-    return if self.url.blank?
+    return false if self.url.blank?
 
     scan_result = self.scan
 
@@ -38,7 +38,7 @@ class Registry < ActiveRecord::Base
 
   end
 
-  handle_asynchronously :refresh, queue: :registries, priority: 10
+  # handle_asynchronously :refresh, queue: :registries, priority: 10
 
   def self.refresh
     Registry.all.each do |r|
