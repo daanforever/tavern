@@ -75,7 +75,9 @@ class Instance < ActiveRecord::Base
   end
 
   def start
-    self.delay.start! if self.starting!
+    if self.starting! and self.may_running?
+      self.delay.start!
+    end
   end
 
   def stop
@@ -105,10 +107,7 @@ class Instance < ActiveRecord::Base
 
   def start!
 
-    return nil unless self.may_running?
-
     logger.info("Instance#start!: id:'#{self.id}', image:'#{self.image.name}:#{self.image.release.name}', host:'#{self.host.url}' ")
-    docker = Docker::Shell.new( instance: self )
 
     if docker.container.exist?
 
@@ -156,7 +155,6 @@ class Instance < ActiveRecord::Base
   end
 
   def stop!
-    docker = Docker::Shell.new( instance: self )
     self.stopped! if docker.container.stop
   end
 
@@ -165,7 +163,7 @@ class Instance < ActiveRecord::Base
 
 
   def docker
-    Docker::Shell.new( instance: self )
+    @docker ||= Docker::Shell.new( instance: self )
   end
 
   # def run
