@@ -156,4 +156,33 @@ RSpec.describe RegistriesController, :type => :controller do
     end
   end
 
+  describe 'GET refresh' do
+    it 'render partial registries' do
+      get :refresh, {}, valid_session
+      expect(response).to render_template('registries/_registries')
+    end
+  end
+
+  describe 'GET toggle' do
+    let(:registry){ create(:registry) }
+    context 'with params[:id]' do
+      it 'assigns the registry as @registry' do
+        get :toggle, { id: registry.to_param }, valid_session
+        expect(assigns(:registry)).to eq(registry)
+      end
+      it 'toggles :disabled' do
+        expect{ 
+          get :toggle, { id: registry.to_param }, valid_session
+        }.to change{ registry.reload.disabled }
+      end
+    end
+    context 'without params' do
+      it 'toggle all registries' do
+        expect{ 
+          get :toggle, { }, valid_session
+        }.to change{ registry.reload.disabled }
+      end
+    end
+  end
+
 end

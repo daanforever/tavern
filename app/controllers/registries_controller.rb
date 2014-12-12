@@ -43,7 +43,7 @@ class RegistriesController < ApplicationController
   end
 
   def toggle
-    if defined? params[:id]
+    if params[:id]
       @registry = Registry.find(params[:id])
       @registry.toggle!(:disabled)
     else
