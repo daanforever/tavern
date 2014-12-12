@@ -86,30 +86,29 @@ class Instance < ActiveRecord::Base
 ###############################################################################
 # Delayed jobs
 
+  # Container present?
+  # |\_ (yes) Found container by Id?
+  # |  |\_ (yes) Container started?
+  # |  | |\_(no) Container.start
+  # |  | | \_ Container started?
+  # |  | |  \_ (no) Set error state
+  # |  |  \_(yes) Update status
+  # |   \_ (no) Proceed as new container
+  # |
+  #  \_ (no) Image present?
+  #   |\_ (no) Create image
+  #   |\_ (yes) Good
+  #   |/ 
+  #    \_ Create container
+  #     \_ Start container
+  #      \_ Update status
+
   def start!
 
     return nil unless self.may_running?
 
     logger.info("Instance#start!: id:'#{self.id}', image:'#{self.image.name}:#{self.image.release.name}', host:'#{self.host.url}' ")
     docker = Docker::Shell.new( instance: self )
-
-    # Container present?
-    # |\_ (yes) Found container by Id?
-    # |  |\_ (yes) Container started?
-    # |  | |\_(no) Container.start
-    # |  | | \_ Container started?
-    # |  | |  \_ (no) Set error state
-    # |  |  \_(yes) Update status
-    # |   \_ (no) Proceed as new container
-    # |
-    #  \_ (no) Image present?
-    #   |\_ (no) Create image
-    #   |\_ (yes) Good
-    #   |/ 
-    #    \_ Create container
-    #     \_ Start container
-    #      \_ Update status
-
 
     if docker.container.exist?
 
@@ -164,6 +163,10 @@ class Instance < ActiveRecord::Base
 #
 ###############################################################################
 
+
+  def docker
+    Docker::Shell.new( instance: self )
+  end
 
   # def run
   #   return false if self.running?
