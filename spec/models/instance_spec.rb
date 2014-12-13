@@ -42,15 +42,18 @@ RSpec.describe Instance, :type => :model do
       allow(Docker::Shell::Images).to receive(:new).and_return(image)
     end
 
-    it 'returns nil for invalid state' do
+    it 'returns false for invalid state' do
       instance = create(:instance, state: :starting)
-      expect( instance.start ).to eq(nil)
+      expect( instance.start ).to eq(false)
     end
 
     it 'change valid states' do
       instance = create(:instance, state: :stopped)
-      expect{ instance.start }.to_not raise_error
-      expect( instance.start ).to eq(nil)
+      delay = double( Instance )
+      expect( instance ).to receive( :delay ).and_return( delay )
+      expect( delay ).to receive( :start! )
+      instance.start
+      expect( instance.state.to_sym ).to eq(:starting)
     end
   end
 
@@ -149,6 +152,23 @@ RSpec.describe Instance, :type => :model do
     end # without container ID
 
   end # #start!
+
+  describe '#stop' do
+    let(:instance){ create(:instance, state: :running) }
+    
+    it 'returns false for invalid state' do
+      instance = create(:instance, state: :starting)
+      expect( instance.stop ).to eq(false)
+    end
+
+    it 'change valid states' do
+      delay = double( Instance )
+      expect( instance ).to receive( :delay ).and_return( delay )
+      expect( delay ).to receive( :stop! )
+      instance.stop
+      expect( instance.state.to_sym ).to eq(:stopping)
+    end
+  end
 
   describe '#stop!' do
     let(:instance){ create(:instance, state: :stopping) }

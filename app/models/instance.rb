@@ -77,12 +77,17 @@ class Instance < ActiveRecord::Base
   def start
     if self.starting! and self.may_running?
       self.delay.start!
+    else
+      false
     end
   end
 
   def stop
-    self.stopping!
-    self.delay.stop!
+    if self.stopping! and self.may_stopped?
+      self.delay.stop!
+    else
+      false
+    end
   end
 
 ###############################################################################
