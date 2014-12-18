@@ -45,8 +45,6 @@
               .col-md-5
                 %span.badge.badge-success{title: 'running'}= environment.instances.running.count
                 %span.badge{title: 'stopped'}= environment.instances.stopped.count
-                = link_to environment_instances_path(environment), class: 'btn btn-default btn-xs btn-rotate' do
-                  %span.glyphicon.glyphicon-th-list
 
 
         %td

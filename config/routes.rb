@@ -8,11 +8,11 @@ Rails.application.routes.draw do
   end
 
   resources :components do
-    resources :instances
+    resources :instances, except: [ :new, :create ]
     get 'toggle',  on: :member
   end
 
-  resources :instances do
+  resources :instances, except: [ :new, :create ] do
     post 'run',   on: :member
     post 'stop',  on: :member
   end

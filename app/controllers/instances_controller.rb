@@ -1,12 +1,12 @@
 class InstancesController < ApplicationController
-  before_action :set_component
-  before_action :set_environment
+  before_action :set_variables
   before_action :set_instance, only: [:show, :edit, :update, :destroy, :run, :stop]
   before_action :set_instances, only: [:index, :run, :stop]
 
   respond_to :json
 
   def index
+    Rails.logger.debug("InstancesController: #{@instances.count}")
     respond_with(@instances)
   end
 
@@ -33,9 +33,8 @@ class InstancesController < ApplicationController
   end
 
   def update
-    parsed = instance_params
-    parsed['volumes'].delete_if{|v| v['external'].blank? or v['internal'].blank?  }
-    @instance.update(parsed)
+    cleanup_properties
+    @instance.update(instance_params)
     respond_with(@instance)
   end
 
@@ -69,12 +68,9 @@ class InstancesController < ApplicationController
       end
     end
 
-    def set_component
-      @component    = Component.find(params[:component_id]) if params[:component_id]
-    end
-
-    def set_environment
-      @environment  = Environment.find(params[:environment_id]) if params[:environment_id]
+    def set_variables
+      @component   = Component.find(params[:component_id]) if params[:component_id]
+      @environment = Environment.find(params[:environment_id]) if params[:environment_id]
     end
 
     def instance_params
@@ -82,5 +78,14 @@ class InstancesController < ApplicationController
         :name, :image_id, :component_id, :host_id, :environment_id,
         volumes: [:external, :internal], ports: [:public, :private]
       )
+    end
+
+    def cleanup_properties
+      if instance_params['volumes']
+        instance_params['volumes'].delete_if{|v| v['external'].blank? or v['internal'].blank?  }
+      end
+      if instance_params['ports']
+        instance_params['ports'].delete_if{|v| v['public'].blank? or v['private'].blank?  }
+      end
     end
 end
