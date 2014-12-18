@@ -43,7 +43,7 @@ describe Docker::Shell::Container do
       it 'returns instance ID if Docker return no errors' do
         expect( Docker::Container ).to receive(:create).and_return( docker_container )
         expect( docker_container ).to receive(:start).and_return( docker_container )
-        expect( container.start ).to eq( docker_container_id )
+        expect( container.start ).to eq( true )
       end
       it 'returns false on errors' do
         expect( Docker::Container ).to receive(:create).and_return( docker_container )
