@@ -1,23 +1,28 @@
-= simple_form_for( @instance, html: { class: 'form-horizontal' } ) do |f|
-  .row
-    .col-md-8.col-md-offset-2
-      = f.error_notification
-  .row
-    .form-inputs.col-md-8.col-md-offset-1
-      = f.association :environment
-      = f.association :component, disabled: true
-      = f.association :host, collection: @instance.environment.hosts, include_blank: false
-      = f.input :public_port
-      = f.input :private_port
-      = f.input :name
-      = f.input :options
-
-  .row
-    .form-actions
-      .col-md-9.col-md-offset-3
-        = f.button :submit, class: 'btn-primary'
-        = link_to 'Cancel', :back, class: 'btn btn-default'
-        - unless @instance.new_record?
-          = link_to instance_path(@instance), :method => :delete, class: 'btn btn-sm btn-danger', 
-            title: 'Delete', data: { confirm: "Are you sure?" } do
-            %span.glyphicon.glyphicon-trash
+.form{ :'ng-controller' => 'InstanceFormController'}
+  = simple_form_for( [@environment, @instance], html: { class: 'form-horizontal' } ) do |f|
+    .row
+      .col-md-8.col-md-offset-2
+        = f.error_notification
+    .row
+      .form-inputs.col-md-8.col-md-offset-1
+        = f.input :name
+        = f.association :environment, include_blank: false
+        = f.association :component, collection: @instance.environment.release.components, include_blank: false
+        = f.association :host, collection: @instance.environment.hosts, include_blank: false
+        / = f.input :options
+        = f.input :ports, as: :array_hash, label: 'Ports'
+        = f.input :volumes, as: :array_hash, label: 'Data volumes'
+        .col-md-8.col-md-offset-3
+  
+    .row
+      .form-actions
+        .col-md-9.col-md-offset-3
+          = f.button :submit, class: 'btn-primary'
+          = link_to t('.add_port'), '#', class: 'btn btn-info', id: 'add-ports', :'ng-click' => 'addPort($event)'
+          = link_to t('.add_volume'), '#', class: 'btn btn-info', id: 'add-volume', :'ng-click' => 'addVolume($event)'
+          = link_to 'Cancel', :back, class: 'btn btn-default'
+          - unless @instance.new_record?
+            = link_to instance_path(@instance), :method => :delete, class: 'btn btn-sm btn-danger', 
+              title: 'Delete', data: { confirm: "Are you sure?" } do
+              %span.glyphicon.glyphicon-trash
+  

@@ -5,7 +5,6 @@
 #  id             :integer          not null, primary key
 #  name           :string(255)
 #  disabled       :boolean
-#  public_port    :integer
 #  container      :string(255)
 #  properties     :text
 #  image_id       :integer
@@ -15,7 +14,6 @@
 #  updated_at     :datetime
 #  state          :integer
 #  environment_id :integer
-#  private_port   :integer
 #  options        :text
 #
 

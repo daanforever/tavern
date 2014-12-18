@@ -10,7 +10,7 @@
 #  component_id :integer
 #  created_at   :datetime
 #  updated_at   :datetime
-#  docker_image :string(255)
+#  docker_id    :string(255)
 #
 
 class Image < ActiveRecord::Base

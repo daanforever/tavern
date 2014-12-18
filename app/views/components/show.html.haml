@@ -13,12 +13,11 @@
     %p
       %b Instances:
   .col-md-10
-    %p
-      = link_to component_instances_path(@component), class: 'btn btn-sm btn-default' do
-        %span.badge= @component.instances.count
-        %span.glyphicon.glyphicon-list
-      = link_to new_component_instance_path(@component), class: 'btn btn-sm btn-default' do
-        %span.glyphicon.glyphicon-plus
+    - if @component.instances.count > 0
+      - @component.instances.each do |instance|
+        %p instance.id
+    - else
+      %p none
 
 .row
   .col-md-2

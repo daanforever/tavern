@@ -5,7 +5,6 @@
 #  id             :integer          not null, primary key
 #  name           :string(255)
 #  disabled       :boolean
-#  public_port    :integer
 #  container      :string(255)
 #  properties     :text
 #  image_id       :integer
@@ -15,7 +14,6 @@
 #  updated_at     :datetime
 #  state          :integer
 #  environment_id :integer
-#  private_port   :integer
 #  options        :text
 #
 
@@ -28,7 +26,7 @@ FactoryGirl.define do
     public_port     { rand(65535) }
     private_port    { rand(65535) }
     container       nil
-    properties      { Faker::Lorem.paragraph }
+    properties      { OpenStruct.new }
     component_id    { create(:component).id }
     image_id        { create(:image, component: component).id }
     host_id         { create(:host).id }

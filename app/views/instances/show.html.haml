@@ -16,13 +16,7 @@
   - else 
     = @instance.name
 %p
-  %b Ports:
-  %span
-    Public: 
-    = @instance.public_port
-  %span
-    Private: 
-    = @instance.private_port
+  %b Ports: #{@instance.ports.try(:values).try(:join, ':')}
 %p
   %b Component:
   = @instance.component.name

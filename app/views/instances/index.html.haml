@@ -25,7 +25,6 @@
           %th Environment
           %th Host
           %th Release
-          %th Ports
           %th State
           %th
       %tbody
@@ -36,7 +35,6 @@
           %td {{ instance.environment }}
           %td {{ instance.host }}
           %td {{ instance.component }}:{{ instance.release }}
-          %td {{ instance.public_port }} : {{ instance.private_port }}
           %td {{ instance.state }}
           %td
             = link_to '{{ instance.action_instance_path }}',  remote: true, method: :post,
