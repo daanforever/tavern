@@ -63,10 +63,41 @@
       console.log('refresher stopped')
 )
 
+@tavern.controller('InstanceFormController', ($scope) ->
+  $scope.delete = (name, $event) ->
+    panel = angular.element($event.target).closest('.panel' + name)
+    panel.remove()
+    true
+
+  $scope.addVolume = ($event) ->
+    volume = angular.element('.panel.volume').last()
+    copy1  = volume.clone(true)
+    copy2  = volume.clone(true)
+    parent = volume.parent()
+    copy1.find('a.ng-hide').toggleClass('ng-hide')
+    parent.append(copy1)
+    parent.append(copy2)
+    volume.remove()
+    true
+
+  $scope.addPort = ($event) ->
+    port   = angular.element('.panel.port').last()
+    copy1  = port.clone(true)
+    copy2  = port.clone(true)
+    parent = port.parent()
+    copy1.find('a.ng-hide').toggleClass('ng-hide')
+    parent.append(copy1)
+    parent.append(copy2)
+    port.remove()
+    true
+)
+
 $(document).on('ready page:load page:restore', ->
   angular.element('[ng-controller="instancesController"]').each( ->
     $(this).scope().startRefresher()
   )
+  angular.element('.panel.volume').last().find('a.close').toggleClass('ng-hide')
+  angular.element('.panel.port').last().find('a.close').toggleClass('ng-hide')
 )
 
 $(document).on('page:before-change', ->

@@ -11,13 +11,13 @@
     = javascript_include_tag controller_name, 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body{:'ng-strict-di' => true}
-    .container
+    .container-fluid
       = render 'layouts/navbar'
-    .container
+    .container-fluid
       = yield :header
-    .container
+    .container-fluid
       .row
         .col-md-8.col-md-offset-2
           = render 'layouts/messages'
-    .container
+    .container-fluid
       = yield

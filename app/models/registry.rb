@@ -77,9 +77,10 @@ class Registry < ActiveRecord::Base
         release   = project.releases.find_or_create_by!(name: tag.name)
 
         component = project.components.find_or_create_by!(
-                      name: component_name)
+                      name: component_name
+                    )
 
-        component.releases.find_or_create_by(id: release.id)
+        component.releases << release unless component.releases.include?(release)
 
         image     = self.images.find_or_create_by!(
                       project: project, release: release, 

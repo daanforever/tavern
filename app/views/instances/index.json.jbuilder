@@ -6,7 +6,7 @@ json.array!(@instances.includes(:environment, :host, image: [:release])) do |ins
   json.environment          instance.environment.name
   json.host                 instance.host.name.split(/\./).first
   json.release              instance.image.release.name
-  json.extract!             instance, :public_port, :private_port, :state
+  json.state                instance.state
   json.instance_path        instance_path(instance)
   json.edit_instance_path   edit_instance_path(instance)
   json.stop_instance_path   stop_instance_path(instance)

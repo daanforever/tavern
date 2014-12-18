@@ -15,16 +15,7 @@ class InstancesController < ApplicationController
   end
 
   def new
-    if @component
-      @environments = @component.project.environments
-      @instance = @component.instances.new
-    elsif @environment
-      @components = @environment.project.components
-      @instance = @environment.instances.new
-    else
-      @instance = Instance.new
-    end
-
+    @instance = Instance.new(environment: @environment)
     respond_with(@instance)
   end
 
@@ -32,32 +23,19 @@ class InstancesController < ApplicationController
   end
 
   def create
-
-    if @component
-      @instance = Instance.new(instance_params.merge(component: @component))
-    elsif @environment
-      @instance = Instance.new(instance_params.merge(environment: @environment))
-    else
-      @instance = Instance.new(instance_params)
-    end
-
+    @instance = Instance.new(instance_params)
     if @instance.save
-      
-      if @component
-        respond_with(@component, location: component_instances_path(@component))
-      elsif @environment
-        respond_with(@environment, location: environment_instances_path(@environment))
-      else
-        respond_with(@instance, location: projects_path)
-      end
+      respond_with(@environment, location: environment_instances_path(@environment))
     else
       flash.now[:alert] = @instance.errors
-      respond_with(@instance)
+      respond_with(@environment, @instance)
     end
   end
 
   def update
-    @instance.update(instance_params)
+    parsed = instance_params
+    parsed['volumes'].delete_if{|v| v['external'].blank? or v['internal'].blank?  }
+    @instance.update(parsed)
     respond_with(@instance)
   end
 
@@ -100,6 +78,9 @@ class InstancesController < ApplicationController
     end
 
     def instance_params
-      params.require(:instance).permit(:name, :port, :image_id, :component_id, :host_id, :public_port, :private_port, :environment_id, :options)
+      params.require(:instance).permit(
+        :name, :image_id, :component_id, :host_id, :environment_id,
+        volumes: [:external, :internal], ports: [:public, :private]
+      )
     end
 end

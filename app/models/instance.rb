@@ -5,7 +5,6 @@
 #  id             :integer          not null, primary key
 #  name           :string(255)
 #  disabled       :boolean
-#  public_port    :integer
 #  container      :string(255)
 #  properties     :text
 #  image_id       :integer
@@ -15,7 +14,6 @@
 #  updated_at     :datetime
 #  state          :integer
 #  environment_id :integer
-#  private_port   :integer
 #  options        :text
 #
 
@@ -25,10 +23,14 @@ class Instance < ActiveRecord::Base
   belongs_to :host
   belongs_to :environment
 
-  before_validation :set_image
-  validates :environment, :host, :component, :public_port, :private_port, :image, presence: true
-
+  after_initialize :set_properties
+  before_save :update_properties
   serialize :properties
+
+  before_validation :set_image
+  validates :environment, :host, :component, :image, presence: true
+
+  attr_accessor :volumes, :ports
 
   enum state: {
     stopped: 0,
@@ -185,9 +187,24 @@ class Instance < ActiveRecord::Base
   #   true
   # end
 
+  def volumes
+    @volumes ||= properties.volumes
+  end
+
   protected
     def set_image
       self.image ||= self.component.images.find_by(release: self.environment.release)
+    end
+
+    def set_properties
+      self.properties ||= OpenStruct.new
+      @volumes ||= self.properties.volumes ||= [{external: '', internal: ''}]
+      @ports   ||= self.properties.ports   ||= [{public: '', private: ''}]
+    end
+
+    def update_properties
+      self.properties.volumes = @volumes if @volumes.present?
+      self.properties.ports   = @ports   if @ports.present?
     end
 
   # def release
