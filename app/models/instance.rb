@@ -95,69 +95,20 @@ class Instance < ActiveRecord::Base
 ###############################################################################
 # Delayed jobs
 
-  # Container present?
-  # |\_ (yes) Found container by Id?
-  # |  |\_ (yes) Container started?
-  # |  | |\_(no) Container.start
-  # |  | | \_ Container started?
-  # |  | |  \_ (no) Set error state
-  # |  |  \_(yes) Update status
-  # |   \_ (no) Proceed as new container
-  # |
-  #  \_ (no) Image present?
-  #   |\_ (no) Create image
-  #   |\_ (yes) Good
-  #   |/ 
-  #    \_ Create container
-  #     \_ Start container
-  #      \_ Update status
+# => Instance
 
   def start!
 
     logger.info("Instance#start!: id:'#{self.id}', image:'#{self.image.name}:#{self.image.release.name}', host:'#{self.host.url}' ")
 
-    if docker.container.exist?
+    return self.running! if docker.container.running?
+    return self.failed!  unless docker.image.exist? or docker.image.pull
 
-      if docker.container.running?
-        logger.info("Instance#start!: instance id:#{self.id} already running")
-        self.running!
-      elsif docker.container.start
-        logger.info("Instance#start!: instance id:#{self.id} started!")
-        self.running!
-      else
-        logger.error("Instance#start!: instance id:#{self.id} run error!")
-        self.failed! unless self.failed?
-      end
-
-    else # container doesn't exist
-
-      if docker.image.exist?
-        logger.info("Instance#start!: image #{self.image.name} exist")
-      else # image doesn't exist
-        logger.info("Instance#start!: image #{self.image.name} not exists")
-        if docker.image.pull
-          logger.info("Instance#start!: pulling image #{self.image.name} complete")
-        else
-          logger.error("Instance#start!: pulling image #{self.image.name} error!")
-          self.failed! unless self.failed?
-        end
-      end
-
-      if docker.image.exist?
-        if docker.container.start
-          logger.info("Instance#start!: instance id:#{self.id} started!")
-          self.running!
-        else
-          logger.error("Instance#start!: instance id:#{self.id} run error!")
-          self.failed! unless self.failed?
-        end
-      else
-        logger.error("Instance#start!: skipped without image for instance id:#{self.id}")
-        self.failed! unless self.failed?
-      end
-
+    if docker.container.start
+      self.running!
+    else
+      self.failed! unless self.failed?
     end
-
 
   end
 

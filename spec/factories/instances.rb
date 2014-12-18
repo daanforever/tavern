@@ -23,8 +23,6 @@ FactoryGirl.define do
   factory :instance do
     name            { Faker::Name.name }
     disabled        false
-    public_port     { rand(65535) }
-    private_port    { rand(65535) }
     container       nil
     properties      { OpenStruct.new }
     component_id    { create(:component).id }
@@ -32,5 +30,7 @@ FactoryGirl.define do
     host_id         { create(:host).id }
     environment_id  { create(:environment).id }
     options         { Faker::Lorem.paragraph }
+    volumes         { [{ external: Faker::Lorem.word, internal: Faker::Lorem.word }] }
+    ports           { [{ public: Faker::Lorem.word, private: Faker::Lorem.word }] }
   end
 end

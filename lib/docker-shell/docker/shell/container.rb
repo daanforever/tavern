@@ -58,7 +58,7 @@ class Docker::Shell::Container
     false
   end
 
-  # => Integer
+  # => Boolean
   def start
     container = self.exist? ? @container : self.create
     if container
@@ -68,6 +68,7 @@ class Docker::Shell::Container
         if container.start
           Rails.logger.info("Container#start: container with id: #{container.id} started!")
           @instance.container = container.id
+          true
         else
           Rails.logger.info("Container#start: container with id: #{container.id} failed to start")
         end

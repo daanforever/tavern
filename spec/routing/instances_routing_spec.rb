@@ -7,20 +7,12 @@ RSpec.describe InstancesController, :type => :routing do
       expect(:get => "/instances").to route_to("instances#index")
     end
 
-    it "routes to #new" do
-      expect(:get => "/instances/new").to route_to("instances#new")
-    end
-
     it "routes to #show" do
       expect(:get => "/instances/1").to route_to("instances#show", :id => "1")
     end
 
     it "routes to #edit" do
       expect(:get => "/instances/1/edit").to route_to("instances#edit", :id => "1")
-    end
-
-    it "routes to #create" do
-      expect(:post => "/instances").to route_to("instances#create")
     end
 
     it "routes to #update" do

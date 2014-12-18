@@ -70,7 +70,6 @@ RSpec.describe Instance, :type => :model do
       let(:instance){ create(:instance, state: :starting, container: rand(1..1000)) }
       context 'when container already running' do
         it 'change state' do
-          expect(container).to receive(:exist?).and_return(true)
           expect(container).to receive(:running?).and_return(true)
 
           instance.start!
@@ -79,10 +78,9 @@ RSpec.describe Instance, :type => :model do
       end
       context 'when container started' do
         it 'change state' do
-          expect(container).to receive(:exist?).and_return(true)
           expect(container).to receive(:running?).and_return(false)
+          expect(image).to receive(:exist?).and_return(true)
           expect(container).to receive(:start).and_return(true)
-
           instance.start!
           expect(instance.state.to_sym).to eq(:running)
         end
@@ -90,8 +88,8 @@ RSpec.describe Instance, :type => :model do
 
       context 'when starting error' do
         it 'change state' do
-          expect(container).to receive(:exist?).and_return(true)
           expect(container).to receive(:running?).and_return(false)
+          expect(image).to receive(:exist?).and_return(true)
           expect(container).to receive(:start).and_return(false)
 
           instance.start!
@@ -105,8 +103,8 @@ RSpec.describe Instance, :type => :model do
       context 'when image exist' do
         context 'and container started' do
           it 'change state' do
-            expect(container).to receive(:exist?).and_return(false)
-            expect(image).to receive(:exist?).twice.and_return(true)
+            expect(container).to receive(:running?).and_return(false)
+            expect(image).to receive(:exist?).and_return(true)
             expect(container).to receive(:start).and_return(true)
             instance.start!
             expect(instance.state.to_sym).to eq(:running)
@@ -114,8 +112,8 @@ RSpec.describe Instance, :type => :model do
         end # and container started
         context 'and container not started' do
           it 'change state' do
-            expect(container).to receive(:exist?).and_return(false)
-            expect(image).to receive(:exist?).twice.and_return(true)
+            expect(container).to receive(:running?).and_return(false)
+            expect(image).to receive(:exist?).and_return(true)
             expect(container).to receive(:start).and_return(false)
             instance.start!
             expect(instance.state.to_sym).to eq(:failed)
@@ -127,9 +125,8 @@ RSpec.describe Instance, :type => :model do
         context 'but pulled' do
           context 'and container started' do
             it 'change state' do
-              expect(container).to receive(:exist?).and_return(false)
+              expect(container).to receive(:running?).and_return(false)
               expect(image).to receive(:exist?).and_return(false)
-              expect(image).to receive(:exist?).and_return(true)
               expect(image).to receive(:pull).and_return(true)
               expect(container).to receive(:start).and_return(true)
               instance.start!
@@ -139,8 +136,8 @@ RSpec.describe Instance, :type => :model do
         end # but pulled
         context 'and not pulled' do
           it 'change state' do
-            expect(container).to receive(:exist?).and_return(false)
-            expect(image).to receive(:exist?).twice.and_return(false)
+            expect(container).to receive(:running?).and_return(false)
+            expect(image).to receive(:exist?).and_return(false)
             expect(image).to receive(:pull).and_return(false)
             instance.start!
             expect(instance.state.to_sym).to eq(:failed)
