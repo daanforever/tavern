@@ -27,8 +27,6 @@
           %p
             %b
               #{instance.image.project.name}/#{instance.component.name}:#{instance.image.release.name}
-            %i
-              %small (public: #{instance.public_port} private: #{instance.private_port})
             %span.pull-right
               = link_to edit_component_instance_path(instance.component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
                 %span.glyphicon.glyphicon-cog
@@ -41,8 +39,6 @@
           %p
             %b
               #{instance.image.project.name}/#{instance.component.name}:#{instance.image.release.name}
-            %i
-              %small (public: #{instance.public_port} private: #{instance.private_port})
             %span.pull-right
               = link_to edit_component_instance_path(instance.component, instance), class: 'btn btn-xs btn-default btn-rotate', title: 'Settings' do
                 %span.glyphicon.glyphicon-cog

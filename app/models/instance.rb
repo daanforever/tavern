@@ -154,8 +154,8 @@ class Instance < ActiveRecord::Base
     end
 
     def update_properties
-      self.properties.volumes = @volumes if @volumes.present?
-      self.properties.ports   = @ports   if @ports.present?
+      self.properties.volumes = @volumes
+      self.properties.ports   = @ports
     end
 
   # def release
