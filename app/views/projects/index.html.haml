@@ -11,7 +11,7 @@
   %thead
     %tr
       %th.col-md-4
-      %th.col-md-2 Releases
+      %th.col-md-2
       %th.col-md-3 Environments
       %th.col-md-3 Components
   %tbody
@@ -25,18 +25,13 @@
 
 
         %td
-          - project.releases.each do |release|
-            %p
-              = link_to release.name, release_path(release)
-              - if release.active?
-                %span.glyphicon.glyphicon-ok.text-success
+          = link_to pluralize(project.releases.count, 'release'), project_releases_path(project)
 
         %td
           - if project.environments.count == 0
             %p
-              = link_to new_project_environment_path(project), class: 'btn btn-default btn-sm btn-rotate' do
+              = link_to new_project_environment_path(project), class: 'btn btn-default btn-xs btn-rotate' do
                 %span.glyphicon.glyphicon-plus
-                = t('.new_environment')
           - project.environments.each do |environment|
             .row
               .col-md-7
