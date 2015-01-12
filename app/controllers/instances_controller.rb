@@ -33,8 +33,7 @@ class InstancesController < ApplicationController
   end
 
   def update
-    cleanup_properties
-    @instance.update(instance_params)
+    @instance.update(clean_params)
     respond_with(@instance)
   end
 
@@ -80,12 +79,14 @@ class InstancesController < ApplicationController
       )
     end
 
-    def cleanup_properties
-      if instance_params['volumes']
-        instance_params['volumes'].delete_if{|v| v['external'].blank? or v['internal'].blank?  }
+    def clean_params
+      result = instance_params
+      if result['volumes']
+        result['volumes'].delete_if{|v| v['external'].blank? or v['internal'].blank?  }
       end
-      if instance_params['ports']
-        instance_params['ports'].delete_if{|v| v['public'].blank? or v['private'].blank?  }
+      if result['ports']
+        result['ports'].delete_if{|v| v['public'].blank? or v['private'].blank?  }
       end
+      result
     end
 end

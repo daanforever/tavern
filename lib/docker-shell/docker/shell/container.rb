@@ -65,7 +65,7 @@ class Docker::Shell::Container
       Rails.logger.info("Container#start: found container with id:#{container.id}")
       timeout( Settings.docker.timeout.to_i ){
         Rails.logger.info("Container#start: trying to start container with id: #{container.id}")
-        if container.start
+        if container.start(ports_config)
           Rails.logger.info("Container#start: container with id: #{container.id} started!")
           @instance.container = container.id
           true
@@ -103,5 +103,27 @@ class Docker::Shell::Container
     Rails.logger.debug("Container#stop: instance: #{instance.id} #{e.class}: #{e.message}")
     Rails.logger.debug(e.backtrace.join("\n"))
     false
+  end
+
+  def ports_config
+    pb = {}
+    @instance.ports.each do |p| 
+      next if p['private'].blank? or p['public'].blank?
+      pb[ p['public'] ] << { "HostPort" => p['private'] } rescue pb[p['public']] = [{ "HostPort" => p['private'] }]
+    end
+    { 'ExposedPorts' => pb }
+  end
+
+  def volumes_config
+    vc = {}
+    @instance.volumes.each do |v|
+      next if v['external'].blank? or v['internal'].blank?
+      vc[ v['external'] ] = v['internal']
+    end
+    { 'Volumes' => vc }
+  end
+
+  def config
+    ports_config.merge(volumes_config)
   end
 end
