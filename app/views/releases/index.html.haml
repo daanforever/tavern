@@ -1,7 +1,8 @@
 - content_for :header do
   %h1
-    Listing releases for
-    / = link_to @project.name, @project
+    Listing releases
+    = link_to "#", class: 'btn btn-default btn-back' do
+      %span.glyphicon.glyphicon-circle-arrow-left
   %hr
 
 
@@ -14,7 +15,7 @@
   %tbody
     - @releases.each do |release|
       %tr
-        %td= release.name
+        %td= link_to release.name, project_release_path(@project, release)
         %td= release.description
 
 %br
