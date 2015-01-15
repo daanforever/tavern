@@ -22,6 +22,8 @@ class Release < ActiveRecord::Base
 
   validates :name, presence: true
 
+  scope :ordered, -> { order(:name) }
+
   enum state: {
     inactive: 0,
     active:   1
