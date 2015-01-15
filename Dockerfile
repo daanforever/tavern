@@ -12,5 +12,5 @@ RUN bundle exec rake db:migrate
 RUN bundle exec rake assets:precompile
 RUN echo "  secret_key_base: $(bundle exec rake secret)" >> config/secrets.yml
 
-CMD ["rails", "server"]
+CMD ["foreman", "start"]
 

@@ -1,3 +1,6 @@
 .git
 tmp
 log
+doc
+db/development.sqlite3
+db/test.sqlite3
