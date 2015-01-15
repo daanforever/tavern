@@ -5,7 +5,7 @@ class ReleasesController < ApplicationController
   respond_to :html
 
   def index
-    @releases = @project ? @project.releases : Release.all
+    @releases = @project ? @project.releases.ordered : Release.all
     respond_with(@releases)
   end
 
