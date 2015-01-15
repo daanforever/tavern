@@ -48,6 +48,7 @@ gem 'docker-api', '~> 1.15.0', require: 'docker' # Provides an object-oriented i
 gem 'delayed_job_active_record'       # Database based asynchronous priority queue system
 gem 'delayed_job_recurring'           # Extends delayed_job to support recurring jobs
 gem 'settingson'                      # Settings management
+gem 'foreman'                         # Manage Procfile-based applications
 
 group :doc do
   gem 'sdoc'                          # bundle exec rake doc:rails generates the API under doc/api.
