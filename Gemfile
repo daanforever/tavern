@@ -3,8 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -54,7 +53,12 @@ group :doc do
   gem 'sdoc'                          # bundle exec rake doc:rails generates the API under doc/api.
 end
 
+group :production do
+  gem 'pg'                            # Use postgresql as the database for Active Record
+end
+
 group :development, :test do
+  gem 'sqlite3'                       # Use sqlite3 as the database for Active Record
   gem 'spring'                        # Spring speeds up development
   gem 'spring-commands-rspec'         # Implements the rspec command for Spring
   gem 'better_errors'                 # Better errors handler

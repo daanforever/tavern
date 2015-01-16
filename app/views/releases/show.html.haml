@@ -8,23 +8,27 @@
   %hr
 
 .row
-  .col-md-4
+  .col-md-3
     %p
       %b #{t('.alias')}:
-  .col-md-8
+  .col-md-9
     = @release.label
 .row
-  .col-md-4
+  .col-md-3
     %p
       %b Components:
-  .col-md-8
-    - @release.components.each do |component|
-      %p= component.name
+  .col-md-9
+    - @release.components.order(:name).each do |component|
+      .row
+        .col-md-2
+          %p= component.name
+        .col-md-10
+          %i= component.images.where(release: @release).map{|i| i.name}.join(',')
 
 .row
-  .col-md-4
+  .col-md-3
     %p
       %b Description:
-  .col-md-8
+  .col-md-9
     = @release.description
 
