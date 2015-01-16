@@ -15,3 +15,5 @@
           = link_to t('menu.projects'), projects_path
         %li{ active_if('settings') }
           = link_to t('menu.settings'), settings_path
+        %li{ active_if('welcome', 'help') }
+          = link_to t('menu.help'), help_welcome_index_path
