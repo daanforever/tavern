@@ -19,16 +19,19 @@
       %b Components:
   .col-md-9
     - @release.components.order(:name).each do |component|
-      .row
-        .col-md-2
-          %p= component.name
-        .col-md-10
-          %i= component.images.where(release: @release).map{|i| i.name}.join(',')
-
+      = component.name
+      %br
+.row
+  .col-md-3
+    %p
+      %b Images:
+  .col-md-9
+    - @release.components.order(:name).each do |component|
+      = component.images.where(release: @release).map{|i| i.name}.join(', ')
+      %br
 .row
   .col-md-3
     %p
       %b Description:
   .col-md-9
     = @release.description
-
