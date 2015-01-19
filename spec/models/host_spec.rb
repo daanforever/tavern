@@ -32,4 +32,8 @@ describe Host, :type => :model do
       expect( host.refresh ).to be_a(Array)
     end
   end  
+
+  describe '#docker' do
+    it
+  end
 end

@@ -21,6 +21,9 @@ class Host < ActiveRecord::Base
   validates :url, presence: true
   # validates :name, uniqueness: true
 
+  scope :enabled,  -> { where(disabled: false) }
+  scope :disabled, -> { where(disabled: true) }
+
   def refresh
 
     connection = Docker::Connection.new(self.url, {})
@@ -33,6 +36,18 @@ class Host < ActiveRecord::Base
       }
     end
 
+  end
+
+  def docker
+    @docker ||= Docker::Shell.new(host: self.url)
+  end
+
+  def alive?
+    if self.disabled?
+      false
+    else
+      docker.info.present?
+    end
   end
 
   protected 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Docker::Shell::Container do
   let(:instance){ create(:instance) }
-  let(:container){ Docker::Shell.new(instance: instance).container }
+  let(:container){ Docker::Shell.new(host: instance.host.url, instance: instance).container }
   let(:docker_container){ double(Docker::Container) }
   let(:docker_container_id){ rand(9999) }
   

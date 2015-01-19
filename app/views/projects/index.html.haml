@@ -38,8 +38,8 @@
                 %p
                   = link_to environment.name, environment
               .col-md-5
-                %span.badge.badge-success{title: 'running'}= environment.instances.running.count
-                %span.badge{title: 'stopped'}= environment.instances.stopped.count
+                %span.badge.badge-info{title: 'hosts'}= environment.hosts.count
+                %span.badge.badge-success{title: 'instances'}= environment.instances.running.count
 
 
         %td
