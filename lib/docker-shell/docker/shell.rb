@@ -1,16 +1,39 @@
 class Docker::Shell
 
-  attr_reader :connection, :instance, :image, :container
+  attr_reader :connection, :instance #, :image, :container
 
-  def initialize( instance: instance )
+  def initialize( host:, instance: nil )
     @instance   = instance
     Docker.logger = Rails.logger
-    @connection = Docker::Connection.new(@instance.host.url, {})
-    @container  = Docker::Shell::Container.new( connection: @connection, instance: @instance, image: @instance.image )
-    @image      = Docker::Shell::Images.new( connection: @connection, image: @instance.image )
+    @connection = Docker::Connection.new(host, {})
+  end
+
+  def image
+    instance_required
+    @image ||= Docker::Shell::Images.new( connection: @connection, image: @instance.image )
+  end
+
+  def container
+    instance_required
+    @container ||= Docker::Shell::Container.new( connection: @connection, instance: @instance, image: @instance.image )
+  end
+
+  def info
+    timeout( Settings.docker.timeout.to_i ){ Docker.info(@connection) }
   end
   
+  protected
+    def instance_required
+      error_message if @instance.blank?
+    end
+
+    def error_message
+      raise ArgumentError.new(
+        'Instance is not set on Docker::Shell.new as required'
+      )
+    end
 end
+
 
 # class Docker::Connection
 #   def request(*args, &block)

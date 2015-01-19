@@ -18,6 +18,9 @@
     %p
       %b Disabled:
       = @host.disabled
+    %p
+      %b Status:
+      = @host.alive? ? t('running') : t('not responding')
   .col-md-6
     .panel.panel-default
       .panel-heading

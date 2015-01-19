@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe Docker::Shell::Images do
   let(:instance){ create(:instance) }
-  let(:image){ Docker::Shell.new(instance: instance).image }
+  let(:image){ Docker::Shell.new(host: instance.host.url, instance: instance).image }
 
   describe '#exist?' do
     context 'when image exist' do

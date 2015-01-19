@@ -121,7 +121,7 @@ class Instance < ActiveRecord::Base
 
 
   def docker
-    @docker ||= Docker::Shell.new( instance: self )
+    @docker ||= Docker::Shell.new( host: self.host.url, instance: self )
   end
 
   # def run
