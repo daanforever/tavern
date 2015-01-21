@@ -1,5 +1,5 @@
 .form{ :'ng-controller' => 'InstanceFormController'}
-  = simple_form_for( [@environment, @instance], html: { class: 'form-horizontal' } ) do |f|
+  = simple_form_for( [@environment, @instance], Settings.form.horizontal ) do |f|
     .row
       .col-md-8.col-md-offset-2
         = f.error_notification
