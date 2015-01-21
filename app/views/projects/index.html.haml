@@ -28,10 +28,6 @@
           = link_to pluralize(project.releases.count, 'release'), project_releases_path(project)
 
         %td
-          - if project.environments.count == 0
-            %p
-              = link_to new_project_environment_path(project), class: 'btn btn-default btn-xs btn-rotate' do
-                %span.glyphicon.glyphicon-plus
           - project.environments.each do |environment|
             .row
               .col-md-7
@@ -40,6 +36,9 @@
               .col-md-5
                 %span.badge.badge-info{title: 'hosts'}= environment.hosts.count
                 %span.badge.badge-success{title: 'instances'}= environment.instances.running.count
+          %p
+            = link_to new_project_environment_path(project), class: 'btn btn-default btn-xs btn-rotate' do
+              %span.glyphicon.glyphicon-plus
 
 
         %td

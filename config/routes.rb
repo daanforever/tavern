@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :settings, only: [ :index, :create, :update, :destroy ]
+  resource :settings, only: [ :show, :edit, :update ]
 
   resources :environments, except: [ :new, :create ] do
     resources :instances
@@ -38,8 +38,9 @@ Rails.application.routes.draw do
     get 'toggle',  on: :member
   end
 
-  resources :welcome, only: [ :index ] do
-    get 'help', on: :collection
+  resources :welcome, only: [] do
+    get 'index', on: :collection
+    get 'help',  on: :collection
   end
   root 'welcome#index'
 
