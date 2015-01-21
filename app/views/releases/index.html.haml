@@ -10,13 +10,13 @@
   %thead
     %tr
       %th Name
-      %th Description
+      %th Components
 
   %tbody
-    - @releases.each do |release|
+    - @releases.order(name: :desc).each do |release|
       %tr
         %td= link_to release.name, project_release_path(@project, release)
-        %td= release.description
+        %td= release.components.map{|c| c.name }.join(', ')
 
 %br
 
