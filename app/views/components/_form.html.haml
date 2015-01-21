@@ -11,8 +11,6 @@
   .row.form-group
     = f.label :instances, class: 'col-md-3 control-label text-right'
     .col-md-9
-      = link_to new_component_instance_path(@component), class: 'btn btn-sm btn-default' do
-        %span.glyphicon.glyphicon-plus
       = link_to component_instances_path(@component), class: 'btn btn-sm btn-default' do
         %span.glyphicon.glyphicon-list
 
