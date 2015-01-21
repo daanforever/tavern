@@ -15,7 +15,7 @@
       %th.col-md-3 Environments
       %th.col-md-3 Components
   %tbody
-    - @projects.includes(:releases, :environments, :components).each do |project|
+    - @projects.order(:name).includes(:releases, :environments, :components).each do |project|
       %tr
         %td
           %blockquote
