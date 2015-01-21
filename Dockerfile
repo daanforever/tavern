@@ -10,5 +10,6 @@ ADD . /usr/src/app
 RUN bundle install --local --deployment --without=development,test
 RUN echo "  secret_key_base: $(bundle exec rake secret)" >> config/secrets.yml
 
+VOLUME ["/usr/src/app"]
 CMD ["foreman", "start"]
 
