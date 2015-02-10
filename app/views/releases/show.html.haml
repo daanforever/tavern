@@ -3,7 +3,7 @@
     #{@release.project.name}:#{@release.name}
     = link_to "#", class: 'btn btn-default btn-back', title: 'Back' do
       %span.glyphicon.glyphicon-circle-arrow-left
-    = link_to edit_release_path(@release), class: 'btn btn-default btn-rotate', title: 'Settings' do
+    = link_to edit_project_release_path(@project, @release), class: 'btn btn-default btn-rotate', title: 'Settings' do
       %span.glyphicon.glyphicon-cog
   %hr
 

@@ -19,4 +19,8 @@ FactoryGirl.define do
     name        { Faker::Lorem.word }
     description { Faker::Lorem.sentence }
   end
+
+  factory :release_with_project, parent: :release do
+    project
+  end
 end

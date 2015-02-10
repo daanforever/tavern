@@ -1,5 +1,5 @@
-web:              bundle exec rails s
-queue:            bundle exec rake jobs:work
+web:              bin/rails s
+queue:            bin/rake jobs:work
 #queue-default:    bundle exec bin/delayed_job --pool=default,every1min run
 #queue-default: bundle exec bin/delayed_job --queue=default run
 #queue-registries: bundle exec bin/delayed_job --queue=registries run

@@ -10,3 +10,8 @@
     .form-actions.col-md-8.col-md-offset-3
       = f.button :submit, class: 'btn-primary'
       = link_to t(:cancel), '#', class: 'btn btn-default btn-back'
+      - unless @release.new_record?
+        = link_to [@project, @release], :method => :delete, class: 'btn btn-sm btn-danger', 
+          title: 'Delete', data: { confirm: "Are you sure?" } do
+          %span.glyphicon.glyphicon-trash
+

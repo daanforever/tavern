@@ -24,7 +24,7 @@ RSpec.describe SettingsController, :type => :controller do
   # Settings. As you add validations to Settings, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    attributes_for(:setting)
+    attributes_for(:settings)
   }
 
   let(:invalid_attributes) {
@@ -36,10 +36,10 @@ RSpec.describe SettingsController, :type => :controller do
   # SettingsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
+  describe "GET edit" do
     it "assigns all settings as @settings" do
       settings = Settings.create! valid_attributes
-      get :index, {}, valid_session
+      get :edit, {}, valid_session
       expect(assigns(:settings)).to eq([settings])
     end
   end
@@ -47,26 +47,26 @@ RSpec.describe SettingsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        attributes_for(:setting)
+        attributes_for(:settings)
       }
 
       it "updates the requested settings" do
         settings = Settings.create! valid_attributes
         put :update, {:id => settings.to_param, :settings => new_attributes}, valid_session
         settings.reload
-        expect(assigns(:setting).value).to eq(new_attributes[:value])
+        expect(assigns(:settings).first).to eq(settings)
       end
 
       it "assigns the requested settings as @settings" do
         settings = Settings.create! valid_attributes
         put :update, {:id => settings.to_param, :settings => valid_attributes}, valid_session
-        expect(assigns(:setting)).to eq(settings)
+        expect(assigns(:settings).first).to eq(settings)
       end
 
       it "redirects to the settings" do
         settings = Settings.create! valid_attributes
         put :update, {:id => settings.to_param, :settings => valid_attributes}, valid_session
-        expect(response).to redirect_to(settings_path)
+        expect(response).to redirect_to(edit_settings_path)
       end
     end
   end
