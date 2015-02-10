@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resource :settings, only: [ :show, :edit, :update ]
+  resource :settings, only: [ :edit, :update ]
 
   resources :environments, except: [ :new, :create ] do
     resources :instances

@@ -9,9 +9,9 @@
       %span.glyphicon.glyphicon-cog
   %hr
 
-%span{ 'ng-controller' => 'showRegistryController', 'ng-init' => 'refresh()' }
-  .row{ 'ng-repeat' => 'image in images | orderBy:"name"' }
+- @registry.images.order(:name).each do |image|
+  .row
     .col-md-6
-      {{ image.project }}/{{ image.component }}:{{ image.release}}
+      = "#{image.project.name}/#{image.component.name}:#{image.release.name}"
     .col-md-6
-      {{ image.docker_id }}
+      = "#{image.docker_id}"

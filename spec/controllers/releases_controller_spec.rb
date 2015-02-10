@@ -24,7 +24,7 @@ RSpec.describe ReleasesController, :type => :controller do
   # Release. As you add validations to Release, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    attributes_for(:release)
+    attributes_for(:release_with_project)
   }
 
   let(:invalid_attributes) {
@@ -142,17 +142,20 @@ RSpec.describe ReleasesController, :type => :controller do
   end
 
   describe "DELETE destroy" do
+    before do 
+      @release      = create(:release_with_project)
+      @valid_params = { id: @release.to_param, project_id: @release.project.to_param }
+    end
+
     it "destroys the requested release" do
-      release = Release.create! valid_attributes
       expect {
-        delete :destroy, {:id => release.to_param}, valid_session
+        delete :destroy, @valid_params, valid_session
       }.to change(Release, :count).by(-1)
     end
 
     it "redirects to the releases list" do
-      release = Release.create! valid_attributes
-      delete :destroy, {:id => release.to_param}, valid_session
-      expect(response).to redirect_to(releases_url)
+      delete :destroy, @valid_params, valid_session
+      expect(response).to redirect_to(project_releases_path(@release.project))
     end
   end
 

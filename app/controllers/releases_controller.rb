@@ -1,5 +1,5 @@
 class ReleasesController < ApplicationController
-  before_action :set_project, only: [:index]
+  before_action :set_project
   before_action :set_release, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -34,7 +34,7 @@ class ReleasesController < ApplicationController
 
   def destroy
     @release.destroy
-    respond_with(@release)
+    respond_with(@project, location: project_releases_path(@project))
   end
 
   private
@@ -43,7 +43,7 @@ class ReleasesController < ApplicationController
     end
 
     def set_project
-      @project = Project.find_by(id: params[:project_id])
+      @project = Project.find_by(id: params[:project_id]) if params[:project_id]
     end
 
     def release_params
