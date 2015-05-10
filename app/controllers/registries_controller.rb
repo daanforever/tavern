@@ -2,7 +2,7 @@ class RegistriesController < ApplicationController
   before_action :set_registry, only: [ :show, :edit, :update, :destroy ]
   before_action :set_registries, only: [ :index, :refresh, :partial ]
 
-  responders :location, :flash
+  responders :flash
   respond_to :html, :json
 
   def index

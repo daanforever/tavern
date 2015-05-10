@@ -66,7 +66,7 @@ group :development, :test do
   gem 'meta_request'                  # For RailsPanel (chrome extention)
   gem 'rack-mini-profiler'            # Rails profiler
   gem 'brakeman'                      # Security scanner. Usage: brakeman [-o file.html]
-  gem 'bullet'                        # Query optimization # TODO need to configure
+  gem 'bullet'                        # Query optimization
   gem 'annotate'                      # Annotate ActiveRecord models. Usage: annotate
   gem 'haml-rails'                    # Integration for HAML
   gem 'railroady'                     # Class diagram generator. Usage: rake diagram:all

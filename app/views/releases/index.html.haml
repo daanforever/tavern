@@ -13,7 +13,7 @@
       %th Components
 
   %tbody
-    - @releases.order(name: :desc).each do |release|
+    - @releases.order(name: :desc).includes(:components).each do |release|
       %tr
         %td= link_to release.name, project_release_path(@project, release)
         %td= release.components.map{|c| c.name }.join(', ')

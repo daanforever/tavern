@@ -9,7 +9,7 @@
       %span.glyphicon.glyphicon-cog
   %hr
 
-- @registry.images.order(:name).each do |image|
+- @registry.images.order(:name).includes(:project, :component, :release).each do |image|
   .row
     .col-md-6
       = "#{image.project.name}/#{image.component.name}:#{image.release.name}"

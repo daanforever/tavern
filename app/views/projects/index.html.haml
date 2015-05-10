@@ -15,7 +15,7 @@
       %th.col-md-3 Environments
       %th.col-md-3 Components
   %tbody
-    - @projects.order(:name).includes(:releases, :environments, :components).each do |project|
+    - @projects.order(:name).find_each do |project|
       %tr
         %td
           %blockquote
@@ -28,25 +28,23 @@
           = link_to pluralize(project.releases.count, 'release'), project_releases_path(project)
 
         %td
-          - project.environments.each do |environment|
+          - project.environments.includes(:hosts, :instances).find_each do |environment|
             .row
               .col-md-7
                 %p
                   = link_to environment.name, environment
               .col-md-5
-                %span.badge.badge-info{title: 'hosts'}= environment.hosts.count
-                %span.badge.badge-success{title: 'instances'}= environment.instances.running.count
+                %span.badge.badge-success{title: 'instances'}= environment.instances.count
           %p
             = link_to new_project_environment_path(project), class: 'btn btn-default btn-xs btn-rotate' do
               %span.glyphicon.glyphicon-plus
 
 
         %td
-          - project.components.each do |component|
+          - project.components.find_each do |component|
             .row
               .col-md-8
                 %p
                   = link_to component.name, component_path(component)
               .col-md-4
-                %span.badge.badge-success{title: 'running'}= component.instances.running.count
-                %span.badge{title: 'stopped'}= component.instances.stopped.count
+                %span.badge.badge-success{title: 'running'}= component.instances.count
