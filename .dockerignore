@@ -1,7 +1,13 @@
 .git
+app/.bundle
 app/tmp
 app/log
 app/doc
+app/coverage
+app/spec
+app/.rspec
+app/.travis.yml
+app/test
 app/db/development.sqlite3
 app/db/test.sqlite3
 app/db/production.sqlite3

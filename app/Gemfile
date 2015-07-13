@@ -10,6 +10,7 @@ gem 'uglifier'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'libv8', '3.16.14.7'
 gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library

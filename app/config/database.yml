@@ -21,8 +21,9 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: postgresql
-  database: tavern_production
-  host: <%= ENV.fetch('POSTGRES_PORT_5432_TCP_ADDR', 'localhost') %>
-  port: <%= ENV.fetch('POSTGRES_PORT_5432_TCP_PORT', '5432') %>
-  user: postgres
+  adapter:  postgresql
+  database: <%= ENV.fetch('POSTGRES_DB', 'tavern_production') %>
+  host:     <%= ENV.fetch('POSTGRES_PORT_5432_TCP_ADDR', false) || ENV.fetch('POSTGRES_HOST') %>
+  port:     <%= ENV.fetch('POSTGRES_PORT_5432_TCP_PORT', false) || ENV.fetch('POSTGRES_PORT') %>
+  user:     <%= ENV.fetch('POSTGRES_USER', 'postgres') %>
+  password: <%= ENV.fetch('POSTGRES_PASS', '') %>

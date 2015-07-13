@@ -3,6 +3,14 @@
 [![Test Coverage](https://codeclimate.com/github/daanforever/tavern/badges/coverage.svg)](https://codeclimate.com/github/daanforever/tavern)
 [![Dependency Status](https://gemnasium.com/daanforever/tavern.svg)](https://gemnasium.com/daanforever/tavern)
 
+## Usage
+### Docker
+Environments:
+  POSTGRES_HOST || POSTGRES_PORT_5432_TCP_ADDR
+  POSTGRES_PORT || POSTGRES_PORT_5432_TCP_PORT
+  POSTGRES_USER || 'postgres'
+  POSTGRES_PASS || ''
+
 ## Tavern
 Web interface for private registry and docker images deployment on multiple hosts.
 
