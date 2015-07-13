@@ -4,7 +4,7 @@ class Docker::Shell::Container
 
   attr_reader :connection, :instance, :image
 
-  def initialize( connection: connection, instance: instance, image: image )
+  def initialize( connection:, instance:, image: )
     @connection = connection
     @instance   = instance
     @image      = image

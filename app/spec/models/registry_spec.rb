@@ -35,9 +35,8 @@ describe Registry, :type => :model do
   end
 
   before do
-    stub_request(:get, /.*/).
-         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.9.0'}).
-         to_return(:status => 200, :body => "", :headers => {})
+    stub_request(:any, /.*/).
+      with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.9.1'})
   end
 
   describe '#scan' do

@@ -1,7 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'simplecov'
@@ -70,6 +68,7 @@ RSpec.configure do |config|
       FactoryGirl.lint
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)
+      WebMock.disable_net_connect!
     end
   end
 
@@ -78,9 +77,4 @@ RSpec.configure do |config|
       example.run
     end
   end
-
-  config.after(:suite) do
-    WebMock.disable_net_connect!(:allow => 'codeclimate.com')
-  end
-
 end

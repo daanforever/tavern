@@ -1,6 +1,8 @@
 .git
-tmp
-log
-doc
-db/development.sqlite3
-db/test.sqlite3
+app/tmp
+app/log
+app/doc
+app/db/development.sqlite3
+app/db/test.sqlite3
+app/db/production.sqlite3
+
