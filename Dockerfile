@@ -1,4 +1,4 @@
-FROM rails:4.1
+FROM rails:4.2
 MAINTAINER Alexey Anisimov <aanisimov@at-consulting.ru>
 
 EXPOSE 3000

@@ -1,0 +1,26 @@
+- content_for :header do
+  %h1
+  - @projects.order(:name).each do |project|
+    %h2
+      = link_to project.name, project
+      %small= project.description
+      %small= link_to pluralize(project.releases_count, 'release'), project_releases_path(project)
+    - environments = project.environments.order(:name)
+    - if project.environments_count > 0
+      .row
+        .hidden-xs.col-md-3=t('environment')
+        .hidden-xs.col-md-3=t('hosts')
+        .hidden-xs.col-md-3=t('component')
+        .hidden-xs.col-md-3=t('version')
+        - environments.each do |environment|
+          .row
+            .hidden-xs.col-md-3= link_to environment.name, environment
+            .hidden-xs.col-md-3
+            .hidden-xs.col-md-3
+            .hidden-xs.col-md-3
+    - else
+      .row
+        .hidden-xs.col-md-3= link_to t('new_environment'), new_project_environment_path(project)
+        .hidden-xs.col-md-3
+        .hidden-xs.col-md-3
+        .hidden-xs.col-md-3

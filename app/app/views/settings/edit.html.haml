@@ -1,0 +1,14 @@
+/ TODO: tidy
+%h1 Settings
+= simple_form_for(Settings, url: settings_path, method: :patch) do |f|
+  .row.form-inputs
+    .col-md-8.col-md-offset-2
+      = f.error_notification
+
+  .row.form-inputs
+    .col-md-8.col-md-offset-1
+      = f.input :'docker.timeout'
+
+  .row.form-actions
+    .col-md-10.col-md-offset-3
+      = f.button :submit, t('.update', default: 'Update'), :class => 'btn btn-primary'

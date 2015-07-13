@@ -1,0 +1,21 @@
+= simple_form_for([@project, @environment], Settings.form.horizontal) do |f|
+  .row
+    .col-md-6.col-md-offset-3
+      .form-inputs
+        = f.error_notification
+
+  .row
+    .col-md-8.col-md-offset-1
+      .form-inputs
+        = f.association :project, disabled: true
+        = f.input :name
+        = f.association :release, collection: @environment.project.releases.ordered.reverse, include_blank: false
+
+  .row.form-actions
+    .col-md-7.col-md-offset-3
+      = f.button :submit, class: 'btn-primary'
+      = link_to 'Cancel', hosts_path, class: 'btn btn-default btn-back'
+      - unless @environment.new_record?
+        = link_to @environment, :method => :delete, class: 'btn btn-sm btn-danger', 
+          title: 'Delete', data: { confirm: "Are you sure?" } do
+          %span.glyphicon.glyphicon-trash

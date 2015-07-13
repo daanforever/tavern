@@ -1,0 +1,34 @@
+#!/bin/bash
+
+NAME=$0
+NUM=${1:-4}
+PATH="$( dirname $NAME ):${PATH}"
+
+stop() {
+  if [ "$running" = "1" ]; then
+    echo "exit with code 0"
+    thin stop -s${NUM}
+    running=0
+  fi
+}
+
+error() {
+  echo $0
+  exit 1
+}
+
+trap stop EXIT INT TERM
+
+echo "Starting ${NUM} Thin servers"
+thin start -s${NUM} 2>&1 > /dev/null || error "Error to start Thin servers"
+echo "Thin is RUNNING. Press CTRL-C or kill to STOP Thin."
+
+running=1
+
+while true; do
+  if [ "$running" = "1" ]; then
+    sleep 1
+  else
+    break
+  fi
+done
