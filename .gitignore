@@ -14,19 +14,19 @@
 # Ignore all logfiles and tempfiles.
 /app/log/
 !/app/log/.keep
-/app/tmp
+/app/tmp/
 !/app/tmp/.keep
 
 # Ingnore Mac OS specific files
 .DS_Store
 
 # Ignore simple_coverage directory
-/app/coverage
+/app/coverage/
 
 # Ignore documentation directory (use: rake doc:app)
-/app/doc
+/app/doc/
 !/app/doc/.keep
 
 # Ignore vendor/cache
-/cache
+/cache/
 !/cache/.keep
